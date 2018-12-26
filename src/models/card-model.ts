@@ -1,5 +1,5 @@
-import { TypesEnum } from './TypesEnum';
-import { HousesEnum } from './HousesEnum';
+import { TypesEnum } from 'enums/types-enum';
+import { HousesEnum } from 'enums/houses-enum';
 
 export class CardModel {
   title: string;

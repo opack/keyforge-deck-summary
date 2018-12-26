@@ -1,4 +1,4 @@
-import { CardModel } from "components/card/card-model";
+import { CardModel } from "models/card-model";
 
 const NB_CARDS = 36;
 

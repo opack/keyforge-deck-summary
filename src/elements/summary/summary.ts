@@ -2,11 +2,12 @@ import { bindable, BindingEngine, Disposable } from "aurelia-framework";
 
 import { isNullOrUndefined } from "util";
 
-import { CardModel } from "components/card/card-model";
+import { CardModel } from "models/card-model";
 
+// TODO Retrieve CardModel properties dynamically
 const CARD_PROPERTIES = ['title', 'type', 'house', 'aember', 'power', 'armor'];
 
-export class Summary {
+export class SummaryCustomElement {
   static inject = [BindingEngine];
 
   private bindingEngine: BindingEngine;

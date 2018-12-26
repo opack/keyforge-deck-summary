@@ -1,8 +1,8 @@
 import { bindable } from 'aurelia-framework';
 
-import { CardModel } from "components/card/card-model";
+import { CardModel } from "models/card-model";
 
-export class Editor {
+export class EditorCustomElement {
   @bindable
   cards: Array<CardModel>;
 
