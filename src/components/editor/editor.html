@@ -1,0 +1,11 @@
+<template>
+  <require from="components/card/card"></require>
+
+  <table>
+    <tr repeat.for="card of cards">
+      <td>
+        <card model.bind="card"></card>
+      </td>
+    </tr>
+  </table>
+</template>

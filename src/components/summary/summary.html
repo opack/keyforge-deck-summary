@@ -1,0 +1,12 @@
+<template>
+  <require from="components/card/TypesEnumViewEngineHooks"></require>
+  
+  <div repeat.for="type of TypesEnum">
+    <h3>${type}</h3>
+    <table>
+        <tr repeat.for="card of cardsByType[type]">
+          <td>${card.title}</td>
+        </tr>
+      </table>
+  </div>
+</template>
