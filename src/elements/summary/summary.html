@@ -1,32 +1,31 @@
 <template>
   <require from="resources/elements/card-properties-list"></require>
-  <require from="./cards/action-card"></require>
-  <require from="./cards/artifact-card"></require>
-  <require from="./cards/creature-card"></require>
-  <require from="./cards/upgrade-card"></require>
+  <require from="./cards/action-card.html"></require>
+  <require from="./cards/artifact-card.html"></require>
+  <require from="./cards/creature-card.html"></require>
+  <require from="./cards/upgrade-card.html"></require>
 
-  <div>
+  <div id="summary-parameters">
     <h3>Parameters</h3>
     Group by:
     <select value.bind="groupingProperty">
       <option value="undefined"></option>
-      <option repeat.for="property of CardPropertiesEnum" value.bind="getCardPropertyValue(property)">${property}</option>
+      <option repeat.for="property of CardPropertiesEnum" model.bind="getCardPropertyValue(property)">${property}</option>
     </select>
 
     Sort by:
     <select value.bind="sortingProperty">
       <option value="undefined"></option>
-      <option repeat.for="property of CardPropertiesEnum" value.bind="getCardPropertyValue(property)">${property}</option>
+      <option repeat.for="property of CardPropertiesEnum" model.bind="getCardPropertyValue(property)">${property}</option>
     </select>
   </div>
   
-  <div repeat.for="group of groups">
-    <h3>${group} (${cardsByGroup[group].length})</h3>
-    <table>
-      <tr repeat.for="card of cardsByGroup[group]">
-        ${card.title}
-        <!--compose view-model="./cards/${card.type.toLowerCase()}-card" model.bind="card"></compose>-->
-      </tr>
-    </table>
+  <div id="summary-cards">
+    <div repeat.for="group of groups">
+      <h3>${group} (${cardsByGroup[group].length})</h3>
+      <table>
+        <compose repeat.for="card of cardsByGroup[group]" view-model="./cards/summary-card" view="./cards/${card.type}-card.html" model.bind="card"></compose>
+      </table>
+    </div>
   </div>
 </template>
