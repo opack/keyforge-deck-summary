@@ -12,7 +12,7 @@ export class SummaryCustomElement implements PropertyChangedListener {
 
   @observable({changeHandler: 'parameterChanged'}) private groupingProperty: CardPropertiesEnum;
   @observable({changeHandler: 'parameterChanged'}) private sortingProperty: CardPropertiesEnum;
-  private groups: Array<String>;
+  private groups: Array<string>;
   private cardsByGroup: { [group: string]: Array<CardModel> };
 
   @bindable
@@ -66,19 +66,11 @@ export class SummaryCustomElement implements PropertyChangedListener {
     
     // Sort cards in each group by sorting field
     this.sortInGroups();
-
-    console.log(`summary.ts ####################################`);
-    for (let group in this.cardsByGroup) {
-      console.log(`summary.ts ## ${group}`);
-      for (let card of this.cardsByGroup[group]) {
-        console.log(`summary.ts ${JSON.stringify(card)}`);
-      }
-    }
   }
   
   private clear(): void {
     this.cardsByGroup = {};
-    this.groups.length = 0;
+    this.groups.splice(0);
   }
 
   private groupCards(): void {

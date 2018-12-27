@@ -6,5 +6,6 @@
   -moz-column-fill: auto;
   column-fill: auto;
 
+  width: 400px;
   height: 650px;
 }
