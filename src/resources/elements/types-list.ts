@@ -16,12 +16,12 @@ export class TypesListViewEngineHooks implements ViewEngineHooks {
     // We add the enum to the override context. This will expose the enum
     // to the view without interfering with any properties on the
     // bindingContext itself.
-    view.overrideContext['TypesEnum'] = TypesEnum;
+    //view.overrideContext['TypesEnum'] = TypesEnum;
 
     // Since TypeScript enums are not iterable, we need to do a bit of extra
     // legwork if we plan on iterating over the enum keys.
     view.overrideContext['TypesEnum'] = 
       Object.keys(TypesEnum)
-        .filter((key) => typeof TypesEnum[key] === 'number');
+        .filter((key) => typeof TypesEnum[key] === 'string');
   }
 }

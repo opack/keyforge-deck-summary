@@ -1,93 +1,127 @@
-import { bindable, BindingEngine, Disposable } from "aurelia-framework";
+import { isNullOrUndefined } from 'util';
 
-import { isNullOrUndefined } from "util";
+import { bindable, BindingEngine, observable } from 'aurelia-framework';
 
-import { CardModel } from "models/card-model";
+import { CardModel } from 'models/card-model';
+import { CardPropertiesEnum } from 'enums/card-properties-enum';
+import { PropertyObserverService, PropertyChangedListener } from 'services/property-observer-service';
 
-// TODO Retrieve CardModel properties dynamically
-const CARD_PROPERTIES = ['title', 'type', 'house', 'aember', 'power', 'armor'];
-
-export class SummaryCustomElement {
+export class SummaryCustomElement implements PropertyChangedListener {
   static inject = [BindingEngine];
+  private propertyObserver: PropertyObserverService;
 
-  private bindingEngine: BindingEngine;
-  private subscriptions: Array<Disposable>;
-  private cardsByType: { [type: string]: Array<CardModel> };
+  @observable({changeHandler: 'parameterChanged'}) private groupingProperty: CardPropertiesEnum;
+  @observable({changeHandler: 'parameterChanged'}) private sortingProperty: CardPropertiesEnum;
+  private groups: Array<String>;
+  private cardsByGroup: { [group: string]: Array<CardModel> };
 
   @bindable
   cards: Array<CardModel>;
 
-  constructor(bindingEngine) {
-    this.bindingEngine = bindingEngine;
-    this.subscriptions = new Array<Disposable>();
+  constructor(bindingEngine: BindingEngine) {
+    this.propertyObserver = new PropertyObserverService(bindingEngine, this);
 
-    this.cardsByType = {};
+    this.groups = new Array<string>();
+    this.cardsByGroup = {};
+
+    // Do this last, as it will trigger an initial summary rebuild
+    this.groupingProperty = CardPropertiesEnum.Type;
+    this.sortingProperty = CardPropertiesEnum.Title;
   }
 
   attached() {
-    this.cards.forEach(card => this.subscribeToChangeOnCard(card));
-  }
+    const properties = new Array<string>();
+    for (let enumValue in CardPropertiesEnum) {
+      properties.push(CardPropertiesEnum[enumValue]);
+    }
 
-  private subscribeToChangeOnCard(card: CardModel) {
-    CARD_PROPERTIES.forEach(property => this.subscribeToChangeOnCardProperty(card, property));
-  }
-
-  private subscribeToChangeOnCardProperty(card: CardModel, property: string) {
-    const propertyObserver = this.bindingEngine.propertyObserver(card, property);
-    const subscription = propertyObserver.subscribe((newValue, oldValue) => this.build());
-    this.subscriptions.push(subscription);
+    this.propertyObserver.observeAll(this.cards, properties);
   }
 
   detached() {
-    this.subscriptions.forEach(subscription => subscription.dispose());
+    this.propertyObserver.dispose();
   }
 
-  build() {
-    this.clear();
-    
-    // Sort cards by type
-    this.sortByTypes();
-    
-    // Sort by title in each type category
-    this.sortByTitle();
+  getCardPropertyValue(property: string) {
+    return CardPropertiesEnum[property];
+  }
 
-    for (let type in this.cardsByType) {
-      for (let card of this.cardsByType[type]) {
-        console.log(card.title);
+  parameterChanged(newValue: CardPropertiesEnum, oldValue: CardPropertiesEnum) {
+    this.rebuild();
+  }
+
+  propertyChanged(property: string, newValue: any, oldValue: any) {
+    this.rebuild();
+  }
+
+  rebuild() {
+    this.clear();
+
+    if (isNullOrUndefined(this.cards)) {
+      return;
+    }
+   
+    // Sort cards by grouping field
+    this.groupCards();
+    
+    // Sort cards in each group by sorting field
+    this.sortInGroups();
+
+    console.log(`summary.ts ####################################`);
+    for (let group in this.cardsByGroup) {
+      console.log(`summary.ts ## ${group}`);
+      for (let card of this.cardsByGroup[group]) {
+        console.log(`summary.ts ${JSON.stringify(card)}`);
       }
     }
   }
-
-  private clear() {
-    this.cardsByType = {};
+  
+  private clear(): void {
+    this.cardsByGroup = {};
+    this.groups.length = 0;
   }
 
-  private sortByTypes(): void {
+  private groupCards(): void {
     this.cards.forEach(card => {
-      if (isNullOrUndefined(card) || isNullOrUndefined(card.title)) {
+      // If the card is not defined, then skip it
+      if (isNullOrUndefined(card) || isNullOrUndefined(card[this.groupingProperty])) {
         return;
       }
 
-      let cardsOfThisType: Array<CardModel> = this.cardsByType[card.type];
+      // Retrieve the value (as a string) of the grouping field for this card
+      const group = card[this.groupingProperty].toString();
 
-      if (isNullOrUndefined(cardsOfThisType)) {
-        cardsOfThisType = new Array<CardModel>();
-        this.cardsByType[card.type] = cardsOfThisType;
+      // Retrieve the array of cards for this group
+      let cardsOfThisGroup: Array<CardModel> = this.cardsByGroup[group];
+      
+      if (isNullOrUndefined(cardsOfThisGroup)) {
+        cardsOfThisGroup = new Array<CardModel>();
+        this.cardsByGroup[group] = cardsOfThisGroup;
+
+        // There is a new group: add it to the list
+        this.groups.push(group);
       }
 
-      cardsOfThisType.push(card);
+      // Add the card to the group
+      cardsOfThisGroup.push(card);
     });
+
+    // Sort group-list
+    this.groups.sort();
   }
 
-  private sortByTitle(): void {
-    for (let type in this.cardsByType) {
-      this.cardsByType[type].sort((cardModelA, cardModelB) => {
-        const titleA = cardModelA.title.toLowerCase();
-        const titleB = cardModelB.title.toLowerCase();
-        if (titleA > titleB) {
+  private sortInGroups(): void {
+    for (let type in this.cardsByGroup) {
+      this.cardsByGroup[type].sort((cardModelA, cardModelB) => {
+        // Convert each field value to lower case string
+        const valueA = cardModelA[this.sortingProperty].toString().toLowerCase();
+        const valueB = cardModelB[this.sortingProperty].toString().toLowerCase();
+
+        // Compare
+        if (valueA > valueB) {
           return 1;
         }
-        if (titleA < titleB) {
+        if (valueA < valueB) {
           return -1;
         }
         return 0;

@@ -9,3 +9,4 @@ export class CardModel {
   power: number;
   armor: number;
 }
+

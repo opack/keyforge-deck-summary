@@ -1,6 +1,7 @@
 export enum TypesEnum {
-  Creature,
-  Action,
-  Artifact,
-  Upgrade
+  Action = 'action',
+  Artifact = 'artifact',
+  Creature = 'creature',
+  Upgrade = 'upgrade'
 }
+

@@ -1,31 +1,37 @@
 <template>
-  <require from="resources/elements/houses/houses-list"></require>
-  <require from="resources/elements/types/types-list"></require>
-
+  <require from="resources/elements/houses-list"></require>
+  <require from="resources/elements/types-list"></require>
+  
   Titre :
   <input type="text" value.bind="model.title">
 
-  Type :
+  Type : 
   <select value.bind="model.type">
-      <option repeat.for="type of TypesEnum" value.bind="type">${type}</option>
+    <option model.bind="undefined"></option>
+    <option repeat.for="type of TypesEnum" model.bind="getTypeValue(type)">${type}</option>
   </select>
   
   Maison :
   <select value.bind="model.house">
-    <option repeat.for="house of HousesEnum" value.bind="house">${house}</option>
+    <option model.bind="undefined"></option>
+    <option repeat.for="house of HousesEnum" model.bind="getHouseValue(house)">${house}</option>
   </select>
   
   Aombre :
   <select value.bind="model.aember">
-    <option repeat.for="aember of 5" value.bind="aember">${aember}</option>
+    <option model.bind="undefined"></option>
+    <option repeat.for="aember of 5" model.bind="aember">${aember}</option>
   </select>
   
   Puissance : 
   <select value.bind="model.power">
-    <option repeat.for="power of 13" value.bind="power">${power}</option>
+    <option model.bind="undefined"></option>
+    <option repeat.for="power of 13" model.bind="power">${power}</option>
   </select>
+
   Armure :
   <select value.bind="model.armor">
-    <option repeat.for="armor of 3" value.bind="armor">${armor}</option>
+    <option model.bind="undefined"></option>
+    <option repeat.for="armor of 3" model.bind="armor">${armor}</option>
   </select>
 </template>

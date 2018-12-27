@@ -22,6 +22,6 @@ export class HousesListViewEngineHooks implements ViewEngineHooks {
     // legwork if we plan on iterating over the enum keys.
     view.overrideContext['HousesEnum'] = 
       Object.keys(HousesEnum)
-        .filter((key) => typeof HousesEnum[key] === 'number');
+        .filter((key) => typeof HousesEnum[key] === 'string');
   }
 }

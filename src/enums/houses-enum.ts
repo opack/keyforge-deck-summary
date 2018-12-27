@@ -1,9 +1,10 @@
 export enum HousesEnum {
-  Brobnar,
-  Dis,
-  Logos,
-  Mars,
-  Sanctum,
-  Shadows,
-  Untamed
+  Brobnar = 'brobnar',
+  Dis = 'dis',
+  Logos = 'logos',
+  Mars = 'mars',
+  Sanctum = 'sanctum',
+  Shadows = 'shadows',
+  Untamed = 'untamed'
 }
+

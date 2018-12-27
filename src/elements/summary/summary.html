@@ -1,12 +1,32 @@
 <template>
-  <require from="resources/elements/types/types-list"></require>
+  <require from="resources/elements/card-properties-list"></require>
+  <require from="./cards/action-card"></require>
+  <require from="./cards/artifact-card"></require>
+  <require from="./cards/creature-card"></require>
+  <require from="./cards/upgrade-card"></require>
+
+  <div>
+    <h3>Parameters</h3>
+    Group by:
+    <select value.bind="groupingProperty">
+      <option value="undefined"></option>
+      <option repeat.for="property of CardPropertiesEnum" value.bind="getCardPropertyValue(property)">${property}</option>
+    </select>
+
+    Sort by:
+    <select value.bind="sortingProperty">
+      <option value="undefined"></option>
+      <option repeat.for="property of CardPropertiesEnum" value.bind="getCardPropertyValue(property)">${property}</option>
+    </select>
+  </div>
   
-  <div repeat.for="type of TypesEnum">
-    <h3>${type}</h3>
+  <div repeat.for="group of groups">
+    <h3>${group} (${cardsByGroup[group].length})</h3>
     <table>
-        <tr repeat.for="card of cardsByType[type]">
-          <td>${card.title}</td>
-        </tr>
-      </table>
+      <tr repeat.for="card of cardsByGroup[group]">
+        ${card.title}
+        <!--compose view-model="./cards/${card.type.toLowerCase()}-card" model.bind="card"></compose>-->
+      </tr>
+    </table>
   </div>
 </template>
