@@ -7,5 +7,17 @@
   column-fill: auto;
 
   width: 400px;
-  height: 650px;
+  height: 660px;
+}
+
+/*
+ * Group classes
+ */
+ @font-face {
+  font-family: 'AgencyBold';
+  src: url('/fonts/agencyb.TTF');
+}
+.group-title {
+  font-family: 'AgencyBold';
+  font-size: 1.3em;
 }

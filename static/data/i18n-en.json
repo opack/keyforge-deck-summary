@@ -1,0 +1,45 @@
+{
+  "groupTitles": {
+    "type": {
+      "artifact": "Artifacts",
+      "action": "Actions",
+      "creature": "Creatures",
+      "upgrade": "Upgrades"
+    },
+    "house": {
+      "brobnar": "Brobnar",
+      "dis": "Dis",
+      "logos": "Logos",
+      "mars": "Mars",
+      "sanctum": "Sanctum",
+      "shadows": "Shadows",
+      "untamed": "Untamed"
+    },
+    "aember": {
+      "1": "1 Aember",
+      "2": "2 Aembers",
+      "3": "3 Aembers",
+      "4": "4 Aembers"
+    },
+    "power": {
+      "1": "Power of 1",
+      "2": "Power of 2",
+      "3": "Power of 3",
+      "4": "Power of 4",
+      "5": "Power of 5",
+      "6": "Power of 6",
+      "7": "Power of 7",
+      "8": "Power of 8",
+      "9": "Power of 9",
+      "10": "Power of 10",
+      "11": "Power of 11",
+      "12": "Power of 12"
+    },
+    "armor": {
+      "1": "Armor of 1",
+      "2": "Armor of 2",
+      "3": "Armor of 3",
+      "4": "Armor of 4"
+    }
+  }
+}

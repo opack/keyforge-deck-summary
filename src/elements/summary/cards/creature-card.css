@@ -1,0 +1,59 @@
+/*
+ * Card classes
+ */
+.card {
+  position: relative;
+  width: 400px;
+  height: 35px;
+}
+
+/*
+ * Title classes
+ */
+ @font-face {
+  font-family: 'Trebuchet';
+  src: url('/fonts/TREBUC.TTF');
+}
+.card-title {
+  color: white;
+  font-family: 'Trebuchet';
+}
+
+/*
+ * House classes
+ */
+.house-logos {
+  background-color: #23afde;
+}
+
+.house-image {
+  position: absolute;
+  right: 10px;
+  width: 23px;
+}
+
+/*
+ * Power classes
+ */
+.badge {
+  position: absolute;
+  text-align: center;
+  border: solid 1px black;
+}
+.badge-text {
+  position: absolute;
+  top: 43%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.power-badge {
+  right: 35px;
+}
+.power-image {
+  width: 32px;
+}
+.power-text {
+  color: white;
+  /*font-size: 20px;*/
+  font-weight: 700;
+}

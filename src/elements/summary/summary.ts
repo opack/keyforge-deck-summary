@@ -4,7 +4,9 @@ import { bindable, BindingEngine, observable } from 'aurelia-framework';
 
 import { CardModel } from 'models/card-model';
 import { CardPropertiesEnum } from 'enums/card-properties-enum';
+
 import { PropertyObserverService, PropertyChangedListener } from 'services/property-observer-service';
+import { JsonFetcherService } from 'services/json-fetcher-service';
 
 export class SummaryCustomElement implements PropertyChangedListener {
   static inject = [BindingEngine];
@@ -18,6 +20,9 @@ export class SummaryCustomElement implements PropertyChangedListener {
   @bindable
   cards: Array<CardModel>;
 
+  // TODO Create a service that will be used in every TS and HTML file
+  i18n: any;
+
   constructor(bindingEngine: BindingEngine) {
     this.propertyObserver = new PropertyObserverService(bindingEngine, this);
 
@@ -27,6 +32,12 @@ export class SummaryCustomElement implements PropertyChangedListener {
     // Do this last, as it will trigger an initial summary rebuild
     this.groupingProperty = CardPropertiesEnum.Type;
     this.sortingProperty = CardPropertiesEnum.Title;
+  }
+
+  bind() {
+    new JsonFetcherService().fetch('i18n-en.json').then(data => {
+      this.i18n = data;
+    });
   }
 
   attached() {
@@ -119,5 +130,13 @@ export class SummaryCustomElement implements PropertyChangedListener {
         return 0;
       });
     }
+  }
+
+  /**
+   * Fetch the string corresponding to the group
+   * @param group 
+   */
+  getGroupTitle(group: string): string {
+    return this.i18n.groupTitles[this.groupingProperty][group];
   }
 }
