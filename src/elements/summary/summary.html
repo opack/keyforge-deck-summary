@@ -19,12 +19,18 @@
       <option value="undefined"></option>
       <option repeat.for="property of CardPropertiesEnum" model.bind="getCardPropertyValue(property)">${property}</option>
     </select>
+
+    <button click.delegate="rebuild()">Refresh</button>
+  </div>
+
+  <div id="summary-cards" style="width:500px" class="container" repeat.for="group of groups">
+    <compose @containerless repeat.for="card of cardsByGroup[group]" view-model="./cards/summary-card" view="./cards/${card.type}-card.html" model.bind="card"></compose>
   </div>
   
-  <div id="summary-cards" class="columns">
+  <!--div id="summary-cards" class="columns">
     <div repeat.for="group of groups">
       <span class='group-title'>${getGroupTitle(group)} (${cardsByGroup[group].length})</span>
       <compose @containerless repeat.for="card of cardsByGroup[group]" view-model="./cards/summary-card" view="./cards/${card.type}-card.html" model.bind="card"></compose>
     </div>
-  </div>
+  </div>-->
 </template>

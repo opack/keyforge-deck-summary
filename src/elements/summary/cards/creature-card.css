@@ -1,13 +1,4 @@
 /*
- * Card classes
- */
-.card {
-  position: relative;
-  width: 400px;
-  height: 35px;
-}
-
-/*
  * Title classes
  */
  @font-face {
@@ -25,35 +16,56 @@
 .house-logos {
   background-color: #23afde;
 }
-
 .house-image {
-  position: absolute;
-  right: 10px;
   width: 23px;
 }
 
 /*
  * Power classes
  */
-.badge {
-  position: absolute;
+.power-badge{
+  /* Draw the image as background of the element */
+  background-image: url('/images/misc/power.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  
+  /* Size the element to the correct width of the image */
+  width: 23px;
+
+  /* Text written in this element (and thus, over it) should be centered*/
   text-align: center;
-  border: solid 1px black;
-}
-.badge-text {
-  position: absolute;
-  top: 43%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-.power-badge {
-  right: 35px;
-}
-.power-image {
-  width: 32px;
 }
 .power-text {
+  /* Position the text over the image*/
+  position: relative;
+
+  /* Style the text */
   color: white;
-  /*font-size: 20px;*/
-  font-weight: 700;
+  font-weight: 600;
+}
+
+/*
+ * Aember classes
+ */
+ .aember-badge{
+  /* Draw the image as background of the element */
+  background-image: url('/images/misc/aember.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  
+  /* Size the element to the correct width of the image */
+  width: 23px;
+
+  /* Text written in this element (and thus, over it) should be centered*/
+  text-align: center;
+}
+.aember-text {
+  /* Position the text over the image*/
+  position: relative;
+
+  /* Style the text */
+  color: black;
+  font-weight: 600;
 }
