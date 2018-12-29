@@ -1,4 +1,5 @@
 <template>
+  <require from="./summary-card.css"></require>
   <require from="./creature-card.css"></require>
   <require from="resources/value-converters/skills-shortner"></require>
   
@@ -8,18 +9,18 @@
       </div>
 
       <div class="col-1" align="center">
-        <div if.bind="model.aember > 0" class="aember-badge">
-          <span class="aember-text">${model.aember}</span>
-        </div>
-      </div>
-
-      <div class="col-1" align="center">
         <span class="badge badge-pill badge-secondary">${model.skills | skillsShortner}</span>
       </div>
 
       <div class="col-1" align="center">
         <div class="power-badge">
           <span class="power-text">${model.power}</span>
+        </div>
+      </div>
+
+      <div class="col-1" align="center">
+        <div if.bind="model.aember > 0" class="aember-badge">
+          <span class="aember-text">${model.aember}</span>
         </div>
       </div>
 
