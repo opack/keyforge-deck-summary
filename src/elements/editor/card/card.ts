@@ -4,6 +4,7 @@ import { CardModel } from 'models/card-model';
 import { HousesEnum } from 'enums/houses-enum';
 import { TypesEnum } from 'enums/types-enum';
 import { SkillsEnum } from 'enums/skills-enum';
+import { TriggersEnum } from 'enums/triggers-enum';
 
 export class CardCustomElement {
   @bindable
@@ -19,5 +20,9 @@ export class CardCustomElement {
 
   getSkillValue(skill: SkillsEnum) {
     return SkillsEnum[skill];
+  }
+
+  getTriggerValue(trigger: TriggersEnum) {
+    return TriggersEnum[trigger];
   }
 }

@@ -1,11 +1,16 @@
 <template>
   <require from="./summary-card.css"></require>
   <require from="./artifact-card.css"></require>
+  <require from="resources/value-converters/triggers-shortner"></require>
   
   <div class="row align-items-center house-${model.house} card-entry no-gutters">
-      <div class="col-10">
+      <div class="col-9">
         <span class="title-text">${model.title}</span>
       </div>
+
+      <div class="col-1" align="center">
+          <span class="badge badge-pill badge-secondary">${model.trigger | triggersShortner}</span>
+        </div>
 
       <div class="col-1" align="center">
         <div if.bind="model.aember > 0" class="aember-badge">
