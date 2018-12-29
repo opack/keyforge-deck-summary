@@ -1,0 +1,7 @@
+<template>
+  <button click.delegate="new()">New</button>
+  <div repeat.for="deck of decks">
+    ${deck.name}
+    <button click.delegate="load(deck)">Load</button>
+  </div>
+</template>

@@ -27,23 +27,27 @@
     <option repeat.for="aember of 5" model.bind="aember">${aember}</option>
   </select>
   
+  <!-- TODO Show this section only if creature -->
   Puissance : 
   <select value.bind="model.power">
     <option model.bind="undefined"></option>
     <option repeat.for="power of 13" model.bind="power">${power}</option>
   </select>
 
+  <!-- TODO Show this section only if creature -->
   Armure :
   <select value.bind="model.armor">
     <option model.bind="undefined"></option>
     <option repeat.for="armor of 3" model.bind="armor">${armor}</option>
   </select>
 
+  <!-- TODO Show this section only if creature -->
   Compétences : 
   <select class="selectpicker" multiple value.bind="model.skills">
     <option repeat.for="skill of SkillsEnum" model.bind="getSkillValue(skill)">${skill}</option>
   </select>
 
+  <!-- TODO Show this section only if artifact -->
   Activation : 
   <select value.bind="model.trigger">
     <option model.bind="undefined"></option>

@@ -4,6 +4,7 @@ import { bindable, observable } from 'aurelia-framework';
 
 import * as html2canvas from 'html2canvas';
 
+import { DeckModel } from 'models/deck-model';
 import { CardModel } from 'models/card-model';
 import { CardPropertiesEnum } from 'enums/card-properties-enum';
 
@@ -16,7 +17,7 @@ export class SummaryCustomElement {
   private cardsByGroup: { [group: string]: Array<CardModel> };
 
   @bindable
-  cards: Array<CardModel>;
+  deck: DeckModel;
 
   // TODO Create a service that will be used in every TS and HTML file
   i18n: any;
@@ -48,7 +49,7 @@ export class SummaryCustomElement {
   rebuild() {
     this.clear();
 
-    if (isNullOrUndefined(this.cards)) {
+    if (isNullOrUndefined(this.deck) || isNullOrUndefined(this.deck.cards)) {
       return;
     }
    
@@ -65,7 +66,7 @@ export class SummaryCustomElement {
   }
 
   private groupCards(): void {
-    this.cards.forEach(card => {
+    this.deck.cards.forEach(card => {
       // If the card is not defined, then skip it
       if (isNullOrUndefined(card) || isNullOrUndefined(card[this.groupingProperty])) {
         return;

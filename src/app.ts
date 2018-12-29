@@ -1,18 +1,22 @@
+import { CurrentDeckService } from './services/current-deck-service';
 import * as $ from 'jquery';
 
-import { SummaryCustomElement } from './elements/summary/summary';
 import { CardModel } from "models/card-model";
 import { HousesEnum } from "enums/houses-enum";
 import { TypesEnum } from "enums/types-enum";
+import { DeckModel } from 'models/deck-model';
+import { inject } from 'aurelia-framework';
 
 const NB_CARDS = 36;
 
+@inject(CurrentDeckService)
 export class App {
-  cards: Array<CardModel>;
+  deck: DeckModel;
 
-  constructor() {
+  constructor(private currentDeck: CurrentDeckService) {
     // TODO Be able to save and load (JSON)
-    this.cards = new Array<CardModel>(NB_CARDS);
+    this.deck = new DeckModel();
+    this.deck.cards = new Array<CardModel>(NB_CARDS);
     for (let cur = 0; cur < NB_CARDS; cur++) {
       const rndHouse = Math.random();
       let card = new CardModel();
@@ -24,13 +28,12 @@ export class App {
       card.power = Math.round(Math.random() * 12);
       card.armor = Math.round(Math.random() * 2);
 
-      this.cards[cur] = card;
+      this.deck.cards[cur] = card;
     }
-
-    this.cards.forEach(card => {console.log(`app.ts ${JSON.stringify(card)}`)});
   }
 
   attached() {
+    // Create an even to rebuild the summary on tab activation
     $('a[data-toggle="tab"]').on('show.bs.tab', e => {
       // If the tab that is going to be displayed is the summary, then rebuild it
       if (e.target.id === 'nav-summary-tab') {

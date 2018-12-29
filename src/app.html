@@ -1,5 +1,6 @@
 <template>
   <require from="app.css"></require>
+  <require from="elements/collection/collection"></require>
   <require from="elements/editor/editor"></require>
   <require from="elements/summary/summary"></require>
 
@@ -7,19 +8,26 @@
 
   <nav>
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
-      <a class="nav-item nav-link active" id="nav-editor-tab" data-toggle="tab" href="#nav-editor" role="tab" aria-controls="nav-editor" aria-selected="true">Editor</a>
+      <a class="nav-item nav-link active" id="nav-collection-tab" data-toggle="tab" href="#nav-collection" role="tab" aria-controls="nav-collection" aria-selected="true">Collection</a>
+      <a class="nav-item nav-link" id="nav-editor-tab" data-toggle="tab" href="#nav-editor" role="tab" aria-controls="nav-editor" aria-selected="false">Editor</a>
       <a class="nav-item nav-link" id="nav-summary-tab" data-toggle="tab" href="#nav-summary" role="tab" aria-controls="nav-summary" aria-selected="false">Summary</a>
     </div>
   </nav>
 
   <div class="tab-content" id="nav-tabContent">
-    <div class="tab-pane fade show active" id="nav-editor" role="tabpanel" aria-labelledby="nav-editor-tab">
-      <h3>Editor</h3>
-      <editor cards.bind="cards"></editor>
+    <div class="tab-pane fade show active" id="nav-collection" role="tabpanel" aria-labelledby="nav-collection-tab">
+      <h3>Collection</h3>
+      <collection></collection>
     </div>
+
+    <div class="tab-pane fade" id="nav-editor" role="tabpanel" aria-labelledby="nav-editor-tab">
+      <h3>Editor</h3>
+      <editor deck.bind="currentDeck.deck"></editor>
+    </div>
+
     <div class="tab-pane fade" id="nav-summary" role="tabpanel" aria-labelledby="nav-summary-tab">
       <h2>Summary</h2>
-      <summary cards.bind="cards" view-model.ref="summary"></summary>
+      <summary deck.bind="currentDeck.deck" view-model.ref="summary"></summary>
     </div>
   </div>
 </template>

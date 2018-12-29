@@ -2,7 +2,9 @@
   <require from="elements/editor/card/card"></require>
 
   <table>
-    <tr repeat.for="card of cards">
+    Name: <input value.bind="deck.name">
+    <button click.delegate="save()">Save</button>
+    <tr repeat.for="card of deck.cards">
       <td>
         <card model.two-way="card"></card>
       </td>
