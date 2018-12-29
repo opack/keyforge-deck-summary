@@ -39,9 +39,9 @@
     "fileExtension": ".html"
   },
   "cssProcessor": {
-    "id": "none",
-    "displayName": "None",
-    "fileExtension": ".css"
+    "id": "sass",
+    "displayName": "Sass",
+    "fileExtension": ".scss"
   },
   "jsonProcessor": {
     "id": "none",

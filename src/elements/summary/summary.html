@@ -4,7 +4,7 @@
   <require from="./cards/artifact-card.html"></require>
   <require from="./cards/creature-card.html"></require>
   <require from="./cards/upgrade-card.html"></require>
-  <require from="./summary.css"></require>
+  <require from="./summary.scss"></require>
 
   <div id="summary-parameters">
     <h3>Parameters</h3>
@@ -31,7 +31,9 @@
     <div class="archon-image" style="background-image: url('/images/archon-salvador.png');"></div>
     <div class="float-left container columns">
       <div repeat.for="group of groups">
-        <div class="row unbreakable-row no-gutters group-entry">
+        <!-- TODO BUG Si 10 actions et 10 artefacts, alors le titre "Creatures" apparaît en haut de la 2è colonne mais sous la première carte créature ! 
+        En gros ce bug apparaît si le titre "Creatures" devrait être affiché tout en bas de la 1ère colonne mais qu'il n'y a pas passez de place" -->
+        <div class="group-entry">
           <div class="col">
             <span class='group-title'>${getGroupTitle(group)} (${cardsByGroup[group].length})</span>
           </div>

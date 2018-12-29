@@ -1,0 +1,61 @@
+@import '../summary.scss';
+
+// Card title
+$title-padding-left: 0.5em;
+$title-font-size: $card-entry-height * 0.6;
+$title-font-weight: 400;
+
+// Aember
+$aember-badge-height: $card-entry-height * 0.8;
+$aember-text-font-size: $card-entry-height * 0.5;
+$aember-text-font-weight: 600;
+
+/*
+ * Title classes
+ */
+ /*@font-face {
+  font-family: 'Trebuchet';
+  src: url('/fonts/TREBUC.TTF');
+}*/
+.title-text {
+  color: white;
+  font-family: 'Trebuchet MS';
+  padding-left: $title-padding-left;
+  font-size: $title-font-size;
+  font-weight: $title-font-weight;
+}
+
+/*
+ * Aember classes
+ */
+ .aember-badge{
+  /* Draw the image as background of the element */
+  background-image: url('/images/misc/aember.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  
+  /* Size the element to the correct height of the image */
+  height: $aember-badge-height;
+
+  /* Text written in this element (and thus, over it) should be centered*/
+  text-align: center;
+}
+.aember-text {
+  /* Position the text over the image*/
+  position: relative;
+
+  /* Style the text */
+  color: black;
+  font-size: $aember-text-font-size;
+  font-weight: $aember-text-font-weight;
+}
+
+/*
+ * Card specificity presented in a badge
+ */
+.card-specificity {
+  @extend .badge;
+  @extend .badge-pill;
+  @extend .badge-secondary;
+}

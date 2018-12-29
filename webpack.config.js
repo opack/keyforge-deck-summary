@@ -127,6 +127,16 @@ module.exports = ({ production, server, extractCss, coverage, analyze, karma } =
         // because Aurelia would try to require it again in runtime
         use: cssRules
       },
+      {
+        test: /\.scss$/,
+        use: ['style-loader', 'css-loader', 'sass-loader'],
+        issuer: /\.[tj]s$/i
+      },
+      {
+        test: /\.scss$/,
+        use: ['css-loader', 'sass-loader'],
+        issuer: /\.html?$/i
+      },
       { test: /\.html$/i, loader: 'html-loader' },
       { test: /\.ts$/, loader: "ts-loader" },
       // use Bluebird as the global Promise implementation:

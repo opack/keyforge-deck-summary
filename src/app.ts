@@ -8,6 +8,7 @@ export class App {
   cards: Array<CardModel>;
 
   constructor() {
+    // TODO Be able to save and load (JSON)
     this.cards = new Array<CardModel>(NB_CARDS);
     for (let cur = 0; cur < NB_CARDS; cur++) {
       const rndHouse = Math.random();

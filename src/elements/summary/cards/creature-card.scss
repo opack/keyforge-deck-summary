@@ -1,3 +1,10 @@
+@import '../summary.scss';
+
+// Power
+$power-badge-height: $card-entry-height * 0.8;
+$power-text-font-size: $card-entry-height * 0.5;
+$power-text-font-weight: 600;
+
 /*
  * Power classes
  */
@@ -9,7 +16,7 @@
   background-size: contain;
   
   /* Size the element to the correct width of the image */
-  width: 23px;
+  height: $power-badge-height;
 
   /* Text written in this element (and thus, over it) should be centered*/
   text-align: center;
@@ -20,5 +27,6 @@
 
   /* Style the text */
   color: white;
-  font-weight: 600;
+  font-size: $power-text-font-size;
+  font-weight: $power-text-font-weight;
 }
