@@ -2,6 +2,7 @@
   <require from="resources/elements/houses-list"></require>
   <require from="resources/elements/types-list"></require>
   <require from="resources/elements/skills-list"></require>
+  <require from="resources/elements/triggers-list"></require>
   
   Titre :
   <input type="text" value.bind="model.title">
@@ -39,5 +40,11 @@
   Compétences : 
   <select class="selectpicker" multiple value.bind="model.skills">
     <option repeat.for="skill of SkillsEnum" model.bind="getSkillValue(skill)">${skill}</option>
+  </select>
+
+  Activation : 
+  <select value.bind="model.trigger">
+    <option model.bind="undefined"></option>
+    <option repeat.for="trigger of TriggersEnum" model.bind="getTriggerValue(trigger)">${trigger}</option>
   </select>
 </template>
