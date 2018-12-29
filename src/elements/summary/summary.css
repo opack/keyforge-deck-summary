@@ -1,13 +1,16 @@
 .columns {  
-  -webkit-columns: 2 200px;
-  -moz-columns: 2 200px;
-  columns: 2 200px;
+  -webkit-columns: 2 500px;
+  -moz-columns: 2 500px;
+  columns: 2 500px;
 
   -moz-column-fill: auto;
   column-fill: auto;
 
-  width: 400px;
-  height: 660px;
+  -moz-column-gap: 0.5em;
+  column-gap: 0.5em;
+
+  width: 500px;
+  height: 875px;
 }
 
 /*
@@ -20,4 +23,5 @@
 .group-title {
   font-family: 'AgencyBold';
   font-size: 1.3em;
+  height: 35px;
 }

@@ -1,8 +1,9 @@
-import {customElement, bindable, computedFrom} from 'aurelia-framework';
+import { bindable } from 'aurelia-framework';
 
 import { CardModel } from 'models/card-model';
 import { HousesEnum } from 'enums/houses-enum';
 import { TypesEnum } from 'enums/types-enum';
+import { SkillsEnum } from 'enums/skills-enum';
 
 export class CardCustomElement {
   @bindable
@@ -14,5 +15,9 @@ export class CardCustomElement {
 
   getHouseValue(house: HousesEnum) {
     return HousesEnum[house];
+  }
+
+  getSkillValue(skill: SkillsEnum) {
+    return SkillsEnum[skill];
   }
 }

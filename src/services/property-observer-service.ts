@@ -30,7 +30,12 @@ export class PropertyObserverService {
   }
 
   private subscribeToChangeOnProperty(model: any, property: string) {
-    const propertyObserver = this.bindingEngine.propertyObserver(model, property);
+    let propertyObserver;
+    if (Array.isArray(model[property])) {
+      propertyObserver = this.bindingEngine.collectionObserver(model[property]);
+    } else {
+      propertyObserver = this.bindingEngine.propertyObserver(model, property);
+    }
     const subscription = propertyObserver.subscribe((newValue, oldValue) => this.listener.propertyChanged(property, newValue, oldValue));
     this.subscriptions.push(subscription);
   }

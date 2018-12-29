@@ -5,4 +5,5 @@ export enum CardPropertiesEnum {
   Aember = 'aember',
   Power = 'power',
   Armor = 'armor',
+  Skills = 'skills'
 }

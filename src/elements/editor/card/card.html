@@ -1,6 +1,7 @@
 <template>
   <require from="resources/elements/houses-list"></require>
   <require from="resources/elements/types-list"></require>
+  <require from="resources/elements/skills-list"></require>
   
   Titre :
   <input type="text" value.bind="model.title">
@@ -33,5 +34,10 @@
   <select value.bind="model.armor">
     <option model.bind="undefined"></option>
     <option repeat.for="armor of 3" model.bind="armor">${armor}</option>
+  </select>
+
+  Compétences : 
+  <select class="selectpicker" multiple value.bind="model.skills">
+    <option repeat.for="skill of SkillsEnum" model.bind="getSkillValue(skill)">${skill}</option>
   </select>
 </template>

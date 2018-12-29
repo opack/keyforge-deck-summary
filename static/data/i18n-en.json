@@ -41,5 +41,13 @@
       "3": "Armor of 3",
       "4": "Armor of 4"
     }
+  },
+  "skills": {
+    "Assault": "A",
+    "Elusive": "E",
+    "Hazardous": "H",
+    "Poison": "P",
+    "Skirmish": "S",
+    "Taunt": "T"
   }
 }

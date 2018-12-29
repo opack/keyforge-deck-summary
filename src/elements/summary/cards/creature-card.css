@@ -1,3 +1,11 @@
+.dbg {
+ border: solid 1px #00ff00;
+}
+
+.card-entry {
+  height: 35px;
+}
+
 /*
  * Title classes
  */
@@ -5,19 +13,45 @@
   font-family: 'Trebuchet';
   src: url('/fonts/TREBUC.TTF');
 }
-.card-title {
+.title-text {
   color: white;
   font-family: 'Trebuchet';
+  padding-left: 0.5em;
 }
 
 /*
  * House classes
  */
+.house-image {
+  width: 23px;
+}
+
+.house-brobnar {
+  background-color: #ec242b;
+}
+
+.house-dis {
+  background-color: #d21c5e;
+}
+
 .house-logos {
   background-color: #23afde;
 }
-.house-image {
-  width: 23px;
+
+.house-mars {
+  background-color: #080807;
+}
+
+.house-sanctum {
+  background-color: #1c4c9e;
+}
+
+.house-shadows {
+  background-color: #403e6d;
+}
+
+.house-untamed {
+  background-color: #f05125;
 }
 
 /*

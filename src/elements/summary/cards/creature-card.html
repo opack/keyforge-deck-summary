@@ -1,28 +1,29 @@
 <template>
   <require from="./creature-card.css"></require>
+  <require from="resources/value-converters/skills-shortner"></require>
   
-  <div class="row align-items-center house-${model.house}">
-      <div class="col-7 card-title">
-        <span class="title">${model.title}</span>
+  <div class="row align-items-center house-${model.house} card-entry no-gutters">
+      <div class="col-8">
+        <span class="title-text">${model.title}</span>
       </div>
 
-      <div class="col-1">
-          <div if.bind="model.aember > 0" class="aember-badge">
-            <span class="aember-text">${model.aember}</span>
-          </div>
+      <div class="col-1" align="center">
+        <div if.bind="model.aember > 0" class="aember-badge">
+          <span class="aember-text">${model.aember}</span>
         </div>
-
-      <div class="col1 card-skills">
-          <span class="badge badge-pill badge-secondary">E</span>
       </div>
 
-      <div class="col-1">
+      <div class="col-1" align="center">
+        <span class="badge badge-pill badge-secondary">${model.skills | skillsShortner}</span>
+      </div>
+
+      <div class="col-1" align="center">
         <div class="power-badge">
           <span class="power-text">${model.power}</span>
         </div>
       </div>
 
-      <div class="col-1 card-house">
+      <div class="col-1" align="center">
         <img src.bind="'images/houses/' + model.house + '.png'" class="house-image" >
       </div>
   </div>

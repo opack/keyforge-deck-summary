@@ -1,6 +1,6 @@
 import { isNullOrUndefined } from 'util';
 
-import { bindable, BindingEngine, observable } from 'aurelia-framework';
+import { bindable, BindingEngine, observable, signalBindings } from 'aurelia-framework';
 
 import { CardModel } from 'models/card-model';
 import { CardPropertiesEnum } from 'enums/card-properties-enum';
@@ -62,6 +62,12 @@ export class SummaryCustomElement implements PropertyChangedListener {
   }
 
   propertyChanged(property: string, newValue: any, oldValue: any) {
+    // If the skills have changed, we need to send a signal to the value
+    // converters in order to ensure their value will be recomputed.
+    // So sad it is not automatic :-( https://aurelia.io/docs/binding/value-converters#signalable-value-converters
+    if (property === 'skills') {
+      signalBindings('skills-changed');
+    }
     this.rebuild();
   }
 
