@@ -2,6 +2,8 @@ import { isNullOrUndefined } from 'util';
 
 import { bindable, BindingEngine, observable, signalBindings } from 'aurelia-framework';
 
+import * as html2canvas from 'html2canvas';
+
 import { CardModel } from 'models/card-model';
 import { CardPropertiesEnum } from 'enums/card-properties-enum';
 
@@ -144,5 +146,15 @@ export class SummaryCustomElement implements PropertyChangedListener {
    */
   getGroupTitle(group: string): string {
     return this.i18n.groupTitles[this.groupingProperty][group];
+  }
+
+  download() {
+    html2canvas(document.getElementById('summary-cards')).then(canvas => {
+        var a = document.createElement('a');
+        a.href = canvas.toDataURL();
+        a.download = 'summary-cards.png';
+        a.click();
+      }
+    );
   }
 }
