@@ -14,7 +14,7 @@ export class App {
       let card = new CardModel();
 
       card.title = `Default ${cur}`;
-      card.type = TypesEnum.Creature;//(rndHouse < 0.25 ? TypesEnum.Action : (rndHouse < 0.50 ? TypesEnum.Artifact : (rndHouse < 0.75 ? TypesEnum.Creature : TypesEnum.Upgrade)));
+      card.type = (rndHouse < 0.25 ? TypesEnum.Action : (rndHouse < 0.50 ? TypesEnum.Artifact : (rndHouse < 0.75 ? TypesEnum.Creature : TypesEnum.Upgrade)));
       card.house = (cur < 12 ? HousesEnum.Logos : (cur < 24 ? HousesEnum.Shadows : HousesEnum.Untamed));
       card.aember = Math.round(Math.random() * 4);
       card.power = Math.round(Math.random() * 12);

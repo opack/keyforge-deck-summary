@@ -2,20 +2,20 @@
   <require from="./summary-card.css"></require>
   <require from="./upgrade-card.css"></require>
   
-  <div class="row align-items-center house-${model.house} card-entry no-gutters">
-      <div class="col-10">
-        <span class="title-text">${model.title}</span>
-      </div>
+  <div class="row unbreakable-row no-gutters align-items-center card-entry house-${model.house}">
+    <div class="col-10">
+      <span class="title-text">${model.title}</span>
+    </div>
 
-      <div class="col-1" align="center">
-        <div if.bind="model.aember > 0" class="aember-badge">
-          <span class="aember-text">${model.aember}</span>
-        </div>
+    <div class="col-1" align="center">
+      <div if.bind="model.aember > 0" class="aember-badge">
+        <span class="aember-text">${model.aember}</span>
       </div>
+    </div>
 
-      <div class="col-1" align="center">
-        <img src.bind="'images/houses/' + model.house + '.png'" class="house-image" >
-      </div>
+    <div class="col-1" align="center">
+      <img src.bind="'images/houses/' + model.house + '.png'" class="house-image" >
+    </div>
   </div>
 </template>
   

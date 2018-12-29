@@ -10,12 +10,22 @@
   column-gap: 0.5em;
 
   width: 500px;
-  height: 875px;
+  height: 890px;
+}
+
+.unbreakable-row {
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
+  break-inside: avoid;
 }
 
 /*
  * Group classes
  */
+ .group-entry {
+  height: 35px;
+}
+
  @font-face {
   font-family: 'AgencyBold';
   src: url('/fonts/agencyb.TTF');
@@ -24,4 +34,46 @@
   font-family: 'AgencyBold';
   font-size: 1.3em;
   height: 35px;
+}
+
+/*
+ * Card classes
+ */
+.card-entry {
+  height: 35px;
+}
+
+/*
+* House classes
+*/
+.house-image {
+  height: 24px;
+}
+
+.house-brobnar {
+  background-color: #ec242b;
+}
+
+.house-dis {
+  background-color: #d21c5e;
+}
+
+.house-logos {
+  background-color: #23afde;
+}
+
+.house-mars {
+  background-color: #080807;
+}
+
+.house-sanctum {
+  background-color: #1c4c9e;
+}
+
+.house-shadows {
+  background-color: #403e6d;
+}
+
+.house-untamed {
+  background-color: #f05125;
 }

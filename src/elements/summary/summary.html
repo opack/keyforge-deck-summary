@@ -23,21 +23,15 @@
     <button click.delegate="rebuild()">Refresh</button>
   </div>
 
+  <!-- TODO Mais pourquoi la dernière ligne se retrouve-t-elle coupée au lieu de passer en entier dans la colonne suivante ???-->
   <div id="summary-cards" style="width:500px" class="container columns">
     <div repeat.for="group of groups">
-      <div class="row no-gutters">
+      <div class="row unbreakable-row no-gutters group-entry">
         <div class="col">
           <span class='group-title'>${getGroupTitle(group)} (${cardsByGroup[group].length})</span>
         </div>
       </div>
-      <compose @containerless repeat.for="card of cardsByGroup[group]" view-model="./cards/summary-card" view="./cards/${card.type}-card.html" model.bind="card"></compose>
-  </div>
-  </div>
-  
-  <!--div id="summary-cards" class="columns">
-    <div repeat.for="group of groups">
-      <span class='group-title'>${getGroupTitle(group)} (${cardsByGroup[group].length})</span>
-      <compose @containerless repeat.for="card of cardsByGroup[group]" view-model="./cards/summary-card" view="./cards/${card.type}-card.html" model.bind="card"></compose>
+      <compose containerless repeat.for="card of cardsByGroup[group]" view-model="./cards/summary-card" view="./cards/${card.type}-card.html" model.bind="card"></compose>
     </div>
-  </div>-->
+  </div>
 </template>
