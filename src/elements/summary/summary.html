@@ -8,6 +8,8 @@
 
   <div id="summary-parameters">
     <h3>Parameters</h3>
+    <!-- TODO Add size parameters-->
+
     Group by:
     <select value.bind="groupingProperty">
       <option value="undefined"></option>
@@ -25,6 +27,7 @@
   </div>
 
   <div id="summary-cards" class="summary-sheet">
+    <!-- TODO Remove this hardcoded value and allow the user to select an image -->
     <div class="archon-image" style="background-image: url('/images/archon-salvador.png');"></div>
     <div class="float-left container columns">
       <div repeat.for="group of groups">
