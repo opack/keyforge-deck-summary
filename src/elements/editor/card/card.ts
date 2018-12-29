@@ -1,5 +1,9 @@
 import { bindable } from 'aurelia-framework';
 
+import * as $ from 'jquery';
+import 'bootstrap';
+import 'bootstrap-select';
+
 import { CardModel } from 'models/card-model';
 import { HousesEnum } from 'enums/houses-enum';
 import { TypesEnum } from 'enums/types-enum';
@@ -9,6 +13,10 @@ import { TriggersEnum } from 'enums/triggers-enum';
 export class CardCustomElement {
   @bindable
   private model: CardModel;
+
+  attached() {
+    $(".selectpicker").selectpicker();
+  }
 
   getTypeValue(type: TypesEnum) {
     return TypesEnum[type];
