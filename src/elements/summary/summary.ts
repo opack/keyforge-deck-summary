@@ -1,19 +1,15 @@
 import { isNullOrUndefined } from 'util';
 
-import { bindable, BindingEngine, observable, signalBindings } from 'aurelia-framework';
+import { bindable, observable } from 'aurelia-framework';
 
 import * as html2canvas from 'html2canvas';
 
 import { CardModel } from 'models/card-model';
 import { CardPropertiesEnum } from 'enums/card-properties-enum';
 
-import { PropertyObserverService, PropertyChangedListener } from 'services/property-observer-service';
 import { JsonFetcherService } from 'services/json-fetcher-service';
 
-export class SummaryCustomElement implements PropertyChangedListener {
-  static inject = [BindingEngine];
-  private propertyObserver: PropertyObserverService;
-
+export class SummaryCustomElement {
   @observable({changeHandler: 'parameterChanged'}) private groupingProperty: CardPropertiesEnum;
   @observable({changeHandler: 'parameterChanged'}) private sortingProperty: CardPropertiesEnum;
   private groups: Array<string>;
@@ -25,12 +21,11 @@ export class SummaryCustomElement implements PropertyChangedListener {
   // TODO Create a service that will be used in every TS and HTML file
   i18n: any;
 
-  constructor(bindingEngine: BindingEngine) {
-    this.propertyObserver = new PropertyObserverService(bindingEngine, this);
-
+  constructor() {
     this.groups = new Array<string>();
     this.cardsByGroup = {};
 
+    // TODO in parameterChanged, check if oldValue was undefined and do not rebuild in this case to avoid the following problem
     // Do this last, as it will trigger an initial summary rebuild
     this.groupingProperty = CardPropertiesEnum.Type;
     this.sortingProperty = CardPropertiesEnum.Title;
@@ -42,34 +37,11 @@ export class SummaryCustomElement implements PropertyChangedListener {
     });
   }
 
-  attached() {
-    const properties = new Array<string>();
-    for (let enumValue in CardPropertiesEnum) {
-      properties.push(CardPropertiesEnum[enumValue]);
-    }
-
-    this.propertyObserver.observeAll(this.cards, properties);
-  }
-
-  detached() {
-    this.propertyObserver.dispose();
-  }
-
   getCardPropertyValue(property: string) {
     return CardPropertiesEnum[property];
   }
 
   parameterChanged(newValue: CardPropertiesEnum, oldValue: CardPropertiesEnum) {
-    this.rebuild();
-  }
-
-  propertyChanged(property: string, newValue: any, oldValue: any) {
-    // If the skills have changed, we need to send a signal to the value
-    // converters in order to ensure their value will be recomputed.
-    // So sad it is not automatic :-( https://aurelia.io/docs/binding/value-converters#signalable-value-converters
-    if (property === 'skills') {
-      signalBindings('skills-changed');
-    }
     this.rebuild();
   }
 
