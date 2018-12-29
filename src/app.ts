@@ -1,3 +1,6 @@
+import * as $ from 'jquery';
+
+import { SummaryCustomElement } from './elements/summary/summary';
 import { CardModel } from "models/card-model";
 import { HousesEnum } from "enums/houses-enum";
 import { TypesEnum } from "enums/types-enum";
@@ -25,5 +28,19 @@ export class App {
     }
 
     this.cards.forEach(card => {console.log(`app.ts ${JSON.stringify(card)}`)});
+  }
+
+  attached() {
+    $('a[data-toggle="tab"]').on('show.bs.tab', e => {
+      // If the tab that is going to be displayed is the summary, then rebuild it
+      if (e.target.id === 'nav-summary-tab') {
+        // Access the 'summary' variable created thanks to the view-model.ref in the html.
+        // As the @child can only target immediate child, this method allows targetting
+        // the view-model of the nested <summary> tag, and calling its rebuild() method.
+        // As this variable is created dynamically, then we use the array way of accessing
+        // the property to avoid compilation errors.
+        this['summary'].rebuild();
+      }
+    });
   }
 }

@@ -4,8 +4,22 @@
   <require from="elements/summary/summary"></require>
 
   <h1>KeyForge Deck Summary</h1>
-  <h2>Editor</h2>
-  <editor cards.bind="cards"></editor>
-  <h2>Summary</h2>
-  <summary cards.bind="cards"></summary>
+
+  <nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+      <a class="nav-item nav-link active" id="nav-editor-tab" data-toggle="tab" href="#nav-editor" role="tab" aria-controls="nav-editor" aria-selected="true">Editor</a>
+      <a class="nav-item nav-link" id="nav-summary-tab" data-toggle="tab" href="#nav-summary" role="tab" aria-controls="nav-summary" aria-selected="false">Summary</a>
+    </div>
+  </nav>
+
+  <div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-editor" role="tabpanel" aria-labelledby="nav-editor-tab">
+      <h3>Editor</h3>
+      <editor cards.bind="cards"></editor>
+    </div>
+    <div class="tab-pane fade" id="nav-summary" role="tabpanel" aria-labelledby="nav-summary-tab">
+      <h2>Summary</h2>
+      <summary cards.bind="cards" view-model.ref="summary"></summary>
+    </div>
+  </div>
 </template>
