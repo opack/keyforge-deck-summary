@@ -1,3 +1,11 @@
+.summary-sheet {
+  /* See .archon-image for an explanation of this position*/
+  position: relative;
+
+  width: 980px;
+  height: 885px;
+}
+
 .columns {  
   -webkit-columns: 2 500px;
   -moz-columns: 2 500px;
@@ -17,6 +25,27 @@
   -webkit-column-break-inside: avoid;
   page-break-inside: avoid;
   break-inside: avoid;
+}
+
+/**
+ * Background image placed on a div in order to be able to have an alpha.
+ * This div is then placed on all the parent size, and at position 0;0
+ * and at z-index -1 to be behind everything else in the parent.
+ * To work, this hack needs that the parent has 'position: relative'.
+ */
+.archon-image {
+  opacity:0.6;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: -1;
 }
 
 /*
