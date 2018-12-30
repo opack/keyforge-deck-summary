@@ -26,6 +26,8 @@
     <button click.delegate="download()">Download</button>
   </div>
 
+  <!-- TODO Add a name tag with the name of the archon and the 3 houses of the deck -->
+
   <div id="summary-cards" class="summary-sheet">
     <!-- TODO Remove this hardcoded value and allow the user to select an image -->
     <div class="archon-image" style="background-image: url('/images/archon-salvador.png');"></div>
@@ -41,5 +43,7 @@
         <compose containerless repeat.for="card of cardsByGroup[group]" view-model="./cards/summary-card" view="./cards/${card.type}-card.html" model.bind="card"></compose>
       </div>
     </div>
+    <!-- TODO Add a QR code to the deck analyzer in the bottom right corner -->
+    <!-- TODO Add the 3 houses of the deck in the bottom right corner -->
   </div>
 </template>
