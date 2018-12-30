@@ -1,0 +1,12 @@
+@import "~bootstrap/scss/bootstrap.scss";
+
+// Height of one editor row
+$card-editor-row-height: 40px;
+
+.card-editor-row {
+  @extend .row;
+  @extend .no-gutters;
+  @extend .align-items-center;
+  
+  height: $card-editor-row-height;
+}

@@ -4,6 +4,8 @@ import { LocalStorageService } from './../../services/local-storage-service';
 import { CurrentDeckService } from './../../services/current-deck-service';
 import { inject } from 'aurelia-framework';
 
+const NB_CARDS = 36;
+
 @inject(LocalStorageService, CurrentDeckService)
 export class CollectionCustomElement {
   decks: Array<DeckModel>;
@@ -17,7 +19,9 @@ export class CollectionCustomElement {
   }
 
   new() {
-    this.currentDeck.deck = new DeckModel();
+    const deck = new DeckModel();
+    deck.init(NB_CARDS);
+    this.currentDeck.deck = deck;
   }
 
   load(deck: DeckModel) {

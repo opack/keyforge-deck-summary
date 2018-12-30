@@ -1,13 +1,25 @@
 <template>
+  <require from="./editor.scss"></require>
   <require from="elements/editor/card/card"></require>
 
-  <table>
+  <div class="d-flex flex-row align-items-center">
     Name: <input value.bind="deck.name">
     <button click.delegate="save()">Save</button>
-    <tr repeat.for="card of deck.cards">
-      <td>
-        <card model.two-way="card"></card>
-      </td>
-    </tr>
-  </table>
+  </div>
+
+  <div class="container">
+    <div>
+      <div class="row no-gutters align-items-center">
+        <div class="col-3 text-center"><img src.bind="'images/misc/title.png'" class="editor-header-image"></div>
+        <div class="col-1 text-center"><img src.bind="'images/misc/type.png'" class="editor-header-image"></div>
+        <div class="col-1 text-center"><img src.bind="'images/misc/house.png'" class="editor-header-image"></div>
+        <div class="col-1 text-center"><img src.bind="'images/misc/aember.png'" class="editor-header-image"></div>
+        <div class="col-1 text-center"><img src.bind="'images/misc/power.png'" class="editor-header-image"></div>
+        <div class="col-1 text-center"><img src.bind="'images/misc/shield.png'" class="editor-header-image"></div>
+        <div class="col-2 text-center"><img src.bind="'images/misc/skills.png'" class="editor-header-image"></div>
+        <div class="col-2 text-center"><img src.bind="'images/misc/trigger.png'" class="editor-header-image"></div>
+      </div>
+    </div>
+    <card repeat.for="card of deck.cards" model.two-way="card"></card>
+  </div>
 </template>
