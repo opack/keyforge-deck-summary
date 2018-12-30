@@ -37,14 +37,13 @@
         Fait intéressant : ce glitch d'affichage se produit aussi sur une carte normale, et il n'apparaît pas lorsqu'on DL l'image -->
         <div class="group-entry">
           <div class="col">
-            <!-- TODO Mettre un badge pour le nombre de cartes du groupe -->
-            <span class='group-title'>${getGroupTitle(group)} (${cardsByGroup[group].length})</span>
+            <span class='group-title'>${getGroupTitle(group)} <span class="group-count">${cardsByGroup[group].length}</span></span>
           </div>
         </div>
         <compose containerless repeat.for="card of cardsByGroup[group]" view-model="./cards/summary-card" view="./cards/${card.type}-card.html" model.bind="card"></compose>
       </div>
     </div>
-    <!-- TODO Add a QR code to the deck analyzer in the bottom right corner -->
+
     <canvas ref="qrcode" class="qrcode-image"></canvas>
 
     <!-- TODO Add the 3 houses of the deck in the bottom right corner -->

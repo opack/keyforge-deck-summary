@@ -108,6 +108,22 @@ $qrcode-offset: 10px;
   font-family: 'AgencyBold';
   font-size: $group-title-size;
 }
+.group-count {
+  @extend .badge;
+  @extend .badge-light;  
+
+  // Outline
+  background-color: transparent;
+  border: 3px solid black;
+  border-radius: 25%;
+
+  // Remove the top and bottom spaces
+  padding-top: 0;
+  padding-bottom: 0;
+
+  // Make font size same as group title
+  font-size: 100%;
+}
 
 /*
  * Card classes
@@ -152,6 +168,9 @@ $qrcode-offset: 10px;
   background-color: $house-untamed-color;
 }
 
+/*
+ * QR Code classes
+ */
 .qrcode-image {
   position: absolute;
   bottom: $qrcode-offset;
