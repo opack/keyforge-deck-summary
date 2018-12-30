@@ -15,6 +15,7 @@
     "bluebird": "^3.5.2",
     "bootstrap": "^4.2.1",
     "bootstrap-select": "^1.13.5",
+    "fitty": "^2.2.6",
     "html2canvas": "^1.0.0-alpha.12",
     "jquery": "^3.3.1",
     "popper.js": "^1.14.6"
@@ -23,6 +24,7 @@
   "devDependencies": {
     "@types/bluebird": "^3.5.24",
     "@types/jest": "^23.3.5",
+    "@types/jquery": "^3.3.29",
     "@types/lodash": "^4.14.117",
     "@types/node": "^10.11.6",
     "@types/webpack": "^4.4.15",

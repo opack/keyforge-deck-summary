@@ -18,10 +18,12 @@ $card-specificity-font-weight: 600;
 /*
  * Title classes
  */
- /*@font-face {
-  font-family: 'Trebuchet';
-  src: url('/fonts/TREBUC.TTF');
-}*/
+.fit {
+  display: inline-block;
+  white-space: nowrap;
+  // Setting width will disable scaling up
+  width: 100%
+}
 .title-text {
   color: white;
   font-family: 'Trebuchet MS';

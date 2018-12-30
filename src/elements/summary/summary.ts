@@ -3,6 +3,7 @@ import { isNullOrUndefined } from 'util';
 import { bindable, observable } from 'aurelia-framework';
 
 import * as html2canvas from 'html2canvas';
+import fitty from 'fitty';
 
 import { DeckModel } from 'models/deck-model';
 import { CardModel } from 'models/card-model';
@@ -58,6 +59,11 @@ export class SummaryCustomElement {
     
     // Sort cards in each group by sorting field
     this.sortInGroups();
+
+    // Fit titles to match container width. Titles will only scale down to ensure
+    // all text title fits.
+    // TODO Trigger this when the summary is displayed because if rebuild() is called while the summary is not visible, fitty does nothing :-(
+    fitty('.fit');
   }
   
   private clear(): void {

@@ -1,41 +1,20 @@
 import { CurrentDeckService } from './services/current-deck-service';
 import * as $ from 'jquery';
 
-import { CardModel } from "models/card-model";
-import { HousesEnum } from "enums/houses-enum";
-import { TypesEnum } from "enums/types-enum";
-import { DeckModel } from 'models/deck-model';
 import { inject } from 'aurelia-framework';
-
-const NB_CARDS = 36;
 
 @inject(CurrentDeckService)
 export class App {
-  deck: DeckModel;
-
   constructor(private currentDeck: CurrentDeckService) {
-    // TODO Be able to save and load (JSON)
-    this.deck = new DeckModel();
-    this.deck.cards = new Array<CardModel>(NB_CARDS);
-    for (let cur = 0; cur < NB_CARDS; cur++) {
-      const rndHouse = Math.random();
-      let card = new CardModel();
-
-      card.title = `Default ${cur}`;
-      card.type = (rndHouse < 0.25 ? TypesEnum.Action : (rndHouse < 0.50 ? TypesEnum.Artifact : (rndHouse < 0.75 ? TypesEnum.Creature : TypesEnum.Upgrade)));
-      card.house = (cur < 12 ? HousesEnum.Logos : (cur < 24 ? HousesEnum.Shadows : HousesEnum.Untamed));
-      card.aember = Math.round(Math.random() * 4);
-      card.power = Math.round(Math.random() * 12);
-      card.armor = Math.round(Math.random() * 2);
-
-      this.deck.cards[cur] = card;
-    }
   }
 
   attached() {
-    // Create an even to rebuild the summary on tab activation
-    $('a[data-toggle="tab"]').on('show.bs.tab', e => {
-      // If the tab that is going to be displayed is the summary, then rebuild it
+    // Create an even to rebuild the summary on tab activation. We must use 'shown.bs.tab'
+    // and not 'show.bs.tab' because we must rebuild after the tab is displayed; if we
+    // rebuild the summary before (with 'show.bs.tab') then fitty will not be able to do
+    // its work.
+    $('a[data-toggle="tab"]').on('shown.bs.tab', e => {
+      // If the displayed tab is the summary, then rebuild it
       if (e.target.id === 'nav-summary-tab') {
         // Access the 'summary' variable created thanks to the view-model.ref in the html.
         // As the @child can only target immediate child, this method allows targetting
