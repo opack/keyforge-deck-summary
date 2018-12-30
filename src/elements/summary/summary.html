@@ -33,9 +33,11 @@
     <div class="float-left container columns">
       <div repeat.for="group of groups">
         <!-- TODO BUG Si 10 actions et 10 artefacts, alors le titre "Creatures" apparaît en haut de la 2è colonne mais sous la première carte créature ! 
-        En gros ce bug apparaît si le titre "Creatures" devrait être affiché tout en bas de la 1ère colonne mais qu'il n'y a pas passez de place" -->
+        En gros ce bug apparaît si le titre "Creatures" devrait être affiché tout en bas de la 1ère colonne mais qu'il n'y a pas passez de place"
+        Fait intéressant : ce glitch d'affichage se produit aussi sur une carte normale, et il n'apparaît pas lorsqu'on DL l'image -->
         <div class="group-entry">
           <div class="col">
+            <!-- TODO Mettre un badge pour le nombre de cartes du groupe -->
             <span class='group-title'>${getGroupTitle(group)} (${cardsByGroup[group].length})</span>
           </div>
         </div>

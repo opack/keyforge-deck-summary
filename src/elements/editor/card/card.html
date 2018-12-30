@@ -49,6 +49,7 @@
 
     <div class="col-2 text-center">
       <div class="form-group" show.bind="model.type==='creature'">
+        <!-- TODO BUG La combo affiche "nothing selected" lors du chargement alors qu'elle a bien les bons items cochés quand on la déroule -->
         <select class="selectpicker form-control" multiple value.bind="model.skills">
           <option repeat.for="skill of SkillsEnum" model.bind="getSkillValue(skill)">${skill}</option>
         </select>

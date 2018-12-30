@@ -2,13 +2,18 @@
 
 // Card title
 $title-padding-left: 0.5em;
-$title-font-size: $card-entry-height * 0.6;
-$title-font-weight: 400;
+// TODO Si le nombre de caractères du titre dépasse une certaine valeur, réduire la taille du texte, faute de mieux (voir aussi https://foundation.zurb.com/forum/posts/2772-scale-text-instead-of-wrapping)
+$title-font-size: $card-entry-height * 0.75;
+$title-font-weight: 100;
 
 // Aember
 $aember-badge-height: $card-entry-height * 0.8;
 $aember-text-font-size: $card-entry-height * 0.5;
 $aember-text-font-weight: 600;
+
+// Card specificity
+$card-specificity-font-size: $card-entry-height * 0.4;
+$card-specificity-font-weight: 600;
 
 /*
  * Title classes
@@ -58,4 +63,7 @@ $aember-text-font-weight: 600;
   @extend .badge;
   @extend .badge-pill;
   @extend .badge-secondary;
+
+  font-size: $card-specificity-font-size;
+  font-weight: $card-specificity-font-weight;
 }
