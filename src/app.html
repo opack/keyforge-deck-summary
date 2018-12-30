@@ -16,17 +16,14 @@
 
   <div class="tab-content" id="nav-tabContent">
     <div class="tab-pane fade show active" id="nav-collection" role="tabpanel" aria-labelledby="nav-collection-tab">
-      <h3>Collection</h3>
       <collection></collection>
     </div>
 
     <div class="tab-pane fade" id="nav-editor" role="tabpanel" aria-labelledby="nav-editor-tab">
-      <h3>Editor</h3>
       <editor deck.bind="currentDeck.deck"></editor>
     </div>
 
     <div class="tab-pane fade" id="nav-summary" role="tabpanel" aria-labelledby="nav-summary-tab">
-      <h2>Summary</h2>
       <summary deck.bind="currentDeck.deck" view-model.ref="summary"></summary>
     </div>
   </div>
