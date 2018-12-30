@@ -2,6 +2,7 @@ import { CardModel } from "./card-model";
 
 export class DeckModel {
   name: string;
+  qrcode: string;
   cards: Array<CardModel>;
 
   init(nbCards: number) {

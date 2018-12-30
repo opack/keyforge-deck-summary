@@ -3,8 +3,16 @@
   <require from="elements/editor/card/card"></require>
 
   <div class="d-flex flex-row align-items-center">
-    Name: <input class="deck-name" value.bind="deck.name">
     <button click.delegate="save()">Save</button>
+  </div>
+  <div class="d-flex flex-row align-items-center">
+    <div "p-1">Name:</div>
+    <div "p-1"><input class="deck-name" value.bind="deck.name"></div>
+    <button click.delegate="save()">Save</button>
+  </div>
+  <div class="d-flex flex-row align-items-center">
+    <div "p-1">QR code:</div>
+    <div "p-1"><input value.bind="deck.qrcode"></div>
   </div>
 
   <div class="container">

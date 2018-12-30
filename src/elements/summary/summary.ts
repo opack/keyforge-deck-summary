@@ -4,6 +4,7 @@ import { bindable, observable } from 'aurelia-framework';
 
 import * as html2canvas from 'html2canvas';
 import fitty from 'fitty';
+import * as QRCode from 'qrcode';
 
 import { DeckModel } from 'models/deck-model';
 import { CardModel } from 'models/card-model';
@@ -64,6 +65,20 @@ export class SummaryCustomElement {
     // all text title fits.
     // TODO Trigger this when the summary is displayed because if rebuild() is called while the summary is not visible, fitty does nothing :-(
     fitty('.fit');
+
+    // Redraw QR-code
+    this.updateQRCode();
+  }
+
+  private updateQRCode() {
+    // If a QR code value is specified, then render it
+    const canvas = this['qrcode'];
+    if (isNullOrUndefined(this.deck.qrcode) || this.deck.qrcode === '') {
+      const context = canvas.getContext('2d');
+      context.clearRect(0, 0, canvas.width, canvas.height);
+    } else {
+      QRCode.toCanvas(canvas, this.deck.qrcode);
+    }
   }
   
   private clear(): void {
