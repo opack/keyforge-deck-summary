@@ -3,8 +3,9 @@ import { EventAggregator } from 'aurelia-event-aggregator';
 
 import { DeckModel } from 'models/deck-model';
 
-import { LocalStorageService, DataStored, DataRemoved } from './../../services/local-storage-service';
-import { CurrentDeckService } from './../../services/current-deck-service';
+import { LocalStorageService, DataStored, DataRemoved } from 'services/local-storage-service';
+import { CurrentDeckService } from 'services/current-deck-service';
+import { FileDownloaderService } from 'services/file-downloader-service';
 
 const NB_CARDS = 36;
 
@@ -12,7 +13,7 @@ const NB_CARDS = 36;
 export class CollectionCustomElement {
   decks: Array<DeckModel>;
 
-  constructor(private storage: LocalStorageService, private currentDeck: CurrentDeckService, private eventAggregator: EventAggregator) {
+  constructor(private storage: LocalStorageService, private currentDeck: CurrentDeckService, private eventAggregator: EventAggregator, private fileDownloaderService: FileDownloaderService) {
     // Retrieve the list of stored decks
     this.loadCollection();    
 
@@ -44,7 +45,24 @@ export class CollectionCustomElement {
     this.currentDeck.deck = workingCopy;
   }
 
-  remove(deck: DeckModel) {
+  remove(deck: DeckModel): void {
     this.storage.remove(deck.name);
+  }
+
+  download(deck: DeckModel): void {
+    this.fileDownloaderService.downloadObjectAsJSON(deck, `${deck.name}.json`);
+  }
+
+  downloadCollection() {
+    // Load every deck from local storage and don't use this.decks as it may have
+    // been modified and not saved
+    const collection = new Array<DeckModel>();
+    this.storage.getKeys().forEach(key => {
+      const deck = this.storage.retrieve(key);
+      collection.push(deck);
+    });
+
+    const now = new Date();
+    this.fileDownloaderService.downloadObjectAsJSON(collection, `deck-collection-${now.getFullYear()}${now.getMonth() + 1}${now.getDate()}-${now.getHours()}${now.getMinutes()}.json`);
   }
 }

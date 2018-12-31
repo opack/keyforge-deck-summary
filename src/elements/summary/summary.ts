@@ -1,6 +1,6 @@
 import { isNullOrUndefined } from 'util';
 
-import { bindable, observable } from 'aurelia-framework';
+import { bindable, observable, autoinject } from 'aurelia-framework';
 
 import * as html2canvas from 'html2canvas';
 import fitty from 'fitty';
@@ -11,7 +11,9 @@ import { CardModel } from 'models/card-model';
 import { CardPropertiesEnum } from 'enums/card-properties-enum';
 
 import { JsonFetcherService } from 'services/json-fetcher-service';
+import { FileDownloaderService } from 'services/file-downloader-service';
 
+@autoinject
 export class SummaryCustomElement {
   @observable({changeHandler: 'parameterChanged'}) private groupingProperty: CardPropertiesEnum;
   @observable({changeHandler: 'parameterChanged'}) private sortingProperty: CardPropertiesEnum;
@@ -24,7 +26,7 @@ export class SummaryCustomElement {
   // TODO Create a service that will be used in every TS and HTML file
   i18n: any;
 
-  constructor() {
+  constructor(private fileDownloaderService: FileDownloaderService) {
     this.groups = new Array<string>();
     this.cardsByGroup = {};
 
@@ -144,10 +146,7 @@ export class SummaryCustomElement {
 
   download() {
     html2canvas(document.getElementById('summary-cards')).then(canvas => {
-        var a = document.createElement('a');
-        a.href = canvas.toDataURL();
-        a.download = 'summary-cards.png';
-        a.click();
+        this.fileDownloaderService.download(canvas.toDataURL(), `${this.deck.name}.png`);
       }
     );
   }
