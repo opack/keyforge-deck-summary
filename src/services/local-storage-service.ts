@@ -1,7 +1,25 @@
+import { autoinject } from 'aurelia-framework';
+import { EventAggregator } from 'aurelia-event-aggregator';
+
+/**
+ * Message sent when some data is stored
+ */
+export class DataStored {
+  constructor(public key: string, public value: any) {}
+}
+
+/**
+ * Message sent when some data is removed
+ */
+export class DataRemoved {
+  constructor(public key: string) {}
+}
+
+@autoinject
 export class LocalStorageService {
   private storage: Storage;
 
-  constructor() {
+  constructor(private eventAggregator: EventAggregator) {
       this.storage = window.localStorage;
   }
 
@@ -10,9 +28,12 @@ export class LocalStorageService {
   }
 
   store(key: string, value: any) {
+    // Store the data
     const item = JSON.stringify(value);
     this.storage.setItem(key, item);
-      
+
+    // Publish a new message to indicate this
+    this.eventAggregator.publish(new DataStored(key, value));  
   }
 
   retrieve(key: string){
@@ -20,6 +41,10 @@ export class LocalStorageService {
   }
 
   remove(key: string){
+    // Remove the data
     this.storage.removeItem(key);
+
+    // Publish a new message to indicate this
+    this.eventAggregator.publish(new DataRemoved(key));  
   }
 }

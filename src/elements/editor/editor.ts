@@ -18,7 +18,5 @@ export class EditorCustomElement {
       return;
     }
     this.storage.store(this.deck.name, this.deck);
-
-    // TODO Update collection
   }
 }

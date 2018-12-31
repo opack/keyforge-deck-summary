@@ -1,16 +1,27 @@
+import { autoinject } from 'aurelia-framework';
+import { EventAggregator } from 'aurelia-event-aggregator';
+
 import { DeckModel } from 'models/deck-model';
 
-import { LocalStorageService } from './../../services/local-storage-service';
+import { LocalStorageService, DataStored, DataRemoved } from './../../services/local-storage-service';
 import { CurrentDeckService } from './../../services/current-deck-service';
-import { inject } from 'aurelia-framework';
 
 const NB_CARDS = 36;
 
-@inject(LocalStorageService, CurrentDeckService)
+@autoinject
 export class CollectionCustomElement {
   decks: Array<DeckModel>;
 
-  constructor(private storage: LocalStorageService, private currentDeck: CurrentDeckService) {
+  constructor(private storage: LocalStorageService, private currentDeck: CurrentDeckService, private eventAggregator: EventAggregator) {
+    // Retrieve the list of stored decks
+    this.loadCollection();    
+
+    // Subscribe to any storage change
+    eventAggregator.subscribe(DataStored, msg => this.loadCollection());
+    eventAggregator.subscribe(DataRemoved, msg => this.loadCollection());
+  }
+
+  loadCollection() {
     this.decks = new Array<DeckModel>();
     this.storage.getKeys().forEach(key => {
       const deck = this.storage.retrieve(key);
