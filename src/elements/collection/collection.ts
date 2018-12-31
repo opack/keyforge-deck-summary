@@ -43,4 +43,8 @@ export class CollectionCustomElement {
     // Use it
     this.currentDeck.deck = workingCopy;
   }
+
+  remove(deck: DeckModel) {
+    this.storage.remove(deck.name);
+  }
 }

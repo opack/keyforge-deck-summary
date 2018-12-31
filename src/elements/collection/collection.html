@@ -1,7 +1,7 @@
 <template>
   <button click.delegate="new()">New</button>
   <!-- TODO
-  <button click.delegate="importDeck()">Import deck</button>
+  <button click.delegate="import()">Import deck</button>
   <button click.delegate="downloadCollection(deck)">Download collection</button>
   <button click.delegate="importCollection(deck)">Import collection</button>
   <button click.delegate="cleanCollection(deck)">Import collection</button>-->
@@ -9,7 +9,7 @@
     ${deck.name}
     <button click.delegate="load(deck)">Load</button>
     <!-- TODO
-    <button click.delegate="downloadDeck(deck)">Download</button>
-    <button click.delegate="removeDeck(deck)">Remove</button>-->
+    <button click.delegate="download(deck)">Download</button>-->
+    <button click.delegate="remove(deck)">Remove</button>
   </div>
 </template>
