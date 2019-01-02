@@ -10,8 +10,8 @@ import { DeckModel } from 'models/deck-model';
 import { CardModel } from 'models/card-model';
 import { CardPropertiesEnum } from 'enums/card-properties-enum';
 
-import { JsonFetcherService } from 'services/json-fetcher-service';
 import { FileDownloaderService } from 'services/file-downloader-service';
+import { I18nService } from 'services/i18n-service';
 
 @autoinject
 export class SummaryCustomElement {
@@ -23,24 +23,23 @@ export class SummaryCustomElement {
   @bindable
   deck: DeckModel;
 
-  // TODO Create a service that will be used in every TS and HTML file
-  i18n: any;
+  // // TODO Create a service that will be used in every TS and HTML file
+  // i18n: any;
 
-  constructor(private fileDownloaderService: FileDownloaderService) {
+  constructor(private fileDownloaderService: FileDownloaderService, private i18nService: I18nService) {
     this.groups = new Array<string>();
     this.cardsByGroup = {};
 
-    // TODO in parameterChanged, check if oldValue was undefined and do not rebuild in this case to avoid the following problem
     // Do this last, as it will trigger an initial summary rebuild
     this.groupingProperty = CardPropertiesEnum.Type;
     this.sortingProperty = CardPropertiesEnum.Title;
   }
 
-  bind() {
-    new JsonFetcherService().fetch('i18n-en.json').then(data => {
-      this.i18n = data;
-    });
-  }
+  // bind() {
+  //   new JsonFetcherService().fetch('i18n-en.json').then(data => {
+  //     this.i18n = data;
+  //   });
+  // }
 
   getCardPropertyValue(property: string) {
     return CardPropertiesEnum[property];
@@ -65,7 +64,6 @@ export class SummaryCustomElement {
 
     // Fit titles to match container width. Titles will only scale down to ensure
     // all text title fits.
-    // TODO Trigger this when the summary is displayed because if rebuild() is called while the summary is not visible, fitty does nothing :-(
     fitty('.fit');
 
     // Redraw QR-code
@@ -141,7 +139,7 @@ export class SummaryCustomElement {
    * @param group 
    */
   getGroupTitle(group: string): string {
-    return this.i18n.groupTitles[this.groupingProperty][group];
+    return this.i18nService.get(`groupTitles.${this.groupingProperty}.${group}`);
   }
 
   download() {

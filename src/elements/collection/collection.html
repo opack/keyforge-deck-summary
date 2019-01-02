@@ -1,23 +1,33 @@
 <template>
-  <div class="d-flex flex-row">
-    <div class="p-2">
-      <button class="btn btn-outline-secondary" click.delegate="new()">New</button>
+  <div class="btn-group" role="group">
+    <div class="btn-group" role="group">
+      <button id="btnGroupDeck" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Deck
+      </button>
+      <div class="dropdown-menu" aria-labelledby="btnGroupDeck">
+        <button class="dropdown-item" click.delegate="new()">New deck</button>
+        
+        <label class="dropdown-item" for="deck-uploads">Import deck(s)</label>
+        <input type="file" ref="deckUpload" change.delegate="importDeck()" id="deck-uploads" name="deck-uploads" accept=".json" multiple style="display: none">
+      </div>
     </div>
-    <div class="p-2">
-      <label class="btn btn-outline-secondary" for="collection-upload">Import collection</label>
-      <input type="file" ref="collectionUpload" change.delegate="importCollection()" id="collection-upload" name="collection-upload" accept=".json" style="display: none">
-    </div>
-    <div class="p-2">
-      <button class="btn btn-outline-secondary" click.delegate="clearCollection()">Clear collection</button>
-    </div>
-    <div class="p-2">
-      <button class="btn btn-outline-secondary" click.delegate="downloadCollection()">Download collection</button>
-    </div>        
-    <div class="p-2">
-      <label class="btn btn-outline-secondary" for="deck-uploads">Import deck(s)</label>
-      <input type="file" ref="deckUpload" change.delegate="importDeck()" id="deck-uploads" name="deck-uploads" accept=".json" multiple style="display: none">
+
+    <div class="btn-group" role="group">
+      <button id="btnGroupCollection" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Collection
+      </button>
+      <div class="dropdown-menu" aria-labelledby="btnGroupCollection">
+        <label class="dropdown-item" for="collection-upload">Import collection</label>
+        <input type="file" ref="collectionUpload" change.delegate="importCollection()" id="collection-upload" name="collection-upload" accept=".json" style="display: none">
+        
+        <button class="dropdown-item" click.delegate="downloadCollection()">Download collection</button>
+        
+        <button class="dropdown-item" click.delegate="clearCollection()">Clear collection</button>
+      </div>
     </div>
   </div>
+
+  
   <div repeat.for="deck of decks">
     ${deck.name}
     <button class="btn btn-outline-secondary" click.delegate="load(deck)">Load</button>

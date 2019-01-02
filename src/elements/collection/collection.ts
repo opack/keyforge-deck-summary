@@ -1,3 +1,5 @@
+import * as _ from 'lodash';
+
 import { autoinject } from 'aurelia-framework';
 import { EventAggregator } from 'aurelia-event-aggregator';
 
@@ -39,8 +41,7 @@ export class CollectionCustomElement {
 
   load(deck: DeckModel) {
     // Copy the deck
-    // Attention! This copy technique might not work with dates (which we are not using... for the moment)
-    const workingCopy = JSON.parse(JSON.stringify(deck));
+    const workingCopy = _.clone(deck);
 
     // Use it
     this.currentDeck.deck = workingCopy;

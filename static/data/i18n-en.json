@@ -43,11 +43,15 @@
     }
   },
   "skills": {
-    "Assault": "A",
-    "Elusive": "E",
-    "Hazardous": "H",
-    "Poison": "P",
-    "Skirmish": "S",
-    "Taunt": "T"
+    "assault": "A",
+    "elusive": "E",
+    "hazardous": "H",
+    "poison": "P",
+    "skirmish": "S",
+    "taunt": "T"
+  },
+  "triggers": {
+    "permanent": "P",
+    "omni": "O"
   }
 }

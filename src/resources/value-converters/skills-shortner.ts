@@ -1,5 +1,13 @@
+import { autoinject } from "aurelia-framework";
+
+import { I18nService } from 'services/i18n-service';
+
+@autoinject
 export class SkillsShortnerValueConverter {
   signals = ['skills-changed'];
+
+  constructor(private i18nService: I18nService) {
+  }
 
   toView(value) {
     if (value === null || value === undefined) {
@@ -8,8 +16,7 @@ export class SkillsShortnerValueConverter {
 
     let skillsLetters = '';
     value.forEach(skill => {
-      // TODO Récupérer plutôt cette valeur depuis le service d'i18n
-      skillsLetters += skill.charAt(0).toUpperCase();
+      skillsLetters += this.i18nService.get(`skills.${skill}`);
     });
     return skillsLetters;
   }
