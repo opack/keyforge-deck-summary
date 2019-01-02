@@ -65,4 +65,19 @@ export class CollectionCustomElement {
     const now = new Date();
     this.fileDownloaderService.downloadObjectAsJSON(collection, `deck-collection-${now.getFullYear()}${now.getMonth() + 1}${now.getDate()}-${now.getHours()}${now.getMinutes()}.json`);
   }
+
+  importDeck() {
+    const files = this['fileUpload'].files;
+    for (let cur = 0; cur < files.length; cur++) {
+      const file = files.item(cur);
+      const reader = new FileReader();
+
+      reader.onload = event => {
+        const deck: DeckModel = JSON.parse(reader.result as string) as DeckModel;
+        // TODO If the deck already exists, prompt for overwrite
+        this.storage.store(deck.name, deck);
+      };
+      reader.readAsText(file);
+    }
+  }
 }

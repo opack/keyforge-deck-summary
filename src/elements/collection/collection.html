@@ -1,14 +1,23 @@
 <template>
-  <button click.delegate="new()">New</button>
-  <button click.delegate="downloadCollection()">Download collection</button>
-  <!-- TODO
-  <button click.delegate="import()">Import deck</button>  
+  <div class="d-flex flex-row">
+    <div class="p-2">
+      <button class="btn btn-outline-secondary" click.delegate="new()">New</button>
+    </div>
+    <!-- TODO
   <button click.delegate="importCollection(deck)">Import collection</button>
   <button click.delegate="cleanCollection(deck)">Import collection</button>-->
+    <div class="p-2">
+      <button class="btn btn-outline-secondary" click.delegate="downloadCollection()">Download collection</button>
+    </div>        
+    <div class="p-2">
+      <label class="btn btn-outline-secondary" for="deck-uploads">Importer deck(s)</label>
+      <input type="file" ref="fileUpload" change.delegate="importDeck()" id="deck-uploads" name="deck-uploads" accept=".json" multiple style="display: none">
+    </div>
+  </div>
   <div repeat.for="deck of decks">
     ${deck.name}
-    <button click.delegate="load(deck)">Load</button>
-    <button click.delegate="download(deck)">Download</button>
-    <button click.delegate="remove(deck)">Remove</button>
+    <button class="btn btn-outline-secondary" click.delegate="load(deck)">Load</button>
+    <button class="btn btn-outline-secondary" click.delegate="download(deck)">Download</button>
+    <button class="btn btn-outline-danger" click.delegate="remove(deck)">Remove</button>
   </div>
 </template>
