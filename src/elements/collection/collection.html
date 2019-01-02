@@ -3,15 +3,19 @@
     <div class="p-2">
       <button class="btn btn-outline-secondary" click.delegate="new()">New</button>
     </div>
-    <!-- TODO
-  <button click.delegate="importCollection(deck)">Import collection</button>
-  <button click.delegate="cleanCollection(deck)">Import collection</button>-->
+    <div class="p-2">
+      <label class="btn btn-outline-secondary" for="collection-upload">Import collection</label>
+      <input type="file" ref="collectionUpload" change.delegate="importCollection()" id="collection-upload" name="collection-upload" accept=".json" style="display: none">
+    </div>
+    <div class="p-2">
+      <button class="btn btn-outline-secondary" click.delegate="clearCollection()">Clear collection</button>
+    </div>
     <div class="p-2">
       <button class="btn btn-outline-secondary" click.delegate="downloadCollection()">Download collection</button>
     </div>        
     <div class="p-2">
-      <label class="btn btn-outline-secondary" for="deck-uploads">Importer deck(s)</label>
-      <input type="file" ref="fileUpload" change.delegate="importDeck()" id="deck-uploads" name="deck-uploads" accept=".json" multiple style="display: none">
+      <label class="btn btn-outline-secondary" for="deck-uploads">Import deck(s)</label>
+      <input type="file" ref="deckUpload" change.delegate="importDeck()" id="deck-uploads" name="deck-uploads" accept=".json" multiple style="display: none">
     </div>
   </div>
   <div repeat.for="deck of decks">

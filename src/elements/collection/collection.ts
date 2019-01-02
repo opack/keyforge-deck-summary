@@ -3,7 +3,7 @@ import { EventAggregator } from 'aurelia-event-aggregator';
 
 import { DeckModel } from 'models/deck-model';
 
-import { LocalStorageService, DataStored, DataRemoved } from 'services/local-storage-service';
+import { LocalStorageService, DataStored, DataRemoved, DataCleared } from 'services/local-storage-service';
 import { CurrentDeckService } from 'services/current-deck-service';
 import { FileDownloaderService } from 'services/file-downloader-service';
 
@@ -20,6 +20,7 @@ export class CollectionCustomElement {
     // Subscribe to any storage change
     eventAggregator.subscribe(DataStored, msg => this.loadCollection());
     eventAggregator.subscribe(DataRemoved, msg => this.loadCollection());
+    eventAggregator.subscribe(DataCleared, msg => this.loadCollection());
   }
 
   loadCollection() {
@@ -67,17 +68,36 @@ export class CollectionCustomElement {
   }
 
   importDeck() {
-    const files = this['fileUpload'].files;
+    const files = this['deckUpload'].files;
     for (let cur = 0; cur < files.length; cur++) {
       const file = files.item(cur);
       const reader = new FileReader();
 
       reader.onload = event => {
         const deck: DeckModel = JSON.parse(reader.result as string) as DeckModel;
-        // TODO If the deck already exists, prompt for overwrite
-        this.storage.store(deck.name, deck);
+        this.storeDeck(deck);
       };
       reader.readAsText(file);
     }
+  }
+
+  importCollection() {
+    const file = this['collectionUpload'].files.item(0);
+    const reader = new FileReader();
+
+    reader.onload = event => {
+      const collection: Array<DeckModel> = JSON.parse(reader.result as string) as Array<DeckModel>;
+      collection.forEach(deck => this.storeDeck(deck));
+    };
+    reader.readAsText(file);
+  }
+
+  private storeDeck(deck) {
+    // TODO If the deck already exists, prompt to confirm overwrite
+    this.storage.store(deck.name, deck);
+  }
+
+  clearCollection() {
+    this.storage.clear();
   }
 }

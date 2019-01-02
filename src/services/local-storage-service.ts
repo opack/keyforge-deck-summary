@@ -15,6 +15,13 @@ export class DataRemoved {
   constructor(public key: string) {}
 }
 
+/**
+ * Message sent when all data is cleared
+ */
+export class DataCleared {
+  constructor() {}
+}
+
 @autoinject
 export class LocalStorageService {
   private storage: Storage;
@@ -45,6 +52,13 @@ export class LocalStorageService {
     this.storage.removeItem(key);
 
     // Publish a new message to indicate this
-    this.eventAggregator.publish(new DataRemoved(key));  
+    this.eventAggregator.publish(new DataRemoved(key));
+  }
+
+  clear() {
+    this.storage.clear();
+
+    // Publish a new message to indicate this
+    this.eventAggregator.publish(new DataCleared());
   }
 }
