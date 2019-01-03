@@ -8,6 +8,7 @@ import { DeckModel } from 'models/deck-model';
 import { LocalStorageService, DataStored, DataRemoved, DataCleared } from 'services/local-storage-service';
 import { CurrentDeckService } from 'services/current-deck-service';
 import { FileDownloaderService } from 'services/file-downloader-service';
+import { I18nService } from 'services/i18n-service';
 
 const NB_CARDS = 36;
 
@@ -15,7 +16,13 @@ const NB_CARDS = 36;
 export class CollectionCustomElement {
   decks: Array<DeckModel>;
 
-  constructor(private storage: LocalStorageService, private currentDeck: CurrentDeckService, private eventAggregator: EventAggregator, private fileDownloaderService: FileDownloaderService) {
+  constructor(
+    private storage: LocalStorageService,
+    private currentDeck: CurrentDeckService,
+    private fileDownloaderService: FileDownloaderService,
+    private i18nService: I18nService,
+    eventAggregator: EventAggregator
+    ) {
     // Retrieve the list of stored decks
     this.loadCollection();    
 

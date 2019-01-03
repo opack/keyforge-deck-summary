@@ -2,27 +2,27 @@
   <div class="btn-group" role="group">
     <div class="btn-group" role="group">
       <button id="btnGroupDeck" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Deck
+          ${i18nService.get('ui.collection.deck-menu.title')}
       </button>
       <div class="dropdown-menu" aria-labelledby="btnGroupDeck">
-        <button class="dropdown-item" click.delegate="new()">New deck</button>
+        <button class="dropdown-item" click.delegate="new()">${i18nService.get('ui.collection.deck-menu.new')}</button>
         
-        <label class="dropdown-item" for="deck-uploads">Import deck(s)</label>
+        <label class="dropdown-item" for="deck-uploads">${i18nService.get('ui.collection.deck-menu.import')}</label>
         <input type="file" ref="deckUpload" change.delegate="importDeck()" id="deck-uploads" name="deck-uploads" accept=".json" multiple style="display: none">
       </div>
     </div>
 
     <div class="btn-group" role="group">
       <button id="btnGroupCollection" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Collection
+          ${i18nService.get('ui.collection.collection-menu.title')}
       </button>
       <div class="dropdown-menu" aria-labelledby="btnGroupCollection">
-        <label class="dropdown-item" for="collection-upload">Import collection</label>
+        <label class="dropdown-item" for="collection-upload">${i18nService.get('ui.collection.collection-menu.import')}</label>
         <input type="file" ref="collectionUpload" change.delegate="importCollection()" id="collection-upload" name="collection-upload" accept=".json" style="display: none">
         
-        <button class="dropdown-item" click.delegate="downloadCollection()">Download collection</button>
+        <button class="dropdown-item" click.delegate="downloadCollection()">${i18nService.get('ui.collection.collection-menu.download')}</button>
         
-        <button class="dropdown-item" click.delegate="clearCollection()">Clear collection</button>
+        <button class="dropdown-item" click.delegate="clearCollection()">${i18nService.get('ui.collection.collection-menu.clear')}</button>
       </div>
     </div>
   </div>
@@ -30,8 +30,8 @@
   
   <div repeat.for="deck of decks">
     ${deck.name}
-    <button class="btn btn-outline-secondary" click.delegate="load(deck)">Load</button>
-    <button class="btn btn-outline-secondary" click.delegate="download(deck)">Download</button>
-    <button class="btn btn-outline-danger" click.delegate="remove(deck)">Remove</button>
+    <button class="btn btn-outline-secondary" click.delegate="load(deck)">${i18nService.get('ui.collection.deck-load')}</button>
+    <button class="btn btn-outline-secondary" click.delegate="download(deck)">${i18nService.get('ui.collection.deck-download')}</button>
+    <button class="btn btn-outline-danger" click.delegate="remove(deck)">${i18nService.get('ui.collection.deck-remove')}</button>
   </div>
 </template>

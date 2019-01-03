@@ -53,5 +53,24 @@
   "triggers": {
     "permanent": "P",
     "omni": "O"
+  },
+  "ui": {
+    "collection": {
+      "tab": "Collection",
+      "deck-menu": {
+        "title": "Deck",
+        "new": "Nouveau deck",
+        "import": "Importer deck(s)"
+      },
+      "collection-menu": {
+        "title": "Collection",
+        "import": "Importer une collection",
+        "download": "Télécharger la collection",
+        "clear": "Vider la collection"
+      },
+      "deck-load": "Charger",
+      "deck-download": "Télécharger",
+      "deck-remove": "Supprimer"
+    }
   }
 }
