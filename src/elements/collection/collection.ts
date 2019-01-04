@@ -55,6 +55,7 @@ export class CollectionCustomElement {
   }
 
   remove(deck: DeckModel): void {
+    // TODO Prompt for confirmation
     this.storage.remove(deck.name);
   }
 

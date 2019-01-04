@@ -21,6 +21,7 @@ export class EditorCustomElement {
       console.log('Cannot save deck without a name!');
       return;
     }
+    // TODO Check for modifications and prompt to indicate current modifications will be lost
     this.storage.store(this.deck.name, this.deck);
   }
 
