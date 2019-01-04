@@ -3,14 +3,14 @@
   <require from="elements/editor/card/card"></require>
 
   <div class="d-flex flex-row align-items-center">
-    <button click.delegate="save()">Save</button>
+    <button click.delegate="save()">${i18nService.get('ui.editor.save')}</button>
   </div>
   <div class="d-flex flex-row align-items-center">
-    <div "p-1">Name:</div>
+    <div "p-1">${i18nService.get('ui.editor.name')}</div>
     <div "p-1"><input value.bind="deck.name"></div>
   </div>
   <div class="d-flex flex-row align-items-center">
-    <div "p-1">QR code:</div>
+    <div "p-1">${i18nService.get('ui.editor.qr-code')}</div>
     <div "p-1"><input value.bind="deck.qrcode"></div>
   </div>
   <!-- TODO Add the ability to upload a background image -->

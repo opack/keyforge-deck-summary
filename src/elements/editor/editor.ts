@@ -1,15 +1,19 @@
 import { isNullOrUndefined } from 'util';
 
-import { inject, bindable } from 'aurelia-framework';
+import { bindable, autoinject } from 'aurelia-framework';
 
 import { LocalStorageService } from 'services/local-storage-service';
+import { I18nService } from 'services/i18n-service';
 import { DeckModel } from 'models/deck-model';
 
-@inject(LocalStorageService)
+@autoinject
 export class EditorCustomElement {
   @bindable deck: DeckModel;
   
-  constructor(private storage: LocalStorageService) {
+  constructor(
+    private storage: LocalStorageService,
+    private i18nService: I18nService,// Do not delete: used in HTML template to interpolate strings
+  ) {
   }
 
   save(): void {

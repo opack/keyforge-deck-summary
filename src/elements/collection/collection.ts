@@ -20,7 +20,7 @@ export class CollectionCustomElement {
     private storage: LocalStorageService,
     private currentDeck: CurrentDeckService,
     private fileDownloaderService: FileDownloaderService,
-    private i18nService: I18nService,
+    private i18nService: I18nService,// Do not delete: used in HTML template to interpolate strings
     eventAggregator: EventAggregator
     ) {
     // Retrieve the list of stored decks

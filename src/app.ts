@@ -1,11 +1,16 @@
-import { CurrentDeckService } from './services/current-deck-service';
 import * as $ from 'jquery';
 
-import { inject } from 'aurelia-framework';
+import { autoinject } from 'aurelia-framework';
 
-@inject(CurrentDeckService)
+import { CurrentDeckService } from './services/current-deck-service';
+import { I18nService } from 'services/i18n-service';
+
+@autoinject
 export class App {
-  constructor(private currentDeck: CurrentDeckService) {
+  constructor(
+    private currentDeck: CurrentDeckService,
+    private i18nService: I18nService,// Do not delete: used in HTML template to interpolate strings
+  ) {
   }
 
   attached() {

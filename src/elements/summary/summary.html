@@ -9,20 +9,22 @@
   <div id="summary-parameters">
     <!-- TODO Add size parameters-->
 
-    Group by:
+    <!-- TODO BUG Le tri / groupage par compétence devrait créer des groupes par lettre, que ça soit les skills ou les trigger -->
+    <!-- TODO BUG  Le groupe par puissance / armure produit des résultats étranges. Les retirer ? -->
+    ${i18nService.get('ui.summary.parameters.group-by')}
     <select value.bind="groupingProperty">
       <option value="undefined"></option>
-      <option repeat.for="property of CardPropertiesEnum" model.bind="getCardPropertyValue(property)">${property}</option>
+      <option repeat.for="property of CardPropertiesEnum" model.bind="getCardPropertyValue(property)">${i18nService.get(`ui.summary.cardProperties.${property.toLowerCase()}`)}</option>
     </select>
 
-    Sort by:
+    ${i18nService.get('ui.summary.parameters.sort-by')}
     <select value.bind="sortingProperty">
       <option value="undefined"></option>
-      <option repeat.for="property of CardPropertiesEnum" model.bind="getCardPropertyValue(property)">${property}</option>
+      <option repeat.for="property of CardPropertiesEnum" model.bind="getCardPropertyValue(property)">${i18nService.get(`ui.summary.cardProperties.${property.toLowerCase()}`)}</option>
     </select>
 
-    <button click.delegate="rebuild()">Refresh</button>
-    <button click.delegate="download()">Download</button>
+    <button click.delegate="rebuild()">${i18nService.get('ui.summary.refresh')}</button>
+    <button click.delegate="download()">${i18nService.get('ui.summary.download')}</button>
   </div>
 
   <!-- TODO Add a name tag with the name of the archon and the 3 houses of the deck -->

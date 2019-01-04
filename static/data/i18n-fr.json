@@ -55,8 +55,13 @@
     "omni": "O"
   },
   "ui": {
+    "app": {
+      "title": "KeyForge Deck Summary",
+      "collection-tab": "Collection",
+      "editor-tab": "Editeur",
+      "summary-tab": "Résumé"
+    },
     "collection": {
-      "tab": "Collection",
       "deck-menu": {
         "title": "Deck",
         "new": "Nouveau deck",
@@ -71,6 +76,31 @@
       "deck-load": "Charger",
       "deck-download": "Télécharger",
       "deck-remove": "Supprimer"
+    },
+    "editor": {
+      "save": "Enregistrer",
+      "name": "Nom :",
+      "qr-code": "QR code :",
+      "background-image": "Image de fond :",
+      "background-image-upload": "Envoyer"
+    },
+    "summary": {
+      "parameters": {
+        "group-by": "Grouper par :",
+        "sort-by": "Trier par :"
+      },
+      "refresh": "Rafraîchir",
+      "download": "Télécharger",
+      "cardProperties": {
+        "title": "Titre",
+        "type": "Type",
+        "house": "Maison",
+        "aember": "Aombre",
+        "power": "Puissance",
+        "armor": "Armure",
+        "skills": "Compétences",
+        "trigger": "Déclenchement"
+      }
     }
   }
 }

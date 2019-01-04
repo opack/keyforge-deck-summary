@@ -8,7 +8,7 @@ export class I18nService {
   private strings: {};
 
   constructor(private jsonFetcherService: JsonFetcherService, private compositionTransaction: CompositionTransaction) {
-    this.load('en');
+    this.load('fr');
   }
 
   load(language: string) {
