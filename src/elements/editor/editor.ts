@@ -23,4 +23,15 @@ export class EditorCustomElement {
     }
     this.storage.store(this.deck.name, this.deck);
   }
+
+  importBackgoundImage(): void {
+    const file = this['backgoundUpload'].files.item(0);
+    const reader = new FileReader();
+    const deck = this.deck;
+
+    reader.onload = event => {
+      deck.backgroundImage = reader.result as string;
+    };
+    reader.readAsDataURL(file);
+  }
 }

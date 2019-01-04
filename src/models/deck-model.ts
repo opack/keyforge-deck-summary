@@ -3,6 +3,10 @@ import { CardModel } from "./card-model";
 export class DeckModel {
   name: string;
   qrcode: string;
+  /**
+   * Image as data URL
+   */
+  backgroundImage: string;
   cards: Array<CardModel>;
 
   init(nbCards: number) {

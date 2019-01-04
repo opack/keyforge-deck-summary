@@ -13,7 +13,15 @@
     <div "p-1">${i18nService.get('ui.editor.qr-code')}</div>
     <div "p-1"><input value.bind="deck.qrcode"></div>
   </div>
-  <!-- TODO Add the ability to upload a background image -->
+  <div class="d-flex flex-row align-items-center">
+    <div "p-1">${i18nService.get('ui.editor.background-image')}</div>
+    <div "p-1">
+      <div ref="preview"><img src.bind="deck.backgroundImage" class="background-image-preview"></div>
+      
+      <label class="btn btn-outline-secondary" for="background-upload">${i18nService.get('ui.editor.background-image-upload')}</label>
+      <input type="file" ref="backgoundUpload" change.delegate="importBackgoundImage()" id="background-upload" name="background-upload" accept="image/*" style="display: none">      
+    </div>
+  </div>
 
   <div class="container">
     <div>
