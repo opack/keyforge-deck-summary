@@ -7,9 +7,10 @@ export class FileDownloaderService {
   }
 
   downloadObjectAsJSON(object: any, filename: string): void {
-    const data = 'text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(object));
-    const href = `data:${data}`;
+    var data = JSON.stringify(object);
+    var blob = new Blob([data], {type: "application/json"});
+    var url  = URL.createObjectURL(blob);
     
-    this.download(href, filename);
+    this.download(url, filename);
   }
 }

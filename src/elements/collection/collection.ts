@@ -59,7 +59,7 @@ export class CollectionCustomElement {
   }
 
   download(deck: DeckModel): void {
-    this.fileDownloaderService.downloadObjectAsJSON(deck, `${deck.name}.json`);
+    this.fileDownloaderService.downloadObjectAsJSON(deck, `${deck.name}.kdsd`);
   }
 
   downloadCollection() {
@@ -72,7 +72,7 @@ export class CollectionCustomElement {
     });
 
     const now = new Date();
-    this.fileDownloaderService.downloadObjectAsJSON(collection, `deck-collection-${now.getFullYear()}${now.getMonth() + 1}${now.getDate()}-${now.getHours()}${now.getMinutes()}.json`);
+    this.fileDownloaderService.downloadObjectAsJSON(collection, `deck-collection-${now.getFullYear()}${now.getMonth() + 1}${now.getDate()}-${now.getHours()}${now.getMinutes()}.kdsc`);
   }
 
   importDeck() {

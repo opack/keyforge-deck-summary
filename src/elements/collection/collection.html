@@ -8,7 +8,7 @@
         <button class="dropdown-item" click.delegate="new()">${i18nService.get('ui.collection.deck-menu.new')}</button>
         
         <label class="dropdown-item" for="deck-uploads">${i18nService.get('ui.collection.deck-menu.import')}</label>
-        <input type="file" ref="deckUpload" change.delegate="importDeck()" id="deck-uploads" name="deck-uploads" accept=".json" multiple style="display: none">
+        <input type="file" ref="deckUpload" change.delegate="importDeck()" id="deck-uploads" name="deck-uploads" accept=".kdsd" multiple style="display: none">
       </div>
     </div>
 
@@ -18,7 +18,7 @@
       </button>
       <div class="dropdown-menu" aria-labelledby="btnGroupCollection">
         <label class="dropdown-item" for="collection-upload">${i18nService.get('ui.collection.collection-menu.import')}</label>
-        <input type="file" ref="collectionUpload" change.delegate="importCollection()" id="collection-upload" name="collection-upload" accept=".json" style="display: none">
+        <input type="file" ref="collectionUpload" change.delegate="importCollection()" id="collection-upload" name="collection-upload" accept=".kdsc" style="display: none">
         
         <button class="dropdown-item" click.delegate="downloadCollection()">${i18nService.get('ui.collection.collection-menu.download')}</button>
         
