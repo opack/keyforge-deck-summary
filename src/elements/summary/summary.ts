@@ -23,9 +23,6 @@ export class SummaryCustomElement {
   @bindable
   deck: DeckModel;
 
-  // // TODO Create a service that will be used in every TS and HTML file
-  // i18n: any;
-
   constructor(private fileDownloaderService: FileDownloaderService, private i18nService: I18nService) {
     this.groups = new Array<string>();
     this.cardsByGroup = {};
@@ -34,12 +31,6 @@ export class SummaryCustomElement {
     this.groupingProperty = CardPropertiesEnum.Type;
     this.sortingProperty = CardPropertiesEnum.Title;
   }
-
-  // bind() {
-  //   new JsonFetcherService().fetch('i18n-en.json').then(data => {
-  //     this.i18n = data;
-  //   });
-  // }
 
   getCardPropertyValue(property: string) {
     return CardPropertiesEnum[property];
