@@ -73,9 +73,27 @@
         "download": "Download collection",
         "clear": "Clear collection"
       },
+      "confirm-collection-clear-modal": {
+        "title": "Collection clear",
+        "message": "Do you really want to remove all decks?",
+        "cancel": "No, cancel",
+        "confirm": "Yes, clear them"
+      },
       "deck-load": "Load",
       "deck-download": "Download",
-      "deck-remove": "Remove"
+      "deck-remove": "Remove",
+      "confirm-deck-remove-modal": {
+        "title": "Deck removal",
+        "message": "Do you really want to remove the deck '{name}'?",
+        "cancel": "No, cancel",
+        "confirm": "Yes, remove it"
+      },
+      "confirm-deck-overwrite-modal": {
+        "title": "Deck overwrite",
+        "message": "The deck '{name}' already exists. Do you really want to overwrite it?",
+        "cancel": "No, keep the existing one",
+        "confirm": "Yes, overwrite it"
+      }
     },
     "editor": {
       "save": "Save",

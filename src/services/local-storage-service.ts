@@ -30,6 +30,10 @@ export class LocalStorageService {
       this.storage = window.localStorage;
   }
 
+  contains(key: string): boolean {
+    return this.getKeys().includes(key);
+  }
+
   getKeys(): string[] {
     return Object.keys(this.storage);
   }

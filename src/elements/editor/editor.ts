@@ -34,5 +34,7 @@ export class EditorCustomElement {
       deck.backgroundImage = reader.result as string;
     };
     reader.readAsDataURL(file);
+     // Clear the value to make sure that a new selection, even with the same file name, will trigger the change event
+     this['deckUpload'].value = '';
   }
 }

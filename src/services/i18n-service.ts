@@ -2,6 +2,7 @@ import * as _ from 'lodash';
 
 import { autoinject, CompositionTransaction } from 'aurelia-framework';
 import { JsonFetcherService } from 'services/json-fetcher-service';
+import { isNullOrUndefined } from 'util';
 
 @autoinject
 export class I18nService {
@@ -19,7 +20,13 @@ export class I18nService {
     });
   }
 
-  get(key: string) {
-    return _.get(this.strings, key);
+  get(key: string, parameters?: {}) {
+    let message: string = _.get(this.strings, key);
+    if (!isNullOrUndefined(parameters) && !isNullOrUndefined(message)) {
+      for (let parameter in parameters) {
+        message = message.replace(`{${parameter}}`, parameters[parameter]);
+      }
+    }
+    return message;
   }
 }

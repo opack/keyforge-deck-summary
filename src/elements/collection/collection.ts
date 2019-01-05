@@ -2,6 +2,7 @@ import * as _ from 'lodash';
 
 import { autoinject } from 'aurelia-framework';
 import { EventAggregator } from 'aurelia-event-aggregator';
+import { DialogService } from 'aurelia-dialog';
 
 import { DeckModel } from 'models/deck-model';
 
@@ -9,6 +10,7 @@ import { LocalStorageService, DataStored, DataRemoved, DataCleared } from 'servi
 import { CurrentDeckService } from 'services/current-deck-service';
 import { FileDownloaderService } from 'services/file-downloader-service';
 import { I18nService } from 'services/i18n-service';
+import { ConfirmDialog } from 'resources/elements/confirm-dialog/confirm-dialog';
 
 const NB_CARDS = 36;
 
@@ -21,6 +23,7 @@ export class CollectionCustomElement {
     private currentDeck: CurrentDeckService,
     private fileDownloaderService: FileDownloaderService,
     private i18nService: I18nService,// Do not delete: used in HTML template to interpolate strings
+    private dialogService: DialogService,
     eventAggregator: EventAggregator
     ) {
     // Retrieve the list of stored decks
@@ -55,8 +58,22 @@ export class CollectionCustomElement {
   }
 
   remove(deck: DeckModel): void {
-    // TODO Prompt for confirmation
-    this.storage.remove(deck.name);
+    this.dialogService.open({
+      viewModel: ConfirmDialog,
+      model: {
+        title: this.i18nService.get('ui.collection.confirm-deck-remove-modal.title'),
+        message: this.i18nService.get('ui.collection.confirm-deck-remove-modal.message', {name: deck.name}),
+        cancel: this.i18nService.get('ui.collection.confirm-deck-remove-modal.cancel'),
+        cancelClass: "btn-success",
+        ok: this.i18nService.get('ui.collection.confirm-deck-remove-modal.confirm'),
+        okClass: "btn-outline-danger"
+      },
+      lock: false
+    }).whenClosed(response => {
+      if (!response.wasCancelled) {
+        this.storage.remove(deck.name);
+      }
+    });
   }
 
   download(deck: DeckModel): void {
@@ -88,6 +105,8 @@ export class CollectionCustomElement {
       };
       reader.readAsText(file);
     }
+    // Clear the value to make sure that a new selection, even with the same file name, will trigger the change event
+    this['deckUpload'].value = '';
   }
 
   importCollection() {
@@ -99,14 +118,53 @@ export class CollectionCustomElement {
       collection.forEach(deck => this.storeDeck(deck));
     };
     reader.readAsText(file);
+    // Clear the value to make sure that a new selection, even with the same file name, will trigger the change event
+    this['collectionUpload'].value = '';
   }
 
-  private storeDeck(deck) {
-    // TODO If the deck already exists, prompt to confirm overwrite
-    this.storage.store(deck.name, deck);
+  private clearInput(inputElement) {
+    inputElement.replaceWith(inputElement.val('').clone(true));
+  }
+
+  private storeDeck(deck: DeckModel) {
+    if (this.storage.contains(deck.name)) {
+      this.dialogService.open({
+        viewModel: ConfirmDialog,
+        model: {
+          title: this.i18nService.get('ui.collection.confirm-deck-overwrite-modal.title'),
+          message: this.i18nService.get('ui.collection.confirm-deck-overwrite-modal.message', {name: deck.name}),
+          cancel: this.i18nService.get('ui.collection.confirm-deck-overwrite-modal.cancel'),
+          cancelClass: "btn-success",
+          ok: this.i18nService.get('ui.collection.confirm-deck-overwrite-modal.confirm'),
+          okClass: "btn-outline-danger"
+        },
+        lock: false
+      }).whenClosed(response => {
+        if (!response.wasCancelled) {
+          this.storage.store(deck.name, deck);
+        }
+      });
+    } else {
+      this.storage.store(deck.name, deck);
+    }    
   }
 
   clearCollection() {
-    this.storage.clear();
+    this.dialogService.open({
+      viewModel: ConfirmDialog,
+      model: {
+        title: this.i18nService.get('ui.collection.confirm-collection-clear-modal.title'),
+        message: this.i18nService.get('ui.collection.confirm-collection-clear-modal.message'),
+        cancel: this.i18nService.get('ui.collection.confirm-collection-clear-modal.cancel'),
+        cancelClass: "btn-success",
+        ok: this.i18nService.get('ui.collection.confirm-collection-clear-modal.confirm'),
+        okClass: "btn-outline-danger"
+      },
+      lock: false
+    }).whenClosed(response => {
+      if (!response.wasCancelled) {
+        this.storage.clear();
+      }
+    });    
   }
 }

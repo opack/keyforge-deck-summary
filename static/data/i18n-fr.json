@@ -73,9 +73,27 @@
         "download": "Télécharger la collection",
         "clear": "Vider la collection"
       },
+      "confirm-collection-clear-modal": {
+        "title": "Suppression de la collection",
+        "message": "Voulez-vous vraiment supprimer tous les decks ?",
+        "cancel": "Non, annuler",
+        "confirm": "Oui, supprimer tout"
+      },
       "deck-load": "Charger",
       "deck-download": "Télécharger",
-      "deck-remove": "Supprimer"
+      "deck-remove": "Supprimer",
+      "confirm-deck-remove-modal": {
+        "title": "Suppression du deck",
+        "message": "Voulez-vous vraiment supprimer le deck '{name}' ?",
+        "cancel": "Non, annuler",
+        "confirm": "Oui, supprimer"
+      },
+      "confirm-deck-overwrite-modal": {
+        "title": "Ecrasement de deck",
+        "message": "Le deck '{name}' existe déjà. Voulez-vous vraiment l'écraser?",
+        "cancel": "Non, conserver l'existant",
+        "confirm": "Oui, l'écraser"
+      }
     },
     "editor": {
       "save": "Enregistrer",
