@@ -1,6 +1,6 @@
 import { isNullOrUndefined } from 'util';
 
-import * as hash from 'object-hash';
+import sha1 from 'sha1';
 import * as _ from 'lodash';
 
 import { LocalStorageService } from 'services/local-storage-service';
@@ -29,23 +29,30 @@ export class CurrentDeckService {
   }
 
   updateHash(): void {
-    this.originalHash = this.hash(this.deck);
+    this.originalHash = this.hashDeck(this.deck);
   }
 
-  private hash(deck: DeckModel): string {
-    return hash(deck, {
-      excludeKeys: key => {
-        // Ignore fields when the value is undefined
-        return isNullOrUndefined(deck[key]);
-      }
-    });
+  private hashDeck(deck: DeckModel): string {
+    const hash = sha1(JSON.stringify(deck, (name, value) => {
+        // Ignore fields when the value is undefined, null or empty (string, object or array)
+        if (isNullOrUndefined(value)
+        || value === ''
+        || value === {}
+        || (Array.isArray(value) && value.length === 0)) {
+          return undefined;
+        }
+        // Else, let stringify do its job
+        return value;
+    }));
+    return hash;
   }
 
   hasChanged(): boolean {
+    // TODO BUG si on change le contenu d'une carte marche pas !!!
     if (isNullOrUndefined(this.deck) || isNullOrUndefined(this.originalHash)) {
       return false;
     }
-    return this.hash(this.deck) !== this.originalHash;
+    return this.hashDeck(this.deck) !== this.originalHash;
   }
 
   hasCards(): boolean {
@@ -61,7 +68,7 @@ export class CurrentDeckService {
   }
 
   save(): void {
-    if (this.originalHash !== hash(this.deck)) {
+    if (this.originalHash !== this.hashDeck(this.deck)) {
       this.storage.store(this.deck.name, this.deck);
       this.updateHash();
     }
