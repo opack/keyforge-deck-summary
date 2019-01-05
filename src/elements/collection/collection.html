@@ -20,9 +20,9 @@
         <label class="dropdown-item" for="collection-upload">${i18nService.get('ui.collection.collection-menu.import')}</label>
         <input type="file" ref="collectionUpload" change.delegate="importCollection()" id="collection-upload" name="collection-upload" accept=".kdsc" style="display: none">
         
-        <button class="dropdown-item" click.delegate="downloadCollection()">${i18nService.get('ui.collection.collection-menu.download')}</button>
+        <button class="dropdown-item ${decks.length > 0 ? '' : 'disabled'}" click.delegate="downloadCollection()">${i18nService.get('ui.collection.collection-menu.download')}</button>
         
-        <button class="dropdown-item" click.delegate="clearCollection()">${i18nService.get('ui.collection.collection-menu.clear')}</button>
+        <button class="dropdown-item ${decks.length > 0 ? '' : 'disabled'}" click.delegate="clearCollection()">${i18nService.get('ui.collection.collection-menu.clear')}</button>
       </div>
     </div>
   </div>
