@@ -93,6 +93,12 @@
         "message": "Le deck '{name}' existe déjà. Voulez-vous vraiment l'écraser?",
         "cancel": "Non, conserver l'existant",
         "confirm": "Oui, l'écraser"
+      },
+      "confirm-changes-loss-modal": {
+        "title": "Perte des modifications",
+        "message": "Vous êtes sur le point de perdre les modifications non sauvegardées effectuées dans l'onglet 'Editeur'. Voulez-vous continuer ?",
+        "cancel": "Non, annuler",
+        "confirm": "Oui, perdre les modifications"
       }
     },
     "editor": {

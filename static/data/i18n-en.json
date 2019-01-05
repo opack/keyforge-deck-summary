@@ -93,6 +93,12 @@
         "message": "The deck '{name}' already exists. Do you really want to overwrite it?",
         "cancel": "No, keep the existing one",
         "confirm": "Yes, overwrite it"
+      },
+      "confirm-changes-loss-modal": {
+        "title": "Loss of changes",
+        "message": "You are about to lose the unsaved changes made in the 'Editor' tab. Do you want to continue?",
+        "cancel": "No, cancel",
+        "confirm": "Yes, lose the changes"
       }
     },
     "editor": {

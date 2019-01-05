@@ -7,16 +7,16 @@
   </div>
   <div class="d-flex flex-row align-items-center">
     <div "p-1">${i18nService.get('ui.editor.name')}</div>
-    <div "p-1"><input value.bind="deck.name"></div>
+    <div "p-1"><input value.bind="currentDeckService.deck.name"></div>
   </div>
   <div class="d-flex flex-row align-items-center">
     <div "p-1">${i18nService.get('ui.editor.qr-code')}</div>
-    <div "p-1"><input value.bind="deck.qrcode"></div>
+    <div "p-1"><input value.bind="currentDeckService.deck.qrcode"></div>
   </div>
   <div class="d-flex flex-row align-items-center">
     <div "p-1">${i18nService.get('ui.editor.background-image')}</div>
     <div "p-1">
-      <div ref="preview"><img src.bind="deck.backgroundImage" class="background-image-preview"></div>
+      <div ref="preview"><img src.bind="currentDeckService.deck.backgroundImage" class="background-image-preview"></div>
       
       <label class="btn btn-outline-secondary" for="background-upload">${i18nService.get('ui.editor.background-image-upload')}</label>
       <input type="file" ref="backgoundUpload" change.delegate="importBackgoundImage()" id="background-upload" name="background-upload" accept="image/*" style="display: none">      
@@ -36,6 +36,6 @@
         <div class="col-2 text-center"><img src.bind="'images/misc/trigger.png'" class="editor-header-image"></div>
       </div>
     </div>
-    <card repeat.for="card of deck.cards" model.two-way="card"></card>
+    <card repeat.for="card of currentDeckService.deck.cards" model.two-way="card"></card>
   </div>
 </template>

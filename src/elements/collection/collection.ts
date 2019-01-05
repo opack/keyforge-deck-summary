@@ -1,5 +1,3 @@
-import * as _ from 'lodash';
-
 import { autoinject } from 'aurelia-framework';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { DialogService } from 'aurelia-dialog';
@@ -12,15 +10,13 @@ import { FileDownloaderService } from 'services/file-downloader-service';
 import { I18nService } from 'services/i18n-service';
 import { ConfirmDialog } from 'resources/elements/confirm-dialog/confirm-dialog';
 
-const NB_CARDS = 36;
-
 @autoinject
 export class CollectionCustomElement {
   decks: Array<DeckModel>;
 
   constructor(
     private storage: LocalStorageService,
-    private currentDeck: CurrentDeckService,
+    private currentDeckService: CurrentDeckService,
     private fileDownloaderService: FileDownloaderService,
     private i18nService: I18nService,// Do not delete: used in HTML template to interpolate strings
     private dialogService: DialogService,
@@ -44,17 +40,52 @@ export class CollectionCustomElement {
   }
 
   new() {
-    const deck = new DeckModel();
-    deck.init(NB_CARDS);
-    this.currentDeck.deck = deck;
+    // TODO Barre de progression ou spin d'attente
+    if (this.currentDeckService.hasChanged()) {
+      this.dialogService.open({
+        viewModel: ConfirmDialog,
+        model: {
+          title: this.i18nService.get('ui.collection.confirm-changes-loss-modal.title'),
+          message: this.i18nService.get('ui.collection.confirm-changes-loss-modal.message'),
+          cancel: this.i18nService.get('ui.collection.confirm-changes-loss-modal.cancel'),
+          cancelClass: "btn-success",
+          ok: this.i18nService.get('ui.collection.confirm-changes-loss-modal.confirm'),
+          okClass: "btn-outline-danger"
+        },
+        lock: false
+      }).whenClosed(response => {
+        if (!response.wasCancelled) {
+          this.currentDeckService.newDeck();
+        }
+      });
+    } else {
+      this.currentDeckService.newDeck();
+    }
   }
 
   load(deck: DeckModel) {
-    // Copy the deck
-    const workingCopy = _.clone(deck);
-
-    // Use it
-    this.currentDeck.deck = workingCopy;
+    // TODO Barre de progression ou spin d'attente
+    // Copy the deck and use it
+    if (this.currentDeckService.hasChanged()) {
+      this.dialogService.open({
+        viewModel: ConfirmDialog,
+        model: {
+          title: this.i18nService.get('ui.collection.confirm-changes-loss-modal.title'),
+          message: this.i18nService.get('ui.collection.confirm-changes-loss-modal.message'),
+          cancel: this.i18nService.get('ui.collection.confirm-changes-loss-modal.cancel'),
+          cancelClass: "btn-success",
+          ok: this.i18nService.get('ui.collection.confirm-changes-loss-modal.confirm'),
+          okClass: "btn-outline-danger"
+        },
+        lock: false
+      }).whenClosed(response => {
+        if (!response.wasCancelled) {
+          this.currentDeckService.copyFrom(deck);
+        }
+      });
+    } else {
+      this.currentDeckService.copyFrom(deck);
+    }
   }
 
   remove(deck: DeckModel): void {

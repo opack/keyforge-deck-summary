@@ -30,7 +30,7 @@
   <!-- TODO Add a name tag with the name of the archon and the 3 houses of the deck -->
 
   <div id="summary-cards" class="summary-sheet">
-    <div class="archon-image" css="background-image: url(${deck.backgroundImage});"></div>
+    <div class="archon-image" css="background-image: url(${currentDeckService.deck.backgroundImage});"></div>
     <div class="float-left container columns">
       <div repeat.for="group of groups">
         <!-- TODO BUG Si 10 actions et 10 artefacts, alors le titre "Creatures" apparaît en haut de la 2è colonne mais sous la première carte créature ! 

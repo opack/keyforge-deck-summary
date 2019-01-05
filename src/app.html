@@ -9,8 +9,8 @@
   <nav>
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
       <a class="nav-item nav-link active" id="nav-collection-tab" data-toggle="tab" href="#nav-collection" role="tab" aria-controls="nav-collection" aria-selected="true">${i18nService.get('ui.app.collection-tab')}</a>
-      <a class="nav-item nav-link ${currentDeck.deck ? '' : 'disabled'}" id="nav-editor-tab" data-toggle="tab" href="#nav-editor" role="tab" aria-controls="nav-editor" aria-selected="false">${i18nService.get('ui.app.editor-tab')}</a>
-      <a class="nav-item nav-link ${currentDeck.deck ? '' : 'disabled'}" id="nav-summary-tab" data-toggle="tab" href="#nav-summary" role="tab" aria-controls="nav-summary" aria-selected="false">${i18nService.get('ui.app.summary-tab')}</a>
+      <a class="nav-item nav-link ${currentDeckService.deck ? '' : 'disabled'}" id="nav-editor-tab" data-toggle="tab" href="#nav-editor" role="tab" aria-controls="nav-editor" aria-selected="false">${i18nService.get('ui.app.editor-tab')}</a>
+      <a class="nav-item nav-link ${currentDeckService.deck ? '' : 'disabled'}" id="nav-summary-tab" data-toggle="tab" href="#nav-summary" role="tab" aria-controls="nav-summary" aria-selected="false">${i18nService.get('ui.app.summary-tab')}</a>
     </div>
   </nav>
 
@@ -20,11 +20,11 @@
     </div>
 
     <div class="tab-pane fade" id="nav-editor" role="tabpanel" aria-labelledby="nav-editor-tab">
-      <editor deck.bind="currentDeck.deck"></editor>
+      <editor></editor>
     </div>
 
     <div class="tab-pane fade" id="nav-summary" role="tabpanel" aria-labelledby="nav-summary-tab">
-      <summary deck.bind="currentDeck.deck" view-model.ref="summary"></summary>
+      <summary view-model.ref="summary"></summary>
     </div>
   </div>
 </template>

@@ -1,34 +1,29 @@
-import { isNullOrUndefined } from 'util';
+import { autoinject } from 'aurelia-framework';
 
-import { bindable, autoinject } from 'aurelia-framework';
-
-import { LocalStorageService } from 'services/local-storage-service';
 import { I18nService } from 'services/i18n-service';
-import { DeckModel } from 'models/deck-model';
+import { CurrentDeckService } from 'services/current-deck-service';
 
 @autoinject
 export class EditorCustomElement {
-  @bindable deck: DeckModel;
-  
   constructor(
-    private storage: LocalStorageService,
     private i18nService: I18nService,// Do not delete: used in HTML template to interpolate strings
+    private currentDeckService: CurrentDeckService
   ) {
   }
 
   save(): void {
-    if (isNullOrUndefined(this.deck) || isNullOrUndefined(this.deck.name)) {
+    if (!this.currentDeckService.isValid()) {
       console.log('Cannot save deck without a name!');
       return;
     }
-    // TODO Check for modifications and prompt to indicate current modifications will be lost
-    this.storage.store(this.deck.name, this.deck);
+    // TODO Barre de progression ou spin d'attente
+    this.currentDeckService.save();
   }
 
   importBackgoundImage(): void {
     const file = this['backgoundUpload'].files.item(0);
     const reader = new FileReader();
-    const deck = this.deck;
+    const deck = this.currentDeckService.deck;
 
     reader.onload = event => {
       deck.backgroundImage = reader.result as string;

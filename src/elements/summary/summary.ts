@@ -1,17 +1,17 @@
 import { isNullOrUndefined } from 'util';
 
-import { bindable, observable, autoinject } from 'aurelia-framework';
+import { observable, autoinject } from 'aurelia-framework';
 
 import * as html2canvas from 'html2canvas';
 import fitty from 'fitty';
 import * as QRCode from 'qrcode';
 
-import { DeckModel } from 'models/deck-model';
 import { CardModel } from 'models/card-model';
 import { CardPropertiesEnum } from 'enums/card-properties-enum';
 
 import { FileDownloaderService } from 'services/file-downloader-service';
 import { I18nService } from 'services/i18n-service';
+import { CurrentDeckService } from 'services/current-deck-service';
 
 @autoinject
 export class SummaryCustomElement {
@@ -20,10 +20,11 @@ export class SummaryCustomElement {
   private groups: Array<string>;
   private cardsByGroup: { [group: string]: Array<CardModel> };
 
-  @bindable
-  deck: DeckModel;
-
-  constructor(private fileDownloaderService: FileDownloaderService, private i18nService: I18nService) {
+  constructor(
+    private fileDownloaderService: FileDownloaderService,
+    private i18nService: I18nService,
+    private currentDeckService: CurrentDeckService
+  ) {
     this.groups = new Array<string>();
     this.cardsByGroup = {};
 
@@ -43,7 +44,7 @@ export class SummaryCustomElement {
   rebuild() {
     this.clear();
 
-    if (isNullOrUndefined(this.deck) || isNullOrUndefined(this.deck.cards)) {
+    if (!this.currentDeckService.hasCards()) {
       return;
     }
    
@@ -64,11 +65,14 @@ export class SummaryCustomElement {
   private updateQRCode() {
     // If a QR code value is specified, then render it
     const canvas = this['qrcode'];
-    if (isNullOrUndefined(this.deck.qrcode) || this.deck.qrcode === '') {
+    if (isNullOrUndefined(canvas)) {
+      return;
+    }
+    if (this.currentDeckService.hasQRCode()) {
+      QRCode.toCanvas(canvas, this.currentDeckService.deck.qrcode);
+    } else {
       const context = canvas.getContext('2d');
       context.clearRect(0, 0, canvas.width, canvas.height);
-    } else {
-      QRCode.toCanvas(canvas, this.deck.qrcode);
     }
   }
   
@@ -78,7 +82,10 @@ export class SummaryCustomElement {
   }
 
   private groupCards(): void {
-    this.deck.cards.forEach(card => {
+    if (!this.currentDeckService.isValid()) {
+      return;
+    }
+    this.currentDeckService.deck.cards.forEach(card => {
       // If the card is not defined, then skip it
       if (isNullOrUndefined(card) || isNullOrUndefined(card[this.groupingProperty])) {
         return;
@@ -135,7 +142,7 @@ export class SummaryCustomElement {
 
   download() {
     html2canvas(document.getElementById('summary-cards')).then(canvas => {
-        this.fileDownloaderService.download(canvas.toDataURL(), `${this.deck.name}.png`);
+        this.fileDownloaderService.download(canvas.toDataURL(), `${this.currentDeckService.deck.name}.png`);
       }
     );
   }

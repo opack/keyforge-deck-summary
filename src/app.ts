@@ -8,7 +8,7 @@ import { I18nService } from 'services/i18n-service';
 @autoinject
 export class App {
   constructor(
-    private currentDeck: CurrentDeckService,
+    private currentDeckService: CurrentDeckService,
     private i18nService: I18nService,// Do not delete: used in HTML template to interpolate strings
   ) {
   }
