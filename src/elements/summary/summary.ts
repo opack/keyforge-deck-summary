@@ -15,6 +15,8 @@ import { CurrentDeckService } from 'services/current-deck-service';
 
 @autoinject
 export class SummaryCustomElement {
+  @observable({changeHandler: 'parameterChanged'}) private showHouses: boolean;
+
   @observable({changeHandler: 'parameterChanged'}) private groupingProperty: CardPropertiesEnum;
   @observable({changeHandler: 'parameterChanged'}) private sortingProperty: CardPropertiesEnum;
   private groups: Array<string>;

@@ -111,7 +111,8 @@
     "summary": {
       "parameters": {
         "group-by": "Grouper par :",
-        "sort-by": "Trier par :"
+        "sort-by": "Trier par :",
+        "show-houses": "Afficher les icônes des maisons ?"
       },
       "refresh": "Rafraîchir",
       "download": "Télécharger",

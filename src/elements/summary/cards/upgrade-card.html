@@ -3,7 +3,7 @@
   <require from="./upgrade-card.css"></require>
   
   <div class="card-entry house-${model.house}">
-    <div class="col-10">
+    <div class="col-${showHouses ? 10 : 11}">
       <span class="title-text fit">${model.title}</span>
     </div>
 
@@ -13,7 +13,7 @@
       </div>
     </div>
 
-    <div class="col-1" align="center">
+    <div class="col-1" align="center" if.bind="showHouses">
       <img src.bind="'images/houses/' + model.house + '.png'" class="house-image" >
     </div>
   </div>

@@ -111,7 +111,8 @@
     "summary": {
       "parameters": {
         "groupBy": "Group by:",
-        "sortBy": "Sort by:"
+        "sortBy": "Sort by:",
+        "show-houses": "Show houses icon?"
       },
       "refresh": "Refresh",
       "download": "Download",

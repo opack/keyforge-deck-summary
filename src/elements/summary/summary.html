@@ -23,6 +23,8 @@
       <option repeat.for="property of CardPropertiesEnum" model.bind="getCardPropertyValue(property)">${i18nService.get(`ui.summary.cardProperties.${property.toLowerCase()}`)}</option>
     </select>
 
+    <input type="checkbox" checked.bind="showHouses">${i18nService.get('ui.summary.parameters.show-houses')}</input>
+
     <button click.delegate="rebuild()">${i18nService.get('ui.summary.refresh')}</button>
     <button click.delegate="download()">${i18nService.get('ui.summary.download')}</button>
   </div>
