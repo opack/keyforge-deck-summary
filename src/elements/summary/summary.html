@@ -54,9 +54,21 @@
     <!-- TODO Add the 3 houses of the deck in the bottom right corner -->
     <div class="deck-houses">
       <ul class="circle-container">
-        <li><img src.bind="'images/houses/dis.png'" class="house-dis"></li>
-        <li><img src.bind="'images/houses/mars.png'" class="house-mars"></li>
-        <li><img src.bind="'images/houses/shadows.png'" class="house-shadows"></li>
+        <li>
+          <div class="house-${house1}">
+            <img src.bind="'images/houses/' + house1 + '.png'">
+          </div>
+        </li>
+        <li>
+          <div class="house-${house2}">
+            <img src.bind="'images/houses/' + house2 + '.png'">
+          </div>
+        </li>
+        <li>
+          <div class="house-${house3}">
+            <img src.bind="'images/houses/' + house3 + '.png'">
+          </div>
+        </li>
       </ul>
     </div>
   </div>

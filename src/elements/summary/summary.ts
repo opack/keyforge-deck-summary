@@ -21,7 +21,23 @@ export class SummaryCustomElement {
   @observable({changeHandler: 'parameterChanged'}) private sortingProperty: CardPropertiesEnum;
   private groups: Array<string>;
   private cardsByGroup: { [group: string]: Array<CardModel> };
+  /**
+   * This field is used in the template and contains the dataURL of the image of the qr code
+   */
   private qrcode: string;
+
+  /**
+   * This field is used in the template and contains the name of the first house of the deck
+   */
+  private house1: string;
+  /**
+   * This field is used in the template and contains the name of the second house of the deck
+   */
+  private house2: string;
+  /**
+   * This field is used in the template and contains the name of the third house of the deck
+   */
+  private house3: string;
 
   constructor(
     private fileDownloaderService: FileDownloaderService,
@@ -63,6 +79,37 @@ export class SummaryCustomElement {
 
     // Redraw QR-code
     this.updateQRCode();
+
+    // Retrieve the 3 houses of the deck
+    this.updateHouses();
+  }
+
+  private updateHouses() {
+    const houses = new Array<string>();
+    // Retrieve all the houes of the deck in a list
+    this.currentDeckService.deck.cards.forEach(card => {
+      const house = card.house;
+      if (!houses.includes(house)) {
+        houses.push(house);
+      }
+    });
+
+    // Sort the houses based on their translated name
+    houses.sort((houseA, houseB) => {
+      const translatedA = this.i18nService.get(`houses.${houseA}`);
+      const translatedB = this.i18nService.get(`houses.${houseB}`);
+      if (translatedA > translatedB) {
+        return 1;
+      } else  if (translatedA < translatedB) {
+        return -1;
+      } else {
+        return 0;
+      }
+    });
+
+    this.house1 = houses[0];
+    this.house2 = houses[1];
+    this.house3 = houses[2];
   }
 
   private updateQRCode() {

@@ -249,10 +249,12 @@ $deck-houses-offset-from-right: $qrcode-offset-from-right + $qrcode-size + $deck
     $item-size: $deck-houses-image-height
   ); 
   margin: 5em auto 0;
-  img { 
-    max-width: 100%; 
+  div {
+    padding: $deck-houses-image-border-width;
     border-radius: 50%;
-    border-width: $deck-houses-image-border-width;
-    border-style: solid;
+    img {
+      max-width: 100%;
+      height: auto;
+    }
   }
 }

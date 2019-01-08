@@ -1,4 +1,13 @@
 {
+  "houses": {
+    "brobnar": "Brobnar",
+      "dis": "Dis",
+      "logos": "Logos",
+      "mars": "Mars",
+      "sanctum": "Sanctum",
+      "shadows": "Shadows",
+      "untamed": "Untamed"
+  },
   "groupTitles": {
     "type": {
       "artifact": "Artifacts",
