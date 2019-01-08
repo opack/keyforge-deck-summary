@@ -6,7 +6,7 @@ $sheet-height: 1049px;
 
 // Column parameters
 $column-size: 500px;
-$column-gap: 0.5em;
+$column-gap: 10px;
 
 // Archon image
 $archon-opacity: 0.6;
@@ -18,7 +18,7 @@ $group-title-size: 2.5em;
 // Card entry
 $card-entry-height: 44px;
 
-// Houses
+// Card houses
 $house-image-height: 24px;
 $house-brobnar-color: #ec242b;
 $house-dis-color: #d21c5e;
@@ -29,8 +29,15 @@ $house-shadows-color: #403e6d;
 $house-untamed-color: #f05125;
 
 // QR-code
-$qrcode-size: 50px;
-$qrcode-offset: 10px;
+$qrcode-size: 150px;
+$qrcode-offset-from-bottom: 10px;
+$qrcode-offset-from-right: 15px;
+
+// Deck houses
+$deck-houses-image-height: 76px;
+$deck-houses-image-border-width: $deck-houses-image-height / 8;
+$deck-houses-offset-from-bottom: $qrcode-offset-from-bottom + $deck-houses-image-border-width; // Do this to have the deck houses bottom-aligned with the qr code
+$deck-houses-offset-from-right: $qrcode-offset-from-right + $qrcode-size + $deck-houses-image-border-width + 30;
 
 .summary-sheet {
   /* See .archon-image for an explanation of this position*/
@@ -134,7 +141,7 @@ $qrcode-offset: 10px;
 }
 
 /*
-* House classes
+* Card house classes
 */
 .house-image {
   height: $house-image-height;
@@ -142,40 +149,110 @@ $qrcode-offset: 10px;
 
 .house-brobnar {
   background-color: $house-brobnar-color;
+  border-color: $house-brobnar-color;
 }
 
 .house-dis {
   background-color: $house-dis-color;
+  border-color: $house-dis-color;
 }
 
 .house-logos {
   background-color: $house-logos-color;
+  border-color: $house-logos-color;
 }
 
 .house-mars {
   background-color: $house-mars-color;
+  border-color: $house-mars-color;
 }
 
 .house-sanctum {
   background-color: $house-sanctum-color;
+  border-color: $house-sanctum-color;
 }
 
 .house-shadows {
   background-color: $house-shadows-color;
+  border-color: $house-shadows-color;
 }
 
 .house-untamed {
   background-color: $house-untamed-color;
+  border-color: $house-untamed-color;
 }
 
 /*
  * QR Code classes
  */
-.qrcode-image {
+ .qrcode-image {
   position: absolute;
-  bottom: $qrcode-offset;
-  right: $qrcode-offset;
+  bottom: $qrcode-offset-from-bottom;
+  right: $qrcode-offset-from-right;
 
   width: $qrcode-size;
   height: $qrcode-size;
+}
+
+/*
+ * Deck houses classes
+ */
+.deck-houses {
+  position: absolute;
+  bottom: $deck-houses-offset-from-bottom;
+  right: $deck-houses-offset-from-right;
+}
+
+/// Mixin to place items on a circle
+/// @author Hugo Giraudel
+/// @author Ana Tudor
+/// @param {Integer} $item-count - Number of items on the circle
+/// @param {Length} $circle-size - Large circle size
+/// @param {Length} $item-size - Single item size
+@mixin on-circle($item-count, $circle-size, $item-size) {
+  position: relative;
+  width:  $circle-size;
+  height: $circle-size;
+  padding: 0;
+  border-radius: 50%; 
+  list-style: none;       
+  
+  > * {
+    display: block;
+    position: absolute;
+    top:  50%; 
+    left: 50%;
+    width:  $item-size;
+    height: $item-size;
+    margin: -($item-size / 2);
+  
+    $angle: (360 / $item-count);
+    $rot: -90;
+
+    @for $i from 1 through $item-count {
+      &:nth-of-type(#{$i}) {
+        transform: 
+          rotate($rot * 1deg) 
+          translate($circle-size / 2) 
+          rotate($rot * -1deg);
+      }
+
+      $rot: $rot + $angle;
+    }
+  }
+}
+
+.circle-container {
+  @include on-circle(
+    $item-count: 3,
+    $circle-size: $deck-houses-image-height * 1.3,
+    $item-size: $deck-houses-image-height
+  ); 
+  margin: 5em auto 0;
+  img { 
+    max-width: 100%; 
+    border-radius: 50%;
+    border-width: $deck-houses-image-border-width;
+    border-style: solid;
+  }
 }

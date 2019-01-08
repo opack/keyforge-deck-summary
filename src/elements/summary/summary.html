@@ -7,7 +7,8 @@
   <require from="./summary.scss"></require>
 
   <div id="summary-parameters">
-    <!-- TODO Add size parameters-->
+    <!-- TODO Add image size parameters-->
+    <!-- TODO Add QR code size parameters-->
 
     <!-- TODO BUG Le tri / groupage par compétence devrait créer des groupes par lettre, que ça soit les skills ou les trigger -->
     <!-- TODO BUG  Le groupe par puissance / armure produit des résultats étranges. Les retirer ? -->
@@ -23,6 +24,7 @@
       <option repeat.for="property of CardPropertiesEnum" model.bind="getCardPropertyValue(property)">${i18nService.get(`ui.summary.cardProperties.${property.toLowerCase()}`)}</option>
     </select>
 
+    <!-- TODO Remplacer par une select box multiple qui permet de choisir ce qu'on affiche ou pas : maisons dans les cartes, cercle des 3 maisons du deck, qr code, skills, triggers, puissance, armure... -->
     <input type="checkbox" checked.bind="showHouses">${i18nService.get('ui.summary.parameters.show-houses')}</input>
 
     <button click.delegate="rebuild()">${i18nService.get('ui.summary.refresh')}</button>
@@ -47,8 +49,15 @@
       </div>
     </div>
 
-    <canvas ref="qrcode" class="qrcode-image"></canvas>
+    <img src.bind="qrcode" class="qrcode-image" >
 
     <!-- TODO Add the 3 houses of the deck in the bottom right corner -->
+    <div class="deck-houses">
+      <ul class="circle-container">
+        <li><img src.bind="'images/houses/dis.png'" class="house-dis"></li>
+        <li><img src.bind="'images/houses/mars.png'" class="house-mars"></li>
+        <li><img src.bind="'images/houses/shadows.png'" class="house-shadows"></li>
+      </ul>
+    </div>
   </div>
 </template>

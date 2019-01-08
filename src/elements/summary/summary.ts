@@ -21,6 +21,7 @@ export class SummaryCustomElement {
   @observable({changeHandler: 'parameterChanged'}) private sortingProperty: CardPropertiesEnum;
   private groups: Array<string>;
   private cardsByGroup: { [group: string]: Array<CardModel> };
+  private qrcode: string;
 
   constructor(
     private fileDownloaderService: FileDownloaderService,
@@ -66,15 +67,11 @@ export class SummaryCustomElement {
 
   private updateQRCode() {
     // If a QR code value is specified, then render it
-    const canvas = this['qrcode'];
-    if (isNullOrUndefined(canvas)) {
-      return;
-    }
     if (this.currentDeckService.hasQRCode()) {
-      QRCode.toCanvas(canvas, this.currentDeckService.deck.qrcode);
+      // Use the toDataURL() method and not toCanvas() to be able to manipulate the final image size
+      QRCode.toDataURL(this.currentDeckService.deck.qrcode).then(result => this.qrcode = result);
     } else {
-      const context = canvas.getContext('2d');
-      context.clearRect(0, 0, canvas.width, canvas.height);
+      this.qrcode = "";
     }
   }
   
