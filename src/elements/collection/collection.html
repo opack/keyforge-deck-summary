@@ -29,9 +29,19 @@
 
   
   <div repeat.for="deck of decks">
-    ${deck.name}
-    <button class="btn btn-outline-secondary" click.delegate="load(deck)">${i18nService.get('ui.collection.deck-load')}</button>
-    <button class="btn btn-outline-secondary" click.delegate="download(deck)">${i18nService.get('ui.collection.deck-download')}</button>
-    <button class="btn btn-outline-danger" click.delegate="remove(deck)">${i18nService.get('ui.collection.deck-remove')}</button>
+    <div class="d-flex">
+      <div class="p-1">
+        ${deck.name}
+      </div>      
+      <div class="p-1">
+        <button class="btn btn-outline-secondary" click.delegate="load(deck)">${i18nService.get('ui.collection.deck-load')}</button>
+      </div>
+      <div class="p-1">
+        <button class="btn btn-outline-secondary" click.delegate="download(deck)">${i18nService.get('ui.collection.deck-download')}</button>
+      </div>
+      <div class="p-1">
+        <button class="btn btn-outline-danger" click.delegate="remove(deck)">${i18nService.get('ui.collection.deck-remove')}</button>
+      </div>
+    </div>
   </div>
 </template>
