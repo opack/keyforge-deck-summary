@@ -16,7 +16,7 @@ export class TriggersShortnerValueConverter {
 
     let triggersLetters = '';
     value.forEach(trigger => {
-      triggersLetters += this.i18nService.get(`triggers.${trigger}`);
+      triggersLetters += this.i18nService.get(`badges.triggers.${trigger}`);
     });
     return triggersLetters;
   }

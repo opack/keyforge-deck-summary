@@ -36,6 +36,7 @@
   <div id="summary-cards" class="summary-sheet">
     <div class="archon-image" css="background-image: url(${currentDeckService.deck.backgroundImage});"></div>
     <div class="float-left container columns">
+      <!-- TODO BUG Classer par armure puis puissance (par ex) : le premier groupe (pour sans armure) conserve son libellé au lieu de devenir "sans puissance" -->
       <div repeat.for="group of groups">
         <!-- TODO BUG Si 10 actions et 10 artefacts, alors le titre "Creatures" apparaît en haut de la 2è colonne mais sous la première carte créature ! 
         En gros ce bug apparaît si le titre "Creatures" devrait être affiché tout en bas de la 1ère colonne mais qu'il n'y a pas passez de place"

@@ -16,7 +16,7 @@ export class SkillsShortnerValueConverter {
 
     let skillsLetters = '';
     value.forEach(skill => {
-      skillsLetters += this.i18nService.get(`skills.${skill}`);
+      skillsLetters += this.i18nService.get(`badges.skills.${skill}`);
     });
     return skillsLetters;
   }

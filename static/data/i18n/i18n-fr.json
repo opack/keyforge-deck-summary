@@ -52,20 +52,36 @@
       "2": "Armure de 2",
       "3": "Armure de 3",
       "4": "Armure de 4"
+    },
+    "skills": {
+      "": "Normal",
+      "assault": "Assaut",
+      "elusive": "Insaisissable",
+      "hazardous": "Hazardeux",
+      "poison": "Poison",
+      "skirmish": "Escarmouche",
+      "taunt": "Provocation"
+    },
+    "triggers": {
+      "permanent": "Permanent",
+      "action": "Action",
+      "omni": "Omni"
     }
   },
-  "skills": {
-    "assault": "A",
-    "elusive": "I",
-    "hazardous": "H",
-    "poison": "P",
-    "skirmish": "E",
-    "taunt": "T"
-  },
-  "triggers": {
-    "permanent": "P",
-    "action": "A",
-    "omni": "O"
+  "badges": {
+    "skills": {
+      "assault": "A",
+      "elusive": "I",
+      "hazardous": "H",
+      "poison": "P",
+      "skirmish": "E",
+      "taunt": "T"
+    },
+    "triggers": {
+      "permanent": "P",
+      "action": "A",
+      "omni": "O"
+    }
   },
   "ui": {
     "app": {

@@ -35,19 +35,11 @@ export class CardDataService {
         card.house = HousesEnum[data.house] as HousesEnum;
         card.aember = data.amber;
         card.image = data.front_image;
-        
-        // TODO Créer des "CardDataAdaptor" pour chaque type de carte et y placer les spécificités de récupération de champs
-        switch (card.type) {
-          case TypesEnum.Artifact:
-          card.triggers = this.extractTriggers(data.card_text);
-          break;
-          case TypesEnum.Creature:
-            card.power = data.power;
-            card.armor = data.armor;
-            // TODO Also extract skills gained with upgrades and display them in the summary. To do this, the i18n adaptor skills must be a regexp capturing various strings
-            card.skills = this.extractSkills(data.card_text);
-            break;
-        }
+        card.power = data.power;
+        card.armor = data.armor;
+        card.triggers = this.extractTriggers(data.card_text);
+        // TODO Also extract skills gained with upgrades and display them in the summary. To do this, the i18n adaptor skills must be a regexp capturing various strings
+        card.skills = this.extractSkills(data.card_text);
 
         this.cards.set(data.card_number, card);
       });

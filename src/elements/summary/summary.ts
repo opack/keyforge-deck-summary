@@ -143,6 +143,7 @@ export class SummaryCustomElement {
         return;
       }
 
+      // TODO Dans quel groupe mettre les multi-compétences et multi-triggers ? :s
       // Retrieve the value (as a string) of the grouping field for this card
       const group = card[this.groupingProperty].toString();
 
