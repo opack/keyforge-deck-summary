@@ -37,6 +37,7 @@ export class CollectionCustomElement {
       const deck = this.storage.retrieve(key);
       this.decks.push(deck);
     });
+    this.decks.sort();
   }
 
   new() {
