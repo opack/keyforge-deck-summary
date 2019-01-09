@@ -25,12 +25,14 @@
       "untamed": "Indomptés"
     },
     "aember": {
+      "0": "Sans Aombre",
       "1": "1 Aombre",
       "2": "2 Aombres",
       "3": "3 Aombres",
       "4": "4 Aombres"
     },
     "power": {
+      "0": "Sans puissance",
       "1": "Puissance de 1",
       "2": "Puissance de 2",
       "3": "Puissance de 3",
@@ -45,6 +47,7 @@
       "12": "Puissance de 12"
     },
     "armor": {
+      "0": "Sans armure",
       "1": "Armure de 1",
       "2": "Armure de 2",
       "3": "Armure de 3",
@@ -61,6 +64,7 @@
   },
   "triggers": {
     "permanent": "P",
+    "action": "A",
     "omni": "O"
   },
   "ui": {
@@ -133,8 +137,23 @@
         "power": "Puissance",
         "armor": "Armure",
         "skills": "Compétences",
-        "trigger": "Déclenchement"
+        "triggers": "Déclencheurs"
       }
+    }
+  },
+  "cardDataAdaptor": {
+    "skills": {
+      "Assault": ".*Assaut \\d+.*",
+      "Elusive": ".*Insaisissable\\..*",
+      "Hazardous": ".*Hasardeux \\d+.*",
+      "Poison": ".*Poison\\..*",
+      "Skirmish": ".*Escarmouche\\..*",
+      "Taunt": ".*Provocation\\..*"
+    },
+    "triggers": {
+      "Permanent": "^(?!(Jouez\\s*:|Action\\s*:|Omni\\s*:)).*",
+      "Action": ".*Action\\s*:.*",
+      "Omni": ".*Omni\\s*:.*"
     }
   }
 }

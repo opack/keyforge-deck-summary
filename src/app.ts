@@ -1,3 +1,4 @@
+import { CardDataService } from './services/card-data-service';
 import * as $ from 'jquery';
 
 import { autoinject } from 'aurelia-framework';
@@ -10,9 +11,10 @@ export class App {
   constructor(
     private currentDeckService: CurrentDeckService,
     private i18nService: I18nService,// Do not delete: used in HTML template to interpolate strings
+    private cardDataService: CardDataService
   ) {
   }
-
+  
   attached() {
     // Create an even to rebuild the summary on tab activation. We must use 'shown.bs.tab'
     // and not 'show.bs.tab' because we must rebuild after the tab is displayed; if we

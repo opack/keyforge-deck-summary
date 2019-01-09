@@ -12,6 +12,7 @@ import { CardPropertiesEnum } from 'enums/card-properties-enum';
 import { FileDownloaderService } from 'services/file-downloader-service';
 import { I18nService } from 'services/i18n-service';
 import { CurrentDeckService } from 'services/current-deck-service';
+import { CardDataService } from 'services/card-data-service';
 
 @autoinject
 export class SummaryCustomElement {
@@ -42,7 +43,8 @@ export class SummaryCustomElement {
   constructor(
     private fileDownloaderService: FileDownloaderService,
     private i18nService: I18nService,
-    private currentDeckService: CurrentDeckService
+    private currentDeckService: CurrentDeckService,
+    private cardDataService: CardDataService
   ) {
     this.groups = new Array<string>();
     this.cardsByGroup = {};
@@ -63,7 +65,7 @@ export class SummaryCustomElement {
   rebuild() {
     this.clear();
 
-    if (!this.currentDeckService.hasCards()) {
+    if (!this.currentDeckService.isValid() || !this.currentDeckService.hasCards()) {
       return;
     }
    
@@ -87,7 +89,12 @@ export class SummaryCustomElement {
   private updateHouses() {
     const houses = new Array<string>();
     // Retrieve all the houes of the deck in a list
-    this.currentDeckService.deck.cards.forEach(card => {
+    this.currentDeckService.deck.cards.forEach(cardNumber => {
+      const card = this.cardDataService.get(cardNumber);
+      if (isNullOrUndefined(card)) {
+        return;
+      }
+
       const house = card.house;
       if (!houses.includes(house)) {
         houses.push(house);
@@ -128,10 +135,9 @@ export class SummaryCustomElement {
   }
 
   private groupCards(): void {
-    if (!this.currentDeckService.isValid()) {
-      return;
-    }
-    this.currentDeckService.deck.cards.forEach(card => {
+    this.currentDeckService.deck.cards.forEach(cardNumber => {
+      const card = this.cardDataService.get(cardNumber);
+
       // If the card is not defined, then skip it
       if (isNullOrUndefined(card) || isNullOrUndefined(card[this.groupingProperty])) {
         return;

@@ -4,9 +4,24 @@
 $card-editor-row-height: 40px;
 
 .card-editor-row {
-  @extend .row;
-  @extend .no-gutters;
+  // @extend .row;
+  // @extend .no-gutters;
   @extend .align-items-center;
   
   height: $card-editor-row-height;
+}
+
+.card-number {
+  @extend .form-control;
+  text-align: center;
+}
+
+.card-title {
+  @extend .form-control;
+  width: 100%;
+}
+
+.card-image-preview {
+  width: 225px;
+  height: 315px;
 }

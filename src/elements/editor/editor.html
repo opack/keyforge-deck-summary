@@ -4,6 +4,7 @@
 
   <div class="d-flex flex-row align-items-center">
     <button click.delegate="save()">${i18nService.get('ui.editor.save')}</button>
+    <!-- TODO Add a parameter to adjust card image size -->
   </div>
   <div class="d-flex flex-row align-items-center">
     <div "p-1">${i18nService.get('ui.editor.name')}</div>
@@ -23,19 +24,7 @@
     </div>
   </div>
 
-  <div class="container">
-    <div>
-      <div class="row no-gutters align-items-center">
-        <div class="col-3 text-center"><img src.bind="'images/misc/title.png'" class="editor-header-image"></div>
-        <div class="col-1 text-center"><img src.bind="'images/misc/type.png'" class="editor-header-image"></div>
-        <div class="col-1 text-center"><img src.bind="'images/misc/house.png'" class="editor-header-image"></div>
-        <div class="col-1 text-center"><img src.bind="'images/misc/aember.png'" class="editor-header-image"></div>
-        <div class="col-1 text-center"><img src.bind="'images/misc/power.png'" class="editor-header-image"></div>
-        <div class="col-1 text-center"><img src.bind="'images/misc/shield2.png'" class="editor-header-image"></div>
-        <div class="col-2 text-center"><img src.bind="'images/misc/skills.png'" class="editor-header-image"></div>
-        <div class="col-2 text-center"><img src.bind="'images/misc/trigger.png'" class="editor-header-image"></div>
-      </div>
-    </div>
-    <card repeat.for="card of currentDeckService.deck.cards" model.two-way="card"></card>
+  <div class="d-flex flex-wrap">
+    <card class="p-1" repeat.for="index of NB_CARDS" index.one-time="index"></card>
   </div>
 </template>

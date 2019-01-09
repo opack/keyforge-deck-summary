@@ -5,10 +5,12 @@ import { TriggersEnum } from 'enums/triggers-enum';
 
 
 export class CardModel {
+  number: number;
   title: string;
   type: TypesEnum;
   house: HousesEnum;
   aember: number;
+  image: string;
 
   /* Creature properties */
   power: number;
@@ -16,6 +18,6 @@ export class CardModel {
   skills: Array<SkillsEnum>;
 
   /* Artifact properties */
-  trigger: TriggersEnum;
+  triggers: Array<TriggersEnum>;
 }
 

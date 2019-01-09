@@ -2,9 +2,11 @@ import { autoinject } from 'aurelia-framework';
 
 import { I18nService } from 'services/i18n-service';
 import { CurrentDeckService } from 'services/current-deck-service';
+import { NB_CARDS } from 'models/deck-model';
 
 @autoinject
 export class EditorCustomElement {
+  private readonly NB_CARDS = NB_CARDS;
   constructor(
     private i18nService: I18nService,// Do not delete: used in HTML template to interpolate strings
     private currentDeckService: CurrentDeckService

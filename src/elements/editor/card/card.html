@@ -7,60 +7,12 @@
 
   <require from="bootstrap-select/dist/css/bootstrap-select.css"></require>
 
-  <div class="card-editor-row">
-    <div class="col-3 text-center">
-      <input type="text" value.bind="model.title" style="width: 100%">
-    </div>
-
-    <div class="col-1 text-center">
-      <select value.bind="model.type">
-        <option model.bind="undefined"></option>
-        <option repeat.for="type of TypesEnum" model.bind="getTypeValue(type)">${type}</option>
+    <div class="d-flex flex-column text-center">
+      <!-- TODO Tester un simple textbox mais avec un contrôle de la saisie. Cela éviterait le bug pour les numéros de cartes avec 2 chiffres identiques consécutifs (ex : 199) -->
+      <select value.bind="cardNumber" class="form-control">
+        <option model.bind="undefined"></option>        
+        <option repeat.for="number of maxCardNumber" model.bind="number+1">${number + 1}</option>
       </select>
+      <img src.bind="image" class="card-image-preview">
     </div>
-    
-    <div class="col-1 text-center">
-      <select value.bind="model.house">
-        <option model.bind="undefined"></option>
-        <option repeat.for="house of HousesEnum" model.bind="getHouseValue(house)">${house}</option>
-      </select>
-    </div>
-    
-    <div class="col-1 text-center">
-      <select value.bind="model.aember">
-        <option model.bind="undefined"></option>
-        <option repeat.for="aember of 5" model.bind="aember">${aember}</option>
-      </select>
-    </div>
-    
-    <div class="col-1 text-center">
-      <select value.bind="model.power" show.bind="model.type==='creature'">
-        <option model.bind="undefined"></option>
-        <option repeat.for="power of 13" model.bind="power">${power}</option>
-      </select>
-    </div>
-
-    <div class="col-1 text-center">
-      <select value.bind="model.armor" show.bind="model.type==='creature'">
-        <option model.bind="undefined"></option>
-        <option repeat.for="armor of 3" model.bind="armor">${armor}</option>
-      </select>
-    </div>
-
-    <div class="col-2 text-center">
-      <div class="form-group" show.bind="model.type==='creature'">
-        <!-- TODO BUG La combo affiche "nothing selected" lors du chargement alors qu'elle a bien les bons items cochés quand on la déroule -->
-        <select class="selectpicker form-control" multiple value.bind="model.skills">
-          <option repeat.for="skill of SkillsEnum" model.bind="getSkillValue(skill)">${skill}</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="col-2 text-center">
-      <select value.bind="model.trigger" show.bind="model.type==='artifact'">
-        <option model.bind="undefined"></option>
-        <option repeat.for="trigger of TriggersEnum" model.bind="getTriggerValue(trigger)">${trigger}</option>
-      </select>
-    </div>
-  </div>
 </template>

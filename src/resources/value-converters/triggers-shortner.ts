@@ -4,7 +4,7 @@ import { I18nService } from 'services/i18n-service';
 
 @autoinject
 export class TriggersShortnerValueConverter {
-  signals = ['trigger-changed'];
+  signals = ['triggers-changed'];
 
   constructor(private i18nService: I18nService) {
   }
@@ -13,7 +13,11 @@ export class TriggersShortnerValueConverter {
     if (value === null || value === undefined) {
       return '';
     }
-    
-    return this.i18nService.get(`triggers.${value}`);;
+
+    let triggersLetters = '';
+    value.forEach(trigger => {
+      triggersLetters += this.i18nService.get(`triggers.${trigger}`);
+    });
+    return triggersLetters;
   }
 }

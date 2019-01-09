@@ -44,7 +44,7 @@ export class LocalStorageService {
     this.storage.setItem(key, item);
 
     // Publish a new message to indicate this
-    this.eventAggregator.publish(new DataStored(key, value));  
+    this.eventAggregator.publish(new DataStored(key, value));
   }
 
   retrieve(key: string){

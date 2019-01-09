@@ -1,12 +1,18 @@
 import { isNullOrUndefined } from 'util';
-
 import sha1 from 'sha1';
 import * as _ from 'lodash';
 
-import { LocalStorageService } from 'services/local-storage-service';
-
-import { DeckModel } from "models/deck-model";
 import { autoinject } from 'aurelia-framework';
+import { EventAggregator } from 'aurelia-event-aggregator';
+
+import { LocalStorageService } from 'services/local-storage-service';
+import { DeckModel } from "models/deck-model";
+
+/**
+ * Message sent when a new current deck has been loaded
+ */
+export class NewDeck {
+}
 
 @autoinject
 export class CurrentDeckService {
@@ -14,18 +20,25 @@ export class CurrentDeckService {
   // Hash of the current deck when it was first set as current deck
   originalHash: string;
 
-  constructor(private storage: LocalStorageService) {
-
+  constructor(
+    private storage: LocalStorageService,
+    private eventAggregator: EventAggregator
+  ) {
   }
 
   newDeck(): void {
     this.deck = new DeckModel();
-    this.updateHash();
+    this.initDeck();
   }
 
   copyFrom(deck: DeckModel) {
     this.deck = _.clone(deck);
+    this.initDeck();
+  }
+
+  initDeck() {
     this.updateHash();
+    this.eventAggregator.publish(new NewDeck());
   }
 
   updateHash(): void {
@@ -48,7 +61,6 @@ export class CurrentDeckService {
   }
 
   hasChanged(): boolean {
-    // TODO BUG si on change le contenu d'une carte marche pas !!!
     if (isNullOrUndefined(this.deck) || isNullOrUndefined(this.originalHash)) {
       return false;
     }

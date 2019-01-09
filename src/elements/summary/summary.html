@@ -7,11 +7,11 @@
   <require from="./summary.scss"></require>
 
   <div id="summary-parameters">
-    <!-- TODO Add image size parameters-->
-    <!-- TODO Add QR code size parameters-->
+    <!-- TODO Add image size parameters -->
+    <!-- TODO Add QR code size parameters -->
+    <!-- TODO Add parameter to show/hide the "Action" trigger on an artifact if it is the only trigger -->
 
-    <!-- TODO BUG Le tri / groupage par compétence devrait créer des groupes par lettre, que ça soit les skills ou les trigger -->
-    <!-- TODO BUG  Le groupe par puissance / armure produit des résultats étranges. Les retirer ? -->
+    <!-- TODO BUG Le tri / groupage par compétence devrait créer des groupes par lettre, que ça soit les skills ou les triggers -->
     ${i18nService.get('ui.summary.parameters.group-by')}
     <select value.bind="groupingProperty">
       <option value="undefined"></option>
@@ -51,7 +51,6 @@
 
     <img src.bind="qrcode" class="qrcode-image" >
 
-    <!-- TODO Add the 3 houses of the deck in the bottom right corner -->
     <div class="deck-houses">
       <ul class="circle-container">
         <li>

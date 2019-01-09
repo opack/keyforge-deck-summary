@@ -6,5 +6,5 @@ export enum CardPropertiesEnum {
   Power = 'power',
   Armor = 'armor',
   Skills = 'skills',
-  Trigger = 'trigger'
+  Triggers = 'triggers'
 }
