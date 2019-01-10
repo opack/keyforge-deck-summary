@@ -135,7 +135,8 @@
       "name": "Name:",
       "qr-code": "QR code:",
       "background-image": "Background image:",
-      "background-image-upload": "Upload"
+      "background-image-upload": "Upload",
+      "card-number-placeholder": "Card number"
     },
     "summary": {
       "parameters": {

@@ -7,6 +7,7 @@ import { EventAggregator } from 'aurelia-event-aggregator';
 
 import { CardDataService } from 'services/card-data-service';
 import { CurrentDeckService, NewDeck } from 'services/current-deck-service';
+import { I18nService } from 'services/i18n-service';
 
 enum ErrorStatesClasses {
   Valid = 'is-valid',
@@ -25,6 +26,7 @@ export class CardCustomElement {
   constructor(
     private currentDeckService: CurrentDeckService,
     private cardDataService: CardDataService,
+    private i18nService: I18nService,// Do not delete: used in HTML template to interpolate strings
     eventAggregator: EventAggregator
   ) {
     this.maxCardNumber = this.cardDataService.getCardCount();
