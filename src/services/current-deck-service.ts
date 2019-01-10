@@ -1,4 +1,8 @@
 import { isNullOrUndefined } from 'util';
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3deffa99fc753e3a6559c09c222ea3c976db6626
 import sha1 from 'sha1';
 import * as _ from 'lodash';
 
@@ -61,6 +65,7 @@ export class CurrentDeckService {
   }
 
   hasChanged(): boolean {
+    // TODO BUG si on change le contenu d'une carte marche pas !!!
     if (isNullOrUndefined(this.deck) || isNullOrUndefined(this.originalHash)) {
       return false;
     }

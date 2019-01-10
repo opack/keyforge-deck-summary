@@ -18,6 +18,10 @@ export class CardModel {
   skills: Array<SkillsEnum>;
 
   /* Artifact properties */
+<<<<<<< HEAD
   triggers: Array<TriggersEnum>;
+=======
+  trigger: TriggersEnum;
+>>>>>>> 3deffa99fc753e3a6559c09c222ea3c976db6626
 }
 
