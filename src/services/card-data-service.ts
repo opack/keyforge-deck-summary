@@ -80,6 +80,10 @@ export class CardDataService {
     return this.cards.get(cardNumber);
   }
 
+  has(cardNumber: number): boolean {
+    return this.cards.has(cardNumber);
+  }
+
   getCardCount(): number {
     return this.count;
   }

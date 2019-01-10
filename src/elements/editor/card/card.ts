@@ -8,12 +8,19 @@ import { EventAggregator } from 'aurelia-event-aggregator';
 import { CardDataService } from 'services/card-data-service';
 import { CurrentDeckService, NewDeck } from 'services/current-deck-service';
 
+enum ErrorStatesClasses {
+  Valid = 'is-valid',
+  Warning = 'border-warning',
+  Error = 'is-invalid'
+}
+
 @autoinject
 export class CardCustomElement {
   @bindable private index: number;
-  @observable private cardNumber: number;
+  @observable private cardNumber: string;
   private maxCardNumber: number;
   private image: string;
+  private stateClass: ErrorStatesClasses;
 
   constructor(
     private currentDeckService: CurrentDeckService,
@@ -28,17 +35,38 @@ export class CardCustomElement {
 
   private readCardNumber() {
     // Initialize the card number based on the index
-    this.cardNumber = this.currentDeckService.deck.cards[this.index];
+    this.cardNumber = `${this.currentDeckService.deck.cards[this.index]}`;
+    this.updateStateClass();
   }
 
   cardNumberChanged() {
-    this.currentDeckService.deck.cards[this.index] = this.cardNumber;
-
-    const selectedCard = this.cardDataService.get(this.cardNumber);
-    if (isNullOrUndefined(selectedCard)) {
+    this.updateStateClass();
+    if (this.stateClass === ErrorStatesClasses.Valid) {
+      const cardNumber: number = parseInt(this.cardNumber);
+      const selectedCard = this.cardDataService.get(cardNumber);
+      if (isNullOrUndefined(selectedCard)) {
+        this.image = 'images/misc/no-card.png';
+      } else {
+        this.currentDeckService.deck.cards[this.index] = cardNumber;
+        this.image = selectedCard.image;
+      }
+    }
+    // If error or warning, display an empty image
+    else {
       this.image = 'images/misc/no-card.png';
+    }
+  }
+
+  private updateStateClass() {
+    if (isNullOrUndefined(this.cardNumber) || this.cardNumber === '') {
+      this.stateClass = ErrorStatesClasses.Warning;
+    } else if (
+      this.cardNumber.match('\\d{1,3}')
+      && this.cardDataService.has(parseInt(this.cardNumber))
+    ) {
+      this.stateClass = ErrorStatesClasses.Valid;
     } else {
-      this.image = selectedCard.image;
+      this.stateClass = ErrorStatesClasses.Error
     }
   }
 }

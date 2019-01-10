@@ -8,11 +8,9 @@
   <require from="bootstrap-select/dist/css/bootstrap-select.css"></require>
 
     <div class="d-flex flex-column text-center">
-      <!-- TODO Tester un simple textbox mais avec un contrôle de la saisie. Cela éviterait le bug pour les numéros de cartes avec 2 chiffres identiques consécutifs (ex : 199) -->
-      <select value.bind="cardNumber" class="form-control">
-        <option model.bind="undefined"></option>        
-        <option repeat.for="number of maxCardNumber" model.bind="number+1">${number + 1}</option>
-      </select>
+      <div class="form-group">
+        <input type="number" class="form-control ${stateClass}" min="1" max.bind="maxCardNumber" value.bind="cardNumber">
+      </div>
       <img src.bind="image" class="card-image-preview">
     </div>
 </template>
