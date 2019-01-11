@@ -15,6 +15,11 @@ $aember-text-font-weight: 600;
 $card-specificity-font-size: $card-entry-height * 0.4;
 $card-specificity-font-weight: 600;
 
+// Exported values used in the TypeScript
+:export {
+  titleFontSize: $title-font-size;
+}
+
 /*
  * Title classes
  */
@@ -22,7 +27,7 @@ $card-specificity-font-weight: 600;
   display: inline-block;
   white-space: nowrap;
   // Setting width will disable scaling up
-  width: 100%
+  //width: 100%
 }
 .title-text {
   color: white;

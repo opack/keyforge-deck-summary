@@ -3,27 +3,37 @@
   <require from="elements/editor/card/card"></require>
 
   <div class="d-flex flex-row align-items-center">
-    <button click.delegate="save()">${i18nService.get('ui.editor.save')}</button>
+    <button class="btn-outline-primary" click.delegate="save()">${i18nService.get('ui.editor.save')}</button>
     <!-- TODO Add a parameter to adjust card image size -->
   </div>
-  <div class="d-flex flex-row align-items-center">
-    <div "p-1">${i18nService.get('ui.editor.name')}</div>
-    <div "p-1"><input value.bind="currentDeckService.deck.name"></div>
+
+  <h1>${i18nService.get('ui.editor.deck-info-title')}</h1>
+  <div class="form-group row">
+    <label for="nameInput" class="col-sm-2 col-form-label">${i18nService.get('ui.editor.name')}</label>
+    <div class="col-sm-10">
+      <input id="nameInput" value.bind="currentDeckService.deck.name">
+    </div>
   </div>
-  <div class="d-flex flex-row align-items-center">
-    <div "p-1">${i18nService.get('ui.editor.qr-code')}</div>
-    <div "p-1"><input value.bind="currentDeckService.deck.qrcode"></div>
+  <div class="form-group row">
+    <label for="qrCodeInput" class="col-sm-2 col-form-label">${i18nService.get('ui.editor.qr-code')}</label>
+    <div class="col-sm-10">
+      <input id="qrCodeInput" value.bind="currentDeckService.deck.qrcode">
+    </div>
   </div>
-  <div class="d-flex flex-row align-items-center">
-    <div "p-1">${i18nService.get('ui.editor.background-image')}</div>
-    <div "p-1">
-      <div ref="preview"><img src.bind="currentDeckService.deck.backgroundImage" class="background-image-preview"></div>
-      
-      <label class="btn btn-outline-secondary" for="background-upload">${i18nService.get('ui.editor.background-image-upload')}</label>
-      <input type="file" ref="backgoundUpload" change.delegate="importBackgoundImage()" id="background-upload" name="background-upload" accept="image/*" style="display: none">      
+  <div class="form-group row">
+    <label for="qrCodeInput" class="col-sm-2 col-form-label">${i18nService.get('ui.editor.background-image')}</label>
+    <div class="col-sm-10">
+      <div ref="preview">
+        <label class="btn btn-outline-secondary" for="background-upload">
+          <span if.bind="!isValidImageDataURL(currentDeckService.deck.backgroundImage)">${i18nService.get('ui.editor.background-image-upload')}</span>
+          <img if.bind="isValidImageDataURL(currentDeckService.deck.backgroundImage)" src.bind="currentDeckService.deck.backgroundImage" class="background-image-preview">
+        </label>          
+      </div>
+      <input type="file" ref="backgoundUpload" change.delegate="importBackgoundImage()" id="background-upload" name="background-upload" accept="image/*" style="display: none">
     </div>
   </div>
 
+  <h1>${i18nService.get('ui.editor.deck-cards-title')}</h1>
   <div class="d-flex flex-wrap">
     <card class="p-1" repeat.for="index of NB_CARDS" index.one-time="index"></card>
   </div>

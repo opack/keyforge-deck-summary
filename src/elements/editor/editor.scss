@@ -1,8 +1,14 @@
-.editor-header {
-  font-size: 2em;
-}
+@import "../common";
+
+// Background image
+$editor-bgimage-preview-width: 70px;
+$editor-bgimage-preview-height: 75px;
 
 .background-image-preview {
-  width: 64px;
-  height: 64px;
+  width: $editor-bgimage-preview-width;
+  height: $editor-bgimage-preview-height;
+}
+
+input {
+  width: 100%;
 }

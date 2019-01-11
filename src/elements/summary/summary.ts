@@ -6,6 +6,9 @@ import * as html2canvas from 'html2canvas';
 import fitty from 'fitty';
 import * as QRCode from 'qrcode';
 
+// In order to use the SCSS variables here (https://mattferderer.com/use-sass-variables-in-typescript-and-javascript)
+import styles from './cards/summary-card.scss';
+
 import { CardModel } from 'models/card-model';
 import { CardPropertiesEnum } from 'enums/card-properties-enum';
 
@@ -17,6 +20,7 @@ import { CardDataService } from 'services/card-data-service';
 @autoinject
 export class SummaryCustomElement {
   @observable({changeHandler: 'parameterChanged'}) private showHouses: boolean;
+  @observable({changeHandler: 'parameterChanged'}) private showDeckHouses: boolean;
 
   @observable({changeHandler: 'parameterChanged'}) private groupingProperty: CardPropertiesEnum;
   @observable({changeHandler: 'parameterChanged'}) private sortingProperty: CardPropertiesEnum;
@@ -40,6 +44,8 @@ export class SummaryCustomElement {
    */
   private house3: string;
 
+  maxTitleFontSize: number;
+
   constructor(
     private fileDownloaderService: FileDownloaderService,
     private i18nService: I18nService,
@@ -48,6 +54,9 @@ export class SummaryCustomElement {
   ) {
     this.groups = new Array<string>();
     this.cardsByGroup = {};
+
+    // Retrieve the font size defined in the SCSS to use it as a ceiling for fitty
+    this.maxTitleFontSize = parseInt(styles.titleFontSize);
 
     // Do this last, as it will trigger an initial summary rebuild
     this.groupingProperty = CardPropertiesEnum.Type;
@@ -58,7 +67,7 @@ export class SummaryCustomElement {
     return CardPropertiesEnum[property];
   }
 
-  parameterChanged(newValue: CardPropertiesEnum, oldValue: CardPropertiesEnum) {
+  parameterChanged() {
     this.rebuild();
   }
 
@@ -77,13 +86,19 @@ export class SummaryCustomElement {
 
     // Fit titles to match container width. Titles will only scale down to ensure
     // all text title fits.
-    fitty('.fit');
+    this.fitTitles();
 
     // Redraw QR-code
     this.updateQRCode();
 
     // Retrieve the 3 houses of the deck
     this.updateHouses();
+  }
+
+  private fitTitles() {
+    fitty('.fit', {
+      maxSize: this.maxTitleFontSize
+    });
   }
 
   private updateHouses() {

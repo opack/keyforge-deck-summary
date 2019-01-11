@@ -1,4 +1,4 @@
-@import "~bootstrap/scss/bootstrap.scss";
+@import "../common";
 
 // Sheet size
 $sheet-width: 980px;
@@ -38,6 +38,13 @@ $deck-houses-image-height: 76px;
 $deck-houses-image-border-width: $deck-houses-image-height / 8;
 $deck-houses-offset-from-bottom: $qrcode-offset-from-bottom + $deck-houses-image-border-width; // Do this to have the deck houses bottom-aligned with the qr code
 $deck-houses-offset-from-right: $qrcode-offset-from-right + $qrcode-size + $deck-houses-image-border-width + 30;
+
+.btn span.fa-check {    			
+	opacity: 0;				
+}
+.btn.active span.fa-check {				
+	opacity: 1;				
+}
 
 .summary-sheet {
   /* See .archon-image for an explanation of this position*/
@@ -107,14 +114,11 @@ $deck-houses-offset-from-right: $qrcode-offset-from-right + $qrcode-size + $deck
   height: $group-entry-height;
 }
 
- @font-face {
-  font-family: 'AgencyBold';
-  src: url('/fonts/agencyb.TTF');
-}
 .group-title {
   font-family: 'AgencyBold';
   font-size: $group-title-size;
 }
+
 .group-count {
   @extend .badge;
   @extend .badge-light;  

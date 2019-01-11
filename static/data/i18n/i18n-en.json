@@ -131,11 +131,13 @@
       }
     },
     "editor": {
+      "deck-info-title": "General data",
+      "deck-cards-title": "Cards",
       "save": "Save",
       "name": "Name:",
       "qr-code": "QR code:",
       "background-image": "Background image:",
-      "background-image-upload": "Upload",
+      "background-image-upload": "Upload an image",
       "card-number-placeholder": "Card number"
     },
     "summary": {

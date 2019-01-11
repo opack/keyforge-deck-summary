@@ -3,6 +3,7 @@ import { autoinject } from 'aurelia-framework';
 import { I18nService } from 'services/i18n-service';
 import { CurrentDeckService } from 'services/current-deck-service';
 import { NB_CARDS } from 'models/deck-model';
+import { isNullOrUndefined } from 'util';
 
 @autoinject
 export class EditorCustomElement {
@@ -33,5 +34,13 @@ export class EditorCustomElement {
     reader.readAsDataURL(file);
      // Clear the value to make sure that a new selection, even with the same file name, will trigger the change event
      this['backgoundUpload'].value = '';
+  }
+
+  /**
+   * Returns true if the dataURL is not null, not undefined and not empty
+   * @param data
+   */
+  private isValidImageDataURL(dataURL: string) {
+    return !isNullOrUndefined(dataURL) && dataURL !== '';
   }
 }

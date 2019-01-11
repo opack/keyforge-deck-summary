@@ -1,0 +1,30 @@
+@import "~bootstrap/scss/bootstrap.scss";
+
+// Headers
+$h1-font-size: 2em;
+
+@font-face {
+  font-family: 'AgencyBold';
+  src: url('/fonts/agencyb.TTF');
+}
+
+h1 {
+  font-family: 'AgencyBold';
+  font-size: $h1-font-size;
+}
+
+// Enable bootstrap for all inputs
+input {
+  @extend .form-control;
+}
+
+// Enable bootstrap for all select boxes
+select {
+  @extend .form-control;
+}
+
+// Enable bootstrap for all buttons
+button {
+  @extend .btn;
+  @extend .btn-outline-secondary;
+}

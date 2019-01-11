@@ -131,11 +131,13 @@
       }
     },
     "editor": {
+      "deck-info-title": "Données générales",
+      "deck-cards-title": "Cartes",
       "save": "Enregistrer",
       "name": "Nom :",
       "qr-code": "QR code :",
       "background-image": "Image de fond :",
-      "background-image-upload": "Changer",
+      "background-image-upload": "Télécharger une image",
       "card-number-placeholder": "Numéro de carte"
     },
     "summary": {

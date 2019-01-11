@@ -9,7 +9,7 @@
 
     <div class="d-flex flex-column text-center">
       <div class="form-group">
-        <input type="number" class="form-control ${stateClass}" min="1" max.bind="maxCardNumber" value.bind="cardNumber" placeholder="${i18nService.get('ui.editor.card-number-placeholder')}">
+        <input type="number" class="${stateClass}" min="1" max.bind="maxCardNumber" value.bind="cardNumber" placeholder="${i18nService.get('ui.editor.card-number-placeholder')}">
       </div>
       <img src.bind="image" class="card-image-preview">
     </div>

@@ -61,7 +61,6 @@ export class CurrentDeckService {
   }
 
   hasChanged(): boolean {
-    // TODO BUG si on change le contenu d'une carte marche pas !!!
     if (isNullOrUndefined(this.deck) || isNullOrUndefined(this.originalHash)) {
       return false;
     }
