@@ -144,7 +144,8 @@
       "parameters": {
         "group-by": "Grouper par :",
         "sort-by": "Trier par :",
-        "show-houses": "Afficher les icônes des maisons ?"
+        "show-card-houses": "Afficher les maisons sur les cartes",
+        "show-deck-houses": "Afficher les maisons du deck"
       },
       "refresh": "Rafraîchir",
       "download": "Télécharger",

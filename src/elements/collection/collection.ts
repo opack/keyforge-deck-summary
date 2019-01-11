@@ -41,7 +41,6 @@ export class CollectionCustomElement {
   }
 
   new() {
-    // TODO Barre de progression ou spin d'attente
     if (this.currentDeckService.hasChanged()) {
       this.dialogService.open({
         viewModel: ConfirmDialog,
@@ -65,7 +64,6 @@ export class CollectionCustomElement {
   }
 
   load(deck: DeckModel) {
-    // TODO Barre de progression ou spin d'attente
     // Copy the deck and use it
     if (this.currentDeckService.hasChanged()) {
       this.dialogService.open({

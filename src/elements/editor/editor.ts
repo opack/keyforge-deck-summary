@@ -19,7 +19,6 @@ export class EditorCustomElement {
       console.log('Cannot save deck without a name!');
       return;
     }
-    // TODO Barre de progression ou spin d'attente
     this.currentDeckService.save();
   }
 

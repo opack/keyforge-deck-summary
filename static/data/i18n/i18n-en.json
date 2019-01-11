@@ -144,7 +144,8 @@
       "parameters": {
         "groupBy": "Group by:",
         "sortBy": "Sort by:",
-        "show-houses": "Show houses icon?"
+        "show-card-houses": "Show card houses",
+        "show-deck-houses": "Show deck houses"
       },
       "refresh": "Refresh",
       "download": "Download",
