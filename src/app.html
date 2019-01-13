@@ -4,7 +4,7 @@
   <require from="elements/editor/editor"></require>
   <require from="elements/summary/summary"></require>
 
-  <h1>${i18nService.get('ui.app.title')}</h1>
+  <h1>${i18nService.get('ui.app.title')}${currentDeckService.deck.name? ` - ${currentDeckService.deck.name}` : ''}</h1>
 
   <nav>
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
