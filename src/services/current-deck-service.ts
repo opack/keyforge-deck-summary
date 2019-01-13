@@ -41,6 +41,13 @@ export class CurrentDeckService {
     this.eventAggregator.publish(new NewDeck());
   }
 
+  clearCards() {
+    for (let curCard = 0; curCard < this.deck.cards.length; curCard++) {
+      this.deck.cards[curCard] = undefined;
+    }
+    this.eventAggregator.publish(new NewDeck());
+  }
+
   updateHash(): void {
     this.originalHash = this.hashDeck(this.deck);
   }

@@ -131,6 +131,12 @@
       }
     },
     "editor": {
+      "clear-menu": {
+        "title": "Effacer",
+        "clear-general-data": "Effacer les données générales",
+        "clear-cards": "Effacer les cartes",
+        "clear-all": "Tout effacer"
+      },
       "deck-info-title": "Données générales",
       "deck-cards-title": "Cartes",
       "save": "Enregistrer",

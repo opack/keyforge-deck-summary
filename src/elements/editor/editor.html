@@ -3,9 +3,20 @@
   <require from="elements/editor/card/card"></require>
 
   <div class="d-flex flex-row align-items-center">
-    <!-- TODO Add a 'New deck' button -->
-    <button class="btn-outline-secondary" click.delegate="save()">${i18nService.get('ui.editor.save')}</button>
-    <!-- TODO Add a 'Clear' menu with the options : 'Clear All' and 'Clear cards' -->
+    <div class="p-1 btn-group" role="group">
+      <!-- TODO Add a 'New deck' button -->
+      <button class="btn-outline-secondary" click.delegate="save()">${i18nService.get('ui.editor.save')}</button>
+    </div>
+    <div class="p-1 btn-group" role="group">
+      <button id="btnGroupCollection" type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          ${i18nService.get('ui.editor.clear-menu.title')}
+      </button>
+      <div class="dropdown-menu" aria-labelledby="btnGroupCollection">
+        <button class="dropdown-item" click.delegate="clearGeneralData()">${i18nService.get('ui.editor.clear-menu.clear-general-data')}</button>
+        <button class="dropdown-item" click.delegate="clearCards()">${i18nService.get('ui.editor.clear-menu.clear-cards')}</button>
+        <button class="dropdown-item" click.delegate="clearAll()">${i18nService.get('ui.editor.clear-menu.clear-all')}</button>
+      </div>
+    </div>
     <!-- TODO Add a parameter to adjust card image size -->
   </div>
 
@@ -32,6 +43,7 @@
         </label>          
       </div>
       <input type="file" ref="backgoundUpload" change.delegate="importBackgoundImage()" id="background-upload" name="background-upload" accept="image/*" style="display: none">
+      <!-- TODO Add a button to clear background image -->
     </div>
   </div>
 

@@ -131,6 +131,12 @@
       }
     },
     "editor": {
+      "clear-menu": {
+        "title": "Clear",
+        "clear-general-data": "Clear general data",
+        "clear-cards": "Clear cards",
+        "clear-all": "Clear all"
+      },
       "deck-info-title": "General data",
       "deck-cards-title": "Cards",
       "save": "Save",

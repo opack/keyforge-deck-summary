@@ -1,28 +1,30 @@
 <template>
-  <div class="btn-group" role="group">
-    <div class="btn-group" role="group">
-      <button id="btnGroupDeck" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          ${i18nService.get('ui.collection.deck-menu.title')}
-      </button>
-      <div class="dropdown-menu" aria-labelledby="btnGroupDeck">
-        <button class="dropdown-item" click.delegate="new()">${i18nService.get('ui.collection.deck-menu.new')}</button>
-        
-        <label class="dropdown-item" for="deck-uploads">${i18nService.get('ui.collection.deck-menu.import')}</label>
-        <input type="file" ref="deckUpload" change.delegate="importDeck()" id="deck-uploads" name="deck-uploads" accept=".kdsd" multiple style="display: none">
+  <div class="d-flex flex-row align-items-center">
+    <div class="p-1 btn-group" role="group">
+      <div class="btn-group" role="group">
+        <button id="btnGroupDeck" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            ${i18nService.get('ui.collection.deck-menu.title')}
+        </button>
+        <div class="dropdown-menu" aria-labelledby="btnGroupDeck">
+          <button class="dropdown-item" click.delegate="new()">${i18nService.get('ui.collection.deck-menu.new')}</button>
+          
+          <label class="dropdown-item" for="deck-uploads">${i18nService.get('ui.collection.deck-menu.import')}</label>
+          <input type="file" ref="deckUpload" change.delegate="importDeck()" id="deck-uploads" name="deck-uploads" accept=".kdsd" multiple style="display: none">
+        </div>
       </div>
-    </div>
 
-    <div class="btn-group" role="group">
-      <button id="btnGroupCollection" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          ${i18nService.get('ui.collection.collection-menu.title')}
-      </button>
-      <div class="dropdown-menu" aria-labelledby="btnGroupCollection">
-        <label class="dropdown-item" for="collection-upload">${i18nService.get('ui.collection.collection-menu.import')}</label>
-        <input type="file" ref="collectionUpload" change.delegate="importCollection()" id="collection-upload" name="collection-upload" accept=".kdsc" style="display: none">
-        
-        <button class="dropdown-item ${decks.length > 0 ? '' : 'disabled'}" click.delegate="downloadCollection()">${i18nService.get('ui.collection.collection-menu.download')}</button>
-        
-        <button class="dropdown-item ${decks.length > 0 ? '' : 'disabled'}" click.delegate="clearCollection()">${i18nService.get('ui.collection.collection-menu.clear')}</button>
+      <div class="btn-group" role="group">
+        <button id="btnGroupCollection" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            ${i18nService.get('ui.collection.collection-menu.title')}
+        </button>
+        <div class="dropdown-menu" aria-labelledby="btnGroupCollection">
+          <label class="dropdown-item" for="collection-upload">${i18nService.get('ui.collection.collection-menu.import')}</label>
+          <input type="file" ref="collectionUpload" change.delegate="importCollection()" id="collection-upload" name="collection-upload" accept=".kdsc" style="display: none">
+          
+          <button class="dropdown-item ${decks.length > 0 ? '' : 'disabled'}" click.delegate="downloadCollection()">${i18nService.get('ui.collection.collection-menu.download')}</button>
+          
+          <button class="dropdown-item ${decks.length > 0 ? '' : 'disabled'}" click.delegate="clearCollection()">${i18nService.get('ui.collection.collection-menu.clear')}</button>
+        </div>
       </div>
     </div>
   </div>

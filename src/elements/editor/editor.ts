@@ -42,4 +42,19 @@ export class EditorCustomElement {
   private isValidImageDataURL(dataURL: string) {
     return !isNullOrUndefined(dataURL) && dataURL !== '';
   }
+
+  clearGeneralData() {
+    this.currentDeckService.deck.name = '';
+    this.currentDeckService.deck.qrcode = '';
+    this.currentDeckService.deck.backgroundImage = '';
+  }
+
+  clearCards() {
+    this.currentDeckService.clearCards();
+  }
+
+  clearAll() {
+    this.clearGeneralData();
+    this.clearCards();
+  }
 }
