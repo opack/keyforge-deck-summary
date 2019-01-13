@@ -19,8 +19,15 @@ import { CardDataService } from 'services/card-data-service';
 
 @autoinject
 export class SummaryCustomElement {
+  /**
+   * Parameters
+   */
   @observable({changeHandler: 'parameterChanged'}) private showHouses: boolean;
   @observable({changeHandler: 'parameterChanged'}) private showDeckHouses: boolean;
+  @observable({changeHandler: 'parameterChanged'}) private showCreaturesPower: boolean;
+  @observable({changeHandler: 'parameterChanged'}) private showCreaturesArmor: boolean;
+  @observable({changeHandler: 'parameterChanged'}) private showCreaturesSkills: boolean;
+
 
   @observable({changeHandler: 'parameterChanged'}) private groupingProperty: CardPropertiesEnum;
   @observable({changeHandler: 'parameterChanged'}) private sortingProperty: CardPropertiesEnum;
@@ -59,8 +66,14 @@ export class SummaryCustomElement {
     this.maxTitleFontSize = parseInt(styles.titleFontSize);
 
     // Do this last, as it will trigger an initial summary rebuild
+    // Default parameters
+    this.showHouses = false;
+    this.showDeckHouses = true;
+    this.showCreaturesPower = true;
+    this.showCreaturesArmor = false;
+    this.showCreaturesSkills = true;
     this.groupingProperty = CardPropertiesEnum.Type;
-    this.sortingProperty = CardPropertiesEnum.Title;
+    this.sortingProperty = CardPropertiesEnum.House;
   }
 
   getCardPropertyValue(property: string) {
@@ -213,5 +226,33 @@ export class SummaryCustomElement {
         this.fileDownloaderService.download(canvas.toDataURL(), `${this.currentDeckService.deck.name}.png`);
       }
     );
+  }
+
+  selectGroupByProperty(property: CardPropertiesEnum) {
+    this.groupingProperty = property;
+  }
+
+  selectSortByProperty(property: CardPropertiesEnum) {
+    this.sortingProperty = property;
+  }
+
+  toggleShowCardHouses() {
+    this.showHouses = !this.showHouses;
+  }
+
+  toggleShowDeckHouses() {
+    this.showDeckHouses = !this.showDeckHouses;
+  }
+
+  toggleShowCreaturesPower() {
+    this.showCreaturesPower = !this.showCreaturesPower;
+  }
+
+  toggleShowCreaturesArmor() {
+    this.showCreaturesArmor = !this.showCreaturesArmor;
+  }
+
+  toggleShowCreaturesSkills() {
+    this.showCreaturesSkills = !this.showCreaturesSkills;
   }
 }

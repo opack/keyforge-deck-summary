@@ -6,36 +6,67 @@
   <require from="./cards/upgrade-card.html"></require>
   <require from="./summary.scss"></require>
 
-  <div id="summary-parameters">
-    <div class="form-group row">
+  <div id="summary-parameters d-flex">
+    <div class="p-1 btn-group" role="group">
       <!-- TODO BUG Le tri / groupage par compétence devrait créer des groupes par lettre, que ça soit les skills ou les triggers -->
-      <label for="groupByInput" class="col-sm-1 col-form-label">${i18nService.get('ui.summary.parameters.group-by')}</label>
-      <div class="col-sm-5">
-        <select id="groupByInput" value.bind="groupingProperty">
-          <option value="undefined"></option>
-          <option repeat.for="property of CardPropertiesEnum" model.bind="getCardPropertyValue(property)">${i18nService.get(`ui.summary.cardProperties.${property.toLowerCase()}`)}</option>
-        </select>
+      <!-- Group by menu -->
+      <div class="btn-group" role="group">
+        <button class="btn-secondary dropdown-toggle" data-toggle="dropdown">
+            ${i18nService.get('ui.summary.parameters.group-by')} ${i18nService.get(`ui.summary.cardProperties.${groupingProperty}`)}
+        </button>
+        <div class="dropdown-menu">
+          <button repeat.for="property of CardPropertiesEnum" class="dropdown-item btn-info ${groupingProperty===property.toLowerCase()? 'active': ''}" data-toggle="button" aria-pressed="false" autocomplete="off" click.delegate="selectGroupByProperty(property.toLowerCase())">
+            ${i18nService.get(`ui.summary.cardProperties.${property.toLowerCase()}`)}
+          </button>
+        </div>
       </div>
-      <label for="sortByInput" class="col-sm-1 col-form-label">${i18nService.get('ui.summary.parameters.sort-by')}</label>
-      <div class="col-sm-5">
-        <select id="sortByInput" value.bind="sortingProperty">
-          <option value="undefined"></option>
-          <option repeat.for="property of CardPropertiesEnum" model.bind="getCardPropertyValue(property)">${i18nService.get(`ui.summary.cardProperties.${property.toLowerCase()}`)}</option>
-        </select>
+
+      <!-- Sort by menu -->
+      <div class="btn-group" role="group">
+        <button class="btn-secondary dropdown-toggle" data-toggle="dropdown">
+            ${i18nService.get('ui.summary.parameters.sort-by')} ${i18nService.get(`ui.summary.cardProperties.${sortingProperty}`)}
+        </button>
+        <div class="dropdown-menu">
+          <button repeat.for="property of CardPropertiesEnum" class="dropdown-item btn-info ${sortingProperty===property.toLowerCase()? 'active': ''}" data-toggle="button" aria-pressed="false" autocomplete="off" click.delegate="selectSortByProperty(property.toLowerCase())">
+            ${i18nService.get(`ui.summary.cardProperties.${property.toLowerCase()}`)}
+          </button>
+        </div>
+      </div>
+
+      <!-- Show houses menu -->
+      <div class="btn-group" role="group">
+        <button class="btn-secondary dropdown-toggle" data-toggle="dropdown">
+            ${i18nService.get('ui.summary.parameters.show-houses')}
+        </button>
+        <div class="dropdown-menu">
+          <button class="dropdown-item btn-info ${showHouses? 'active': ''}" data-toggle="button" aria-pressed="false" autocomplete="off" click.delegate="toggleShowCardHouses()">
+            ${i18nService.get('ui.summary.parameters.show-houses-on-cards')}
+          </button>
+          <button class="dropdown-item btn-info ${showDeckHouses? 'active': ''}" data-toggle="button" aria-pressed="false" autocomplete="off" click.delegate="toggleShowDeckHouses()">
+            ${i18nService.get('ui.summary.parameters.show-houses-on-deck')}
+          </button>
+        </div>
+      </div>
+
+      <!-- Show creature data menu -->
+      <div class="btn-group" role="group">
+        <button class="btn-secondary dropdown-toggle" data-toggle="dropdown">
+            ${i18nService.get('ui.summary.parameters.show-creatures-data')}
+        </button>
+        <div class="dropdown-menu">
+          <button class="dropdown-item btn-info ${showCreaturesPower? 'active': ''}" data-toggle="button" aria-pressed="false" autocomplete="off" click.delegate="toggleShowCreaturesPower()">
+            <img src.bind="'images/misc/power.png'" class="summary-parameter-image"> ${i18nService.get('ui.summary.parameters.show-creatures-power')}
+          </button>
+          <button class="dropdown-item btn-info ${showCreaturesArmor? 'active': ''}" data-toggle="button" aria-pressed="false" autocomplete="off" click.delegate="toggleShowCreaturesArmor()">
+            <img src.bind="'images/misc/shield.png'" class="summary-parameter-image"> ${i18nService.get('ui.summary.parameters.show-creatures-armor')}
+          </button>
+          <button class="dropdown-item btn-info ${showCreaturesSkills? 'active': ''}" data-toggle="button" aria-pressed="false" autocomplete="off" click.delegate="toggleShowCreaturesSkills()">
+            <img src.bind="'images/misc/skills.png'" class="summary-parameter-image"> ${i18nService.get('ui.summary.parameters.show-creatures-skills')}
+          </button>
+        </div>
       </div>
     </div>
 
-    <div class="form-group row"></div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" checked.bind="showHouses">
-        <label class="form-check-label" for="inlineCheckbox1">${i18nService.get('ui.summary.parameters.show-card-houses')}</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" id="inlineCheckbox2" checked.bind="showDeckHouses">
-        <label class="form-check-label" for="inlineCheckbox2">${i18nService.get('ui.summary.parameters.show-deck-houses')}</label>
-      </div>
-    </div>
-    
     <!-- TODO Add image size parameters -->
     <!-- TODO Add QR code size parameters -->
     <!-- TODO Add parameter to show/hide the "Action" trigger on an artifact if it is the only trigger -->
@@ -43,10 +74,11 @@
     <!-- TODO Remplacer par une select box multiple qui permet de choisir ce qu'on affiche ou pas : maisons dans les cartes, cercle des 3 maisons du deck, qr code, skills, triggers, puissance, armure... -->
     <!--input type="checkbox" checked.bind="showHouses">${i18nService.get('ui.summary.parameters.show-houses')}</input-->
 
-    <button click.delegate="rebuild()">${i18nService.get('ui.summary.refresh')}</button>
-    <button click.delegate="download()">${i18nService.get('ui.summary.download')}</button>
+    <div class="p-1 btn-group" role="group">
+      <button click.delegate="rebuild()">${i18nService.get('ui.summary.refresh')}</button>
+      <button click.delegate="download()">${i18nService.get('ui.summary.download')}</button>
+    </div>
   </div>
-
   <!-- TODO Add a name tag with the name of the archon and the 3 houses of the deck -->
 
   <div id="summary-cards" class="summary-sheet">

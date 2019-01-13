@@ -142,10 +142,15 @@
     },
     "summary": {
       "parameters": {
-        "group-by": "Grouper par :",
-        "sort-by": "Trier par :",
-        "show-card-houses": "Afficher les maisons sur les cartes",
-        "show-deck-houses": "Afficher les maisons du deck"
+        "group-by": "Grouper par : ",
+        "sort-by": "Trier par : ",
+        "show-houses": "Afficher les maisons",
+        "show-houses-on-cards": "Sur les cartes",
+        "show-houses-on-deck": "Sur le deck",
+        "show-creatures-data": "Afficher sur les créatures",
+        "show-creatures-power": "Puissance",
+        "show-creatures-armor": "Armure",
+        "show-creatures-skills": "Compétences"
       },
       "refresh": "Rafraîchir",
       "download": "Télécharger",

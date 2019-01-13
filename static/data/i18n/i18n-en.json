@@ -142,10 +142,15 @@
     },
     "summary": {
       "parameters": {
-        "groupBy": "Group by:",
-        "sortBy": "Sort by:",
-        "show-card-houses": "Show card houses",
-        "show-deck-houses": "Show deck houses"
+        "groupBy": "Group by: ",
+        "sortBy": "Sort by: ",
+        "show-houses": "Show houses",
+        "show-houses-on-cards": "On cards",
+        "show-houses-on-deck": "On deck",
+        "show-creatures-data": "Show creatures data",
+        "show-creatures-power": "Power",
+        "show-creatures-armor": "Armor",
+        "show-creatures-skills": "Skills"
       },
       "refresh": "Refresh",
       "download": "Download",
