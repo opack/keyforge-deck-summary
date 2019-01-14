@@ -1,6 +1,7 @@
 import { autoinject } from 'aurelia-framework';
 import { EventAggregator } from 'aurelia-event-aggregator';
 
+// TODO IMPORTANT Wrap all data in a custom key or use a custom prefix to avoid bug when trying to load existing application data
 /**
  * Message sent when some data is stored
  */
