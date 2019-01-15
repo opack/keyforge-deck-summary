@@ -1,7 +1,6 @@
 import { autoinject } from 'aurelia-framework';
 import { EventAggregator } from 'aurelia-event-aggregator';
 
-// TODO IMPORTANT Use a custom prefix before the deck name to avoid bug when trying to load pre-existing application data (occurs because localhost:8080 may have been used by another application, but should not occur with a real DNS)
 /**
  * Message sent when some data is stored
  */

@@ -17,6 +17,7 @@
     "bootstrap": "^4.2.1",
     "bootstrap-select": "^1.13.5",
     "fitty": "^2.2.6",
+    "guid-typescript": "^1.0.9",
     "html2canvas": "^1.0.0-alpha.12",
     "jquery": "^3.3.1",
     "lodash": "^4.17.11",

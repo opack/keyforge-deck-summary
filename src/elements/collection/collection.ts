@@ -1,13 +1,17 @@
+import { isNullOrUndefined } from 'util';
+
 import { autoinject } from 'aurelia-framework';
 import { EventAggregator } from 'aurelia-event-aggregator';
 import { DialogService } from 'aurelia-dialog';
 
 import { DeckModel } from 'models/deck-model';
+import { StorageKeysEnum } from 'enums/storage-keys-enum';
 
 import { LocalStorageService, DataStored, DataRemoved, DataCleared } from 'services/local-storage-service';
 import { CurrentDeckService } from 'services/current-deck-service';
 import { FileDownloaderService } from 'services/file-downloader-service';
 import { I18nService } from 'services/i18n-service';
+
 import { ConfirmDialog } from 'resources/elements/confirm-dialog/confirm-dialog';
 
 @autoinject
@@ -33,11 +37,13 @@ export class CollectionCustomElement {
 
   loadCollection() {
     this.decks = new Array<DeckModel>();
-    this.storage.getKeys().forEach(key => {
-      const deck = this.storage.retrieve(key);
-      this.decks.push(deck);
-    });
-    this.decks.sort();
+    const collection = this.storage.retrieve(StorageKeysEnum.Decks);
+    if (!isNullOrUndefined(collection)) {
+      Object.values(collection).forEach(deck => {
+        this.decks.push(deck as DeckModel);
+      });
+      this.decks.sort();
+    }
   }
 
   new() {
@@ -101,7 +107,9 @@ export class CollectionCustomElement {
       lock: false
     }).whenClosed(response => {
       if (!response.wasCancelled) {
-        this.storage.remove(deck.name);
+        const collection = this.storage.retrieve(StorageKeysEnum.Decks);
+        delete collection[deck.guid];
+        this.storage.store(StorageKeysEnum.Decks, collection);
       }
     });
   }
@@ -113,11 +121,7 @@ export class CollectionCustomElement {
   downloadCollection() {
     // Load every deck from local storage and don't use this.decks as it may have
     // been modified and not saved
-    const collection = new Array<DeckModel>();
-    this.storage.getKeys().forEach(key => {
-      const deck = this.storage.retrieve(key);
-      collection.push(deck);
-    });
+    const collection = this.storage.retrieve(StorageKeysEnum.Decks);
 
     const now = new Date();
     this.fileDownloaderService.downloadObjectAsJSON(collection, `deck-collection-${now.getFullYear()}${now.getMonth() + 1}${now.getDate()}-${now.getHours()}${now.getMinutes()}.kdsc`);
@@ -144,8 +148,10 @@ export class CollectionCustomElement {
     const reader = new FileReader();
 
     reader.onload = event => {
-      const collection: Array<DeckModel> = JSON.parse(reader.result as string) as Array<DeckModel>;
-      collection.forEach(deck => this.storeDeck(deck));
+      const collection = JSON.parse(reader.result as string);
+      if (!isNullOrUndefined(collection)) {
+        Object.values(collection).forEach(deck=> this.storeDeck(deck as DeckModel));
+      }
     };
     reader.readAsText(file);
     // Clear the value to make sure that a new selection, even with the same file name, will trigger the change event
@@ -157,7 +163,11 @@ export class CollectionCustomElement {
   }
 
   private storeDeck(deck: DeckModel) {
-    if (this.storage.contains(deck.name)) {
+    let collection = this.storage.retrieve(StorageKeysEnum.Decks);
+    if (isNullOrUndefined(collection)) {
+      collection = {};
+    }
+    if (collection.hasOwnProperty(deck.guid)) {
       this.dialogService.open({
         viewModel: ConfirmDialog,
         model: {
@@ -171,11 +181,13 @@ export class CollectionCustomElement {
         lock: false
       }).whenClosed(response => {
         if (!response.wasCancelled) {
-          this.storage.store(deck.name, deck);
+          collection[deck.guid] = deck;
+          this.storage.store(StorageKeysEnum.Decks, collection);
         }
       });
     } else {
-      this.storage.store(deck.name, deck);
+      collection[deck.guid] = deck;
+      this.storage.store(StorageKeysEnum.Decks, collection);
     }    
   }
 
@@ -193,7 +205,7 @@ export class CollectionCustomElement {
       lock: false
     }).whenClosed(response => {
       if (!response.wasCancelled) {
-        this.storage.clear();
+        this.storage.remove(StorageKeysEnum.Decks);
       }
     });    
   }

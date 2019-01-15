@@ -1,12 +1,14 @@
 import { isNullOrUndefined } from 'util';
 import sha1 from 'sha1';
 import * as _ from 'lodash';
+import { Guid } from 'guid-typescript';
 
 import { autoinject } from 'aurelia-framework';
 import { EventAggregator } from 'aurelia-event-aggregator';
 
 import { LocalStorageService } from 'services/local-storage-service';
 import { DeckModel } from "models/deck-model";
+import { StorageKeysEnum } from 'enums/storage-keys-enum';
 
 /**
  * Message sent when a new current deck has been loaded
@@ -28,6 +30,7 @@ export class CurrentDeckService {
 
   newDeck(): void {
     this.deck = new DeckModel();
+    this.deck.guid = Guid.raw();
     this.initDeck();
   }
 
@@ -88,13 +91,19 @@ export class CurrentDeckService {
 
   save(): void {
     if (this.originalHash !== this.hashDeck(this.deck)) {
-      this.storage.store(this.deck.name, this.deck);
+      let collection = this.storage.retrieve(StorageKeysEnum.Decks);
+      if (isNullOrUndefined(collection)) {
+        collection = {};
+      }
+      collection[this.deck.guid] = this.deck;
+
+      this.storage.store(StorageKeysEnum.Decks, collection);
       this.updateHash();
     }
   }
 
   isValid(): boolean {
     return !isNullOrUndefined(this.deck)
-        && !isNullOrUndefined(this.deck.name);
+      && !isNullOrUndefined(this.deck.guid);
   }
 }
