@@ -202,13 +202,12 @@ export class SummaryCustomElement {
         const valueB = cardModelB[this.sortingProperty].toString().toLowerCase();
 
         // Compare
-        if (valueA > valueB) {
-          return 1;
+        let compare = valueA.localeCompare(valueB);
+        // If same value, then sort by title
+        if (compare === 0) {
+          compare =  cardModelA['title'].localeCompare(cardModelB['title']);
         }
-        if (valueA < valueB) {
-          return -1;
-        }
-        return 0;
+        return compare;
       });
     }
   }
