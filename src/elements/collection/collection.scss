@@ -1,0 +1,6 @@
+@import "../common";
+
+// Remove the margin from the label so that the menu does not have some weird space between items
+.label-without-margin {
+  margin: 0;
+}

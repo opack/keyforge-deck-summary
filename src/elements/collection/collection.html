@@ -1,4 +1,6 @@
 <template>
+  <require from="./collection.scss"></require>
+
   <div class="d-flex flex-row align-items-center">
     <div class="p-1 btn-group" role="group">
       <div class="btn-group" role="group">
@@ -8,10 +10,11 @@
         <div class="dropdown-menu" aria-labelledby="btnGroupDeck">
           <button class="dropdown-item" click.delegate="new()">${i18nService.get('ui.collection.deck-menu.new')}</button>
           
-          <label class="dropdown-item" for="deck-uploads">${i18nService.get('ui.collection.deck-menu.import')}</label>
+          <label class="dropdown-item label-without-margin" for="deck-uploads">${i18nService.get('ui.collection.deck-menu.import')}</label>
           <input type="file" ref="deckUpload" change.delegate="importDeck()" id="deck-uploads" name="deck-uploads" accept=".kdsd" multiple style="display: none">
 
           <!-- TODO Add a button to import from a keyforgegame official site by specifying a deck name -->
+          <button class="dropdown-item" click.delegate="importFromKFG()">${i18nService.get('ui.collection.deck-menu.import-from-keyforgegame')}</button>
         </div>
       </div>
 
@@ -20,7 +23,7 @@
             ${i18nService.get('ui.collection.collection-menu.title')}
         </button>
         <div class="dropdown-menu" aria-labelledby="btnGroupCollection">
-          <label class="dropdown-item" for="collection-upload">${i18nService.get('ui.collection.collection-menu.import')}</label>
+          <label class="dropdown-item label-without-margin" for="collection-upload">${i18nService.get('ui.collection.collection-menu.import')}</label>
           <input type="file" ref="collectionUpload" change.delegate="importCollection()" id="collection-upload" name="collection-upload" accept=".kdsc" style="display: none">
           
           <button class="dropdown-item ${decks.length > 0 ? '' : 'disabled'}" click.delegate="downloadCollection()">${i18nService.get('ui.collection.collection-menu.download')}</button>
