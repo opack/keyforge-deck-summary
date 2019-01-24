@@ -38,6 +38,7 @@ $qrcode-offset-from-right: 15px;
 
 // Deck houses
 $deck-houses-image-height: 76px;
+$deck-houses-circle-size: $deck-houses-image-height * 1.3;
 $deck-houses-image-border-width: $deck-houses-image-height / 8;
 $deck-houses-offset-from-bottom: $qrcode-offset-from-bottom + $deck-houses-image-border-width; // Do this to have the deck houses bottom-aligned with the qr code
 $deck-houses-offset-from-right: $qrcode-offset-from-right + $qrcode-size + $deck-houses-image-border-width + 30;
@@ -197,11 +198,7 @@ $deck-houses-offset-from-right: $qrcode-offset-from-right + $qrcode-size + $deck
 /*
  * QR Code classes
  */
- .qrcode-image {
-  position: absolute;
-  bottom: $qrcode-offset-from-bottom;
-  right: $qrcode-offset-from-right;
-
+.qrcode-image {
   width: $qrcode-size;
   height: $qrcode-size;
 }
@@ -209,10 +206,13 @@ $deck-houses-offset-from-right: $qrcode-offset-from-right + $qrcode-size + $deck
 /*
  * Deck houses classes
  */
-.deck-houses {
+.general-data {
+  @extend .d-flex;
+  @extend .align-items-center;
+
   position: absolute;
-  bottom: $deck-houses-offset-from-bottom;
-  right: $deck-houses-offset-from-right;
+  bottom: $qrcode-offset-from-bottom;
+  right: $qrcode-offset-from-right;
 }
 
 /// Mixin to place items on a circle
@@ -257,10 +257,12 @@ $deck-houses-offset-from-right: $qrcode-offset-from-right + $qrcode-size + $deck
 .circle-container {
   @include on-circle(
     $item-count: 3,
-    $circle-size: $deck-houses-image-height * 1.3,
+    $circle-size: $deck-houses-circle-size,
     $item-size: $deck-houses-image-height
   ); 
-  margin: 5em auto 0;
+  margin: auto;
+  width:  $deck-houses-circle-size + $deck-houses-image-height;
+  height: $deck-houses-circle-size + $deck-houses-image-height;
   div {
     padding: $deck-houses-image-border-width;
     border-radius: 50%;

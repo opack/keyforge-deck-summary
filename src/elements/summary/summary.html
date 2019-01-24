@@ -67,8 +67,9 @@
       </div>
     </div>
 
+    <!-- TODO Add an option to show/hide the group counts -->
     <!-- TODO Add image size parameters -->
-    <!-- TODO Add QR code size parameters -->
+    <!-- TODO Add QR code size parameters and display option -->
     <!-- TODO Add parameter to show/hide the "Action" trigger on an artifact if it is the only trigger -->
 
     <!-- TODO Remplacer par une select box multiple qui permet de choisir ce qu'on affiche ou pas : maisons dans les cartes, cercle des 3 maisons du deck, qr code, skills, triggers, puissance, armure... -->
@@ -98,26 +99,28 @@
       </div>
     </div>
 
-    <img src.bind="qrcode" class="qrcode-image" >
+    <div class="general-data">
+      <img src.bind="qrcode" class="p-2 qrcode-image" if.bind="!isNullOrUndefined(qrcode) && qrcode !== ''">
 
-    <div class="deck-houses" show.bind="showDeckHouses">
-      <ul class="circle-container">
-        <li>
-          <div class="house-${house1}">
-            <img src.bind="'images/houses/' + house1 + '.png'">
-          </div>
-        </li>
-        <li>
-          <div class="house-${house2}">
-            <img src.bind="'images/houses/' + house2 + '.png'">
-          </div>
-        </li>
-        <li>
-          <div class="house-${house3}">
-            <img src.bind="'images/houses/' + house3 + '.png'">
-          </div>
-        </li>
-      </ul>
+      <div class="p-2 deck-houses" show.bind="showDeckHouses">
+        <ul class="circle-container">
+          <li>
+            <div class="house-${house1}">
+              <img src.bind="'images/houses/' + house1 + '.png'">
+            </div>
+          </li>
+          <li>
+            <div class="house-${house2}">
+              <img src.bind="'images/houses/' + house2 + '.png'">
+            </div>
+          </li>
+          <li>
+            <div class="house-${house3}">
+              <img src.bind="'images/houses/' + house3 + '.png'">
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
