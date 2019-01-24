@@ -67,6 +67,7 @@ export class SummaryCustomElement {
 
     // Do this last, as it will trigger an initial summary rebuild
     // Default parameters
+    // TODO Store / load parameters to / from local storage
     this.showHouses = false;
     this.showDeckHouses = true;
     this.showCreaturesPower = true;
@@ -118,7 +119,7 @@ export class SummaryCustomElement {
     const houses = new Array<string>();
     // Retrieve all the houes of the deck in a list
     this.currentDeckService.deck.cards.forEach(cardNumber => {
-      const card = this.cardDataService.get(cardNumber);
+      const card = this.cardDataService.getByNumber(cardNumber);
       if (isNullOrUndefined(card)) {
         return;
       }
@@ -164,7 +165,7 @@ export class SummaryCustomElement {
 
   private groupCards(): void {
     this.currentDeckService.deck.cards.forEach(cardNumber => {
-      const card = this.cardDataService.get(cardNumber);
+      const card = this.cardDataService.getByNumber(cardNumber);
 
       // If the card is not defined, then skip it
       if (isNullOrUndefined(card) || isNullOrUndefined(card[this.groupingProperty])) {

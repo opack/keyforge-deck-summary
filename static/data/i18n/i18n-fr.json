@@ -94,7 +94,8 @@
       "deck-menu": {
         "title": "Deck",
         "new": "Nouveau deck",
-        "import": "Importer deck(s)"
+        "import": "Importer deck(s)",
+        "import-from-keyforgegame": "Importer depuis KeyForgeGame.com"
       },
       "collection-menu": {
         "title": "Collection",
@@ -128,6 +129,12 @@
         "message": "Vous êtes sur le point de perdre les modifications non sauvegardées effectuées dans l'onglet 'Editeur'. Voulez-vous continuer ?",
         "cancel": "Non, annuler",
         "confirm": "Oui, perdre les modifications"
+      },
+      "input-kfg-deck-name-modal": {
+        "title": "Chargement de deck depuis KeyForgeGame.com",
+        "message": "Veuillez saisir le nom du deck tel qu'il apparaît sur KeyForgeGame.com :",
+        "cancel": "Annuler",
+        "confirm": "Charger"
       }
     },
     "editor": {

@@ -14,7 +14,7 @@ export class I18nService {
 
   load(language: string) {
     const compositionTransactionNotifier = this.compositionTransaction.enlist();
-    return this.jsonFetcherService.fetch(`i18n/i18n-${language}.json`).then(result => {
+    return this.jsonFetcherService.fetch(`data/i18n/i18n-${language}.json`).then(result => {
       this.strings = result;
       compositionTransactionNotifier.done();
     });

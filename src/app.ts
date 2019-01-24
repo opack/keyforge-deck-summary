@@ -1,4 +1,3 @@
-import { CardDataService } from './services/card-data-service';
 import * as $ from 'jquery';
 
 import { autoinject } from 'aurelia-framework';
@@ -10,8 +9,7 @@ import { I18nService } from 'services/i18n-service';
 export class App {
   constructor(
     private currentDeckService: CurrentDeckService,
-    private i18nService: I18nService,// Do not delete: used in HTML template to interpolate strings
-    private cardDataService: CardDataService
+    private i18nService: I18nService// Do not delete: used in HTML template to interpolate strings
   ) {
   }
   

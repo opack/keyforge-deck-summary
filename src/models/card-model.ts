@@ -5,6 +5,7 @@ import { TriggersEnum } from 'enums/triggers-enum';
 
 
 export class CardModel {
+  guid: string;
   number: number;
   title: string;
   type: TypesEnum;

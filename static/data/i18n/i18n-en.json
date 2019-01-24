@@ -94,7 +94,8 @@
       "deck-menu": {
         "title": "Deck",
         "new": "New deck",
-        "import": "Import deck(s)"
+        "import": "Import deck(s)",
+        "import-from-keyforgegame": "Import from KeyForgeGame.com"
       },
       "collection-menu": {
         "title": "Collection",
@@ -128,6 +129,12 @@
         "message": "You are about to lose the unsaved changes made in the 'Editor' tab. Do you want to continue?",
         "cancel": "No, cancel",
         "confirm": "Yes, lose the changes"
+      },
+      "input-kfg-deck-name-modal": {
+        "title": "Load deck from KeyForgeGame.com",
+        "message": "Please type the name of the deck as it appears on KeyForgeGame.com:",
+        "cancel": "Cancel",
+        "confirm": "Load"
       }
     },
     "editor": {

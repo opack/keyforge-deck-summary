@@ -1,0 +1,15 @@
+<template>
+  <ux-dialog>
+    <ux-dialog-body>
+      <h2>${strings.title}</h2>
+      <label for="inputField">${strings.message}</label>
+      <input id="inputField" ref="inputField" type="text">
+    </ux-dialog-body>
+
+    <ux-dialog-footer>
+      <button class="${strings.cancelClass}" click.trigger="controller.cancel()">${strings.cancel}</button>
+      <button class="${strings.okClass}" click.trigger="controller.ok(inputField.value)">${strings.ok}</button>
+    </ux-dialog-footer>
+  </ux-dialog>
+</template>
+

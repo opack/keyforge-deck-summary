@@ -45,7 +45,7 @@ export class CardCustomElement {
     this.updateStateClass();
     if (this.stateClass === ErrorStatesClasses.Valid) {
       const cardNumber: number = parseInt(this.cardNumber);
-      const selectedCard = this.cardDataService.get(cardNumber);
+      const selectedCard = this.cardDataService.getByNumber(cardNumber);
       if (isNullOrUndefined(selectedCard)) {
         this.image = 'images/misc/no-card.png';
       } else {

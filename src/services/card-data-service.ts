@@ -12,24 +12,29 @@ import { TriggersEnum } from './../enums/triggers-enum';
 
 @autoinject
 export class CardDataService {
-  private cards: Map<number, CardModel>;
+  private cardsByNumber: Map<number, CardModel>;
+  private cardsById: Map<string, CardModel>;
   private count: number;
 
   constructor(
     private jsonFetcherService: JsonFetcherService,
     private compositionTransaction: CompositionTransaction,
     private i18nService: I18nService) {
-    this.cards = new Map<number, CardModel>();
+    this.cardsByNumber = new Map<number, CardModel>();
+    this.cardsById = new Map<string, CardModel>();
     this.load('fr');
   }
 
   load(language: string) {
     const compositionTransactionNotifier = this.compositionTransaction.enlist();
-    return this.jsonFetcherService.fetch(`cards/cards-${language}.json`).then(result => {
-      this.cards.clear();
+    return this.jsonFetcherService.fetch(`data/cards/cards-${language}.json`).then(result => {
+      this.cardsByNumber.clear();
+      this.cardsById.clear();
 
       result.forEach(data => {
         const card = new CardModel();
+        card.guid = data.id;
+        card.number = data.card_number;
         card.type = TypesEnum[data.card_type] as TypesEnum;
         card.title = data.card_title;
         card.house = HousesEnum[data.house] as HousesEnum;
@@ -41,7 +46,8 @@ export class CardDataService {
         // TODO Also extract skills gained with upgrades and display them in the summary. To do this, the i18n adaptor skills must be a regexp capturing various strings
         card.skills = this.extractSkills(data.card_text);
 
-        this.cards.set(data.card_number, card);
+        this.cardsByNumber.set(data.card_number, card);
+        this.cardsById.set(data.id, card);
       });
       this.count = result.length;
       compositionTransactionNotifier.done();
@@ -76,12 +82,16 @@ export class CardDataService {
     return triggers;
   }
 
-  get(cardNumber: number): CardModel {
-    return this.cards.get(cardNumber);
+  getByNumber(cardNumber: number): CardModel {
+    return this.cardsByNumber.get(cardNumber);
+  }
+
+  getById(cardId: string): CardModel {
+    return this.cardsById.get(cardId);
   }
 
   has(cardNumber: number): boolean {
-    return this.cards.has(cardNumber);
+    return this.cardsByNumber.has(cardNumber);
   }
 
   getCardCount(): number {
