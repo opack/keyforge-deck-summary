@@ -1,15 +1,16 @@
 <template>
+  <require from="@fortawesome/fontawesome-free/css/all.css"></require>
   <require from="./editor.scss"></require>
   <require from="elements/editor/card/card"></require>
 
   <div class="d-flex flex-row align-items-center">
     <div class="p-1 btn-group" role="group">
       <!-- TODO Add a 'New deck' button -->
-      <button class="btn-outline-secondary" click.delegate="save()">${i18nService.get('ui.editor.save')}</button>
+      <button class="btn-outline-secondary fa fa-save" click.delegate="save()"></button>
     </div>
     <div class="p-1 btn-group" role="group">
-      <button id="btnGroupCollection" type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          ${i18nService.get('ui.editor.clear-menu.title')}
+      <button id="btnGroupCollection" class="btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fas fa-eraser"></i>
       </button>
       <div class="dropdown-menu" aria-labelledby="btnGroupCollection">
         <button class="dropdown-item" click.delegate="clearGeneralData()">${i18nService.get('ui.editor.clear-menu.clear-general-data')}</button>

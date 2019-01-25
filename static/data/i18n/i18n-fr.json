@@ -109,9 +109,6 @@
         "cancel": "Non, annuler",
         "confirm": "Oui, supprimer tout"
       },
-      "deck-load": "Charger",
-      "deck-download": "Télécharger",
-      "deck-remove": "Supprimer",
       "confirm-deck-remove-modal": {
         "title": "Suppression du deck",
         "message": "Voulez-vous vraiment supprimer le deck '{name}' ?",
@@ -139,14 +136,12 @@
     },
     "editor": {
       "clear-menu": {
-        "title": "Effacer",
         "clear-general-data": "Effacer les données générales",
         "clear-cards": "Effacer les cartes",
         "clear-all": "Tout effacer"
       },
       "deck-info-title": "Données générales",
       "deck-cards-title": "Cartes",
-      "save": "Enregistrer",
       "name": "Nom :",
       "qr-code": "QR code :",
       "background-image": "Image de fond :",
@@ -165,8 +160,6 @@
         "show-creatures-armor": "Armure",
         "show-creatures-skills": "Compétences"
       },
-      "refresh": "Rafraîchir",
-      "download": "Télécharger",
       "cardProperties": {
         "title": "Titre",
         "type": "Type",

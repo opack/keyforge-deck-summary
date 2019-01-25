@@ -1,4 +1,5 @@
 <template>
+  <require from="@fortawesome/fontawesome-free/css/all.css"></require>
   <require from="./collection.scss"></require>
 
   <div class="d-flex flex-row align-items-center">
@@ -8,46 +9,61 @@
             ${i18nService.get('ui.collection.deck-menu.title')}
         </button>
         <div class="dropdown-menu" aria-labelledby="btnGroupDeck">
-          <button class="dropdown-item" click.delegate="new()">${i18nService.get('ui.collection.deck-menu.new')}</button>
+          <button class="dropdown-item" click.delegate="new()">
+            <i class="fas fa-plus-circle"></i> ${i18nService.get('ui.collection.deck-menu.new')}
+          </button>
           
-          <label class="dropdown-item label-without-margin" for="deck-uploads">${i18nService.get('ui.collection.deck-menu.import')}</label>
+          <label class="dropdown-item label-without-margin" for="deck-uploads">
+            <i class="fas fa-upload"></i> ${i18nService.get('ui.collection.deck-menu.import')}
+          </label>
           <input type="file" ref="deckUpload" change.delegate="importDeck()" id="deck-uploads" name="deck-uploads" accept=".kdsd" multiple style="display: none">
 
           <!-- TODO Add a button to import from a keyforgegame official site by specifying a deck name -->
-          <button class="dropdown-item" click.delegate="importFromKFG()">${i18nService.get('ui.collection.deck-menu.import-from-keyforgegame')}</button>
+          <button class="dropdown-item" click.delegate="importFromKFG()">
+            <i class="fas fa-cloud-upload-alt"></i> ${i18nService.get('ui.collection.deck-menu.import-from-keyforgegame')}
+          </button>
         </div>
       </div>
+
 
       <div class="btn-group" role="group">
         <button id="btnGroupCollection" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             ${i18nService.get('ui.collection.collection-menu.title')}
         </button>
         <div class="dropdown-menu" aria-labelledby="btnGroupCollection">
-          <label class="dropdown-item label-without-margin" for="collection-upload">${i18nService.get('ui.collection.collection-menu.import')}</label>
+          <label class="dropdown-item label-without-margin" for="collection-upload">
+            <i class="fas fa-upload"></i> ${i18nService.get('ui.collection.collection-menu.import')}
+          </label>
           <input type="file" ref="collectionUpload" change.delegate="importCollection()" id="collection-upload" name="collection-upload" accept=".kdsc" style="display: none">
           
-          <button class="dropdown-item ${decks.length > 0 ? '' : 'disabled'}" click.delegate="downloadCollection()">${i18nService.get('ui.collection.collection-menu.download')}</button>
+          <button class="dropdown-item ${decks.length > 0 ? '' : 'disabled'}" click.delegate="downloadCollection()">
+            <i class="fas fa-download"></i> ${i18nService.get('ui.collection.collection-menu.download')}
+          </button>
           
-          <button class="dropdown-item ${decks.length > 0 ? '' : 'disabled'}" click.delegate="clearCollection()">${i18nService.get('ui.collection.collection-menu.clear')}</button>
+          <button class="dropdown-item ${decks.length > 0 ? '' : 'disabled'}" click.delegate="clearCollection()">
+            <i class="fas fa-trash"></i> ${i18nService.get('ui.collection.collection-menu.clear')}
+          </button>
         </div>
       </div>
     </div>
   </div>
-
   
   <div repeat.for="deck of decks">
     <div class="d-flex align-items-center">
       <div class="p-1">
-        ${deck.name}
-      </div>      
-      <div class="p-1">
-        <button class="btn btn-outline-secondary" click.delegate="load(deck)">${i18nService.get('ui.collection.deck-load')}</button>
+        <button class="btn btn-outline-primary" click.delegate="load(deck)">
+          ${deck.name}
+        </button>
       </div>
       <div class="p-1">
-        <button class="btn btn-outline-secondary" click.delegate="download(deck)">${i18nService.get('ui.collection.deck-download')}</button>
+        <button class="btn btn-outline-secondary" click.delegate="download(deck)">
+          <i class="fas fa-download"></i>
+        </button>
       </div>
       <div class="p-1">
-        <button class="btn btn-outline-danger" click.delegate="remove(deck)">${i18nService.get('ui.collection.deck-remove')}</button>
+        <button class="btn btn-outline-danger" click.delegate="remove(deck)">
+          <i class="fas fa-trash"></i>
+        </button>
       </div>
     </div>
   </div>

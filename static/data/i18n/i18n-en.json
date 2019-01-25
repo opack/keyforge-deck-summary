@@ -109,9 +109,6 @@
         "cancel": "No, cancel",
         "confirm": "Yes, clear them"
       },
-      "deck-load": "Load",
-      "deck-download": "Download",
-      "deck-remove": "Remove",
       "confirm-deck-remove-modal": {
         "title": "Deck removal",
         "message": "Do you really want to remove the deck '{name}'?",
@@ -139,14 +136,12 @@
     },
     "editor": {
       "clear-menu": {
-        "title": "Clear",
         "clear-general-data": "Clear general data",
         "clear-cards": "Clear cards",
         "clear-all": "Clear all"
       },
       "deck-info-title": "General data",
       "deck-cards-title": "Cards",
-      "save": "Save",
       "name": "Name:",
       "qr-code": "QR code:",
       "background-image": "Background image:",
@@ -165,8 +160,6 @@
         "show-creatures-armor": "Armor",
         "show-creatures-skills": "Skills"
       },
-      "refresh": "Refresh",
-      "download": "Download",
       "cardProperties": {
         "title": "Title",
         "type": "Type",

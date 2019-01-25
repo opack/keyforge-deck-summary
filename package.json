@@ -27,6 +27,7 @@
   },
   "peerDependencies": {},
   "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.6.3",
     "@types/bluebird": "^3.5.24",
     "@types/bootstrap-select": "^1.11.1",
     "@types/jest": "^23.3.5",

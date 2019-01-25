@@ -1,4 +1,5 @@
 <template>
+  <require from="@fortawesome/fontawesome-free/css/all.css"></require>
   <require from="resources/elements/card-properties-list"></require>
   <require from="./cards/action-card.html"></require>
   <require from="./cards/artifact-card.html"></require>
@@ -76,8 +77,12 @@
     <!--input type="checkbox" checked.bind="showHouses">${i18nService.get('ui.summary.parameters.show-houses')}</input-->
 
     <div class="p-1 btn-group" role="group">
-      <button click.delegate="rebuild()">${i18nService.get('ui.summary.refresh')}</button>
-      <button click.delegate="download()">${i18nService.get('ui.summary.download')}</button>
+      <button click.delegate="rebuild()">
+        <i class="fas fa-sync"></i>
+      </button>
+      <button click.delegate="download()">
+        <i class="fas fa-download"></i>
+      </button>
     </div>
   </div>
   <!-- TODO Add a name tag with the name of the archon and the 3 houses of the deck -->
