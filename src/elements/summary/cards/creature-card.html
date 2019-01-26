@@ -4,27 +4,27 @@
   <require from="resources/value-converters/skills-shortner"></require>
   
   <div class="card-entry house-${model.house}">
-    <div class="col-${showHouses ? 8 : 9}">
+    <div class="col">
       <span class="title-text fit">${model.title}</span>
     </div>
 
-    <div class="col-1" align="center">
+    <div if.bind="showCreatureSkills" class="col-1" align="center">
       <span class="card-specificity">${model.skills | skillsShortner}</span>
     </div>
 
-    <div class="col-1" align="center">
+    <div if.bind="showCreaturePower" class="col-1" align="center">
       <div class="power-badge">
         <span class="power-text">${model.power}</span>
       </div>
     </div>
 
-    <div class="col-1" align="center">
-      <div if.bind="model.aember > 0" class="aember-badge">
+    <div if.bind="showCardAember" class="col-1" align="center">
+      <div if.bind="model.aember > 0"class="aember-badge">
         <span class="aember-text">${model.aember}</span>
       </div>
     </div>
 
-    <div class="col-1" align="center" if.bind="showHouses">
+    <div if.bind="showCardHouse" class="col-1" align="center">
       <img src.bind="'images/houses/' + model.house + '.png'" class="house-image" >
     </div>
   </div>

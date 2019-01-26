@@ -43,7 +43,6 @@ export class CardDataService {
         card.power = data.power;
         card.armor = data.armor;
         card.triggers = this.extractTriggers(data.card_text);
-        // TODO Also extract skills gained with upgrades and display them in the summary. To do this, the i18n adaptor skills must be a regexp capturing various strings
         card.skills = this.extractSkills(data.card_text);
 
         this.cardsByNumber.set(data.card_number, card);

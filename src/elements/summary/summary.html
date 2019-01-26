@@ -33,14 +33,16 @@
           </button>
         </div>
       </div>
+    </div>
 
+    <div class="p-1 btn-group" role="group">
       <!-- Show houses menu -->
       <div class="btn-group" role="group">
         <button class="btn-secondary dropdown-toggle" data-toggle="dropdown">
             ${i18nService.get('ui.summary.parameters.show-houses')}
         </button>
         <div class="dropdown-menu">
-          <button class="dropdown-item btn-info ${showHouses? 'active': ''}" data-toggle="button" aria-pressed="false" autocomplete="off" click.delegate="toggleShowCardHouses()">
+          <button class="dropdown-item btn-info ${showCardHouse? 'active': ''}" data-toggle="button" aria-pressed="false" autocomplete="off" click.delegate="toggleShowCardHouses()">
             ${i18nService.get('ui.summary.parameters.show-houses-on-cards')}
           </button>
           <button class="dropdown-item btn-info ${showDeckHouses? 'active': ''}" data-toggle="button" aria-pressed="false" autocomplete="off" click.delegate="toggleShowDeckHouses()">
@@ -49,32 +51,47 @@
         </div>
       </div>
 
-      <!-- Show creature data menu -->
+      <!-- Show card data menu -->
       <div class="btn-group" role="group">
         <button class="btn-secondary dropdown-toggle" data-toggle="dropdown">
-            ${i18nService.get('ui.summary.parameters.show-creatures-data')}
+            ${i18nService.get('ui.summary.parameters.show-card-data-menu.title')}
         </button>
         <div class="dropdown-menu">
-          <button class="dropdown-item btn-info ${showCreaturesPower? 'active': ''}" data-toggle="button" aria-pressed="false" autocomplete="off" click.delegate="toggleShowCreaturesPower()">
-            <img src.bind="'images/misc/power.png'" class="summary-parameter-image"> ${i18nService.get('ui.summary.parameters.show-creatures-power')}
+          <!-- Show card data -->
+          <h6 class="dropdown-header">${i18nService.get('ui.summary.parameters.show-card-data-menu.all-cards-header')}</h6>
+          <button class="dropdown-item btn-info ${showCardAember? 'active': ''}" data-toggle="button" aria-pressed="false" autocomplete="off" click.delegate="toggleShowCardAember()">
+            <img src.bind="'images/misc/aember.png'" class="summary-parameter-image"> ${i18nService.get('ui.summary.parameters.show-card-data-menu.show-card-aember')}
           </button>
-          <button class="dropdown-item btn-info ${showCreaturesArmor? 'active': ''}" data-toggle="button" aria-pressed="false" autocomplete="off" click.delegate="toggleShowCreaturesArmor()">
-            <img src.bind="'images/misc/shield.png'" class="summary-parameter-image"> ${i18nService.get('ui.summary.parameters.show-creatures-armor')}
+
+          <!-- Show creature data menu -->
+          <h6 class="dropdown-header">${i18nService.get('ui.summary.parameters.show-card-data-menu.creatures-header')}</h6>
+          <button class="dropdown-item btn-info ${showCreaturePower? 'active': ''}" data-toggle="button" aria-pressed="false" autocomplete="off" click.delegate="toggleShowCreaturePower()">
+            <img src.bind="'images/misc/power.png'" class="summary-parameter-image"> ${i18nService.get('ui.summary.parameters.show-card-data-menu.show-creature-power')}
           </button>
-          <button class="dropdown-item btn-info ${showCreaturesSkills? 'active': ''}" data-toggle="button" aria-pressed="false" autocomplete="off" click.delegate="toggleShowCreaturesSkills()">
-            <img src.bind="'images/misc/skills.png'" class="summary-parameter-image"> ${i18nService.get('ui.summary.parameters.show-creatures-skills')}
+          <!-- TODO Do not show this until the armor can be displayed -->
+          <!--button class="dropdown-item btn-info ${showCreatureArmor? 'active': ''}" data-toggle="button" aria-pressed="false" autocomplete="off" click.delegate="toggleShowCreatureArmor()">
+            <img src.bind="'images/misc/shield.png'" class="summary-parameter-image"> ${i18nService.get('ui.summary.parameters.show-creature-armor')}
+          </button-->
+          <button class="dropdown-item btn-info ${showCreatureSkills? 'active': ''}" data-toggle="button" aria-pressed="false" autocomplete="off" click.delegate="toggleShowCreatureSkills()">
+            <img src.bind="'images/misc/skills.png'" class="summary-parameter-image"> ${i18nService.get('ui.summary.parameters.show-card-data-menu.show-creature-skills')}
+          </button>
+          
+          <!-- Show artifact data menu -->
+          <h6 class="dropdown-header">${i18nService.get('ui.summary.parameters.show-card-data-menu.artifacts-header')}</h6>
+          <button class="dropdown-item btn-info ${showArtifactTriggers? 'active': ''}" data-toggle="button" aria-pressed="false" autocomplete="off" click.delegate="toggleShowArtifactTriggers()">
+            <img src.bind="'images/misc/trigger.png'" class="summary-parameter-image"> ${i18nService.get('ui.summary.parameters.show-card-data-menu.show-artifact-triggers')}
+          </button>
+          <button class="dropdown-item btn-info ${hideArtifactOnlyActionTrigger? 'active': ''}" data-toggle="button" aria-pressed="false" autocomplete="off" click.delegate="toggleHideArtifactOnlyActionTrigger()">
+            <img src.bind="'images/misc/trigger.png'" class="summary-parameter-image"> ${i18nService.get('ui.summary.parameters.show-card-data-menu.hide-action-trigger')}
           </button>
         </div>
       </div>
     </div>
 
+    <!-- TODO Add parameter to show/hide the "Action" trigger on an artifact if it is the only trigger -->
     <!-- TODO Add an option to show/hide the group counts -->
     <!-- TODO Add image size parameters -->
     <!-- TODO Add QR code size parameters and display option -->
-    <!-- TODO Add parameter to show/hide the "Action" trigger on an artifact if it is the only trigger -->
-
-    <!-- TODO Remplacer par une select box multiple qui permet de choisir ce qu'on affiche ou pas : maisons dans les cartes, cercle des 3 maisons du deck, qr code, skills, triggers, puissance, armure... -->
-    <!--input type="checkbox" checked.bind="showHouses">${i18nService.get('ui.summary.parameters.show-houses')}</input-->
 
     <div class="p-1 btn-group" role="group">
       <button click.delegate="rebuild()">

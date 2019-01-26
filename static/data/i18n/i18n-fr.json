@@ -155,10 +155,18 @@
         "show-houses": "Afficher les maisons",
         "show-houses-on-cards": "Sur les cartes",
         "show-houses-on-deck": "Sur le deck",
-        "show-creatures-data": "Afficher sur les créatures",
-        "show-creatures-power": "Puissance",
-        "show-creatures-armor": "Armure",
-        "show-creatures-skills": "Compétences"
+        "show-card-data-menu": {
+          "title": "Afficher sur les cartes",
+          "all-cards-header": "Toutes les cartes",
+          "show-card-aember": "Aombre",
+          "creatures-header": "Créatures",
+          "show-creature-power": "Puissance",
+          "show-creature-armor": "Armure",
+          "show-creature-skills": "Compétences",
+          "artifacts-header": "Artefacts",
+          "show-artifact-triggers": "Déclencheurs",
+          "hide-action-trigger": "Cacher 'Action' si seul"
+        }
       },
       "cardProperties": {
         "title": "Titre",

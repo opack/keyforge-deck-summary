@@ -22,12 +22,14 @@ export class SummaryCustomElement {
   /**
    * Parameters
    */
-  @observable({changeHandler: 'parameterChanged'}) private showHouses: boolean;
   @observable({changeHandler: 'parameterChanged'}) private showDeckHouses: boolean;
-  @observable({changeHandler: 'parameterChanged'}) private showCreaturesPower: boolean;
-  @observable({changeHandler: 'parameterChanged'}) private showCreaturesArmor: boolean;
-  @observable({changeHandler: 'parameterChanged'}) private showCreaturesSkills: boolean;
-
+  @observable({changeHandler: 'parameterChanged'}) private showCardHouse: boolean;
+  @observable({changeHandler: 'parameterChanged'}) private showCardAember: boolean;
+  @observable({changeHandler: 'parameterChanged'}) private showCreaturePower: boolean;
+  @observable({changeHandler: 'parameterChanged'}) private showCreatureArmor: boolean;
+  @observable({changeHandler: 'parameterChanged'}) private showCreatureSkills: boolean;
+  @observable({changeHandler: 'parameterChanged'}) private showArtifactTriggers: boolean;
+  @observable({changeHandler: 'parameterChanged'}) private hideArtifactOnlyActionTrigger: boolean;
 
   @observable({changeHandler: 'parameterChanged'}) private groupingProperty: CardPropertiesEnum;
   @observable({changeHandler: 'parameterChanged'}) private sortingProperty: CardPropertiesEnum;
@@ -68,11 +70,15 @@ export class SummaryCustomElement {
     // Do this last, as it will trigger an initial summary rebuild
     // Default parameters
     // TODO Store / load parameters to / from local storage
-    this.showHouses = false;
     this.showDeckHouses = true;
-    this.showCreaturesPower = true;
-    this.showCreaturesArmor = false;
-    this.showCreaturesSkills = true;
+    this.showCardHouse = false;
+    this.showCardAember = true;
+    this.showCreaturePower = true;
+    this.showCreatureArmor = false;
+    this.showCreatureSkills = true;
+    this.showArtifactTriggers = true;
+    this.hideArtifactOnlyActionTrigger = true;
+
     this.groupingProperty = CardPropertiesEnum.Type;
     this.sortingProperty = CardPropertiesEnum.House;
   }
@@ -236,23 +242,35 @@ export class SummaryCustomElement {
     this.sortingProperty = property;
   }
 
-  toggleShowCardHouses() {
-    this.showHouses = !this.showHouses;
-  }
-
   toggleShowDeckHouses() {
     this.showDeckHouses = !this.showDeckHouses;
   }
 
-  toggleShowCreaturesPower() {
-    this.showCreaturesPower = !this.showCreaturesPower;
+  toggleShowCardHouse() {
+    this.showCardHouse = !this.showCardHouse;
   }
 
-  toggleShowCreaturesArmor() {
-    this.showCreaturesArmor = !this.showCreaturesArmor;
+  toggleShowCardAember() {
+    this.showCardAember = !this.showCardAember;
   }
 
-  toggleShowCreaturesSkills() {
-    this.showCreaturesSkills = !this.showCreaturesSkills;
+  toggleShowCreaturePower() {
+    this.showCreaturePower = !this.showCreaturePower;
+  }
+
+  toggleShowCreatureArmor() {
+    this.showCreatureArmor = !this.showCreatureArmor;
+  }
+
+  toggleShowCreatureSkills() {
+    this.showCreatureSkills = !this.showCreatureSkills;
+  }
+
+  toggleShowArtifactTriggers() {
+    this.showArtifactTriggers = !this.showArtifactTriggers;
+  }
+
+  toggleHideArtifactOnlyActionTrigger() {
+    this.hideArtifactOnlyActionTrigger = !this.hideArtifactOnlyActionTrigger;
   }
 }

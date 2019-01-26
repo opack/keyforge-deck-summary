@@ -4,21 +4,21 @@
   <require from="resources/value-converters/triggers-shortner"></require>
   
   <div class="card-entry house-${model.house}">
-    <div class="col-${showHouses ? 9 : 10}">
+    <div class="col">
       <span class="title-text fit">${model.title}</span>
     </div>
 
-    <div class="col-1" align="center">
-        <span class="card-specificity">${model.triggers | triggersShortner}</span>
+    <div if.bind="showArtifactTriggers" class="col-1" align="center">
+        <span class="card-specificity">${model.triggers | triggersShortner:hideArtifactOnlyActionTrigger}</span>
       </div>
 
-    <div class="col-1" align="center">
+    <div if.bind="showCardAember" class="col-1" align="center">
       <div if.bind="model.aember > 0" class="aember-badge">
         <span class="aember-text">${model.aember}</span>
       </div>
     </div>
 
-    <div class="col-1" align="center" if.bind="showHouses">
+    <div if.bind="showCardHouse" class="col-1" align="center">
       <img src.bind="'images/houses/' + model.house + '.png'" class="house-image" >
     </div>
   </div>
