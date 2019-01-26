@@ -153,11 +153,11 @@
         "group-by": "Grouper par : ",
         "sort-by": "Trier par : ",
         "show-houses": "Afficher les maisons",
-        "show-houses-on-cards": "Sur les cartes",
         "show-houses-on-deck": "Sur le deck",
         "show-card-data-menu": {
           "title": "Afficher sur les cartes",
           "all-cards-header": "Toutes les cartes",
+          "show-card-house": "Maison",
           "show-card-aember": "Aombre",
           "creatures-header": "Créatures",
           "show-creature-power": "Puissance",

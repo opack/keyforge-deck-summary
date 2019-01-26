@@ -42,9 +42,6 @@
             ${i18nService.get('ui.summary.parameters.show-houses')}
         </button>
         <div class="dropdown-menu">
-          <button class="dropdown-item btn-info ${showCardHouse? 'active': ''}" data-toggle="button" aria-pressed="false" autocomplete="off" click.delegate="toggleShowCardHouses()">
-            ${i18nService.get('ui.summary.parameters.show-houses-on-cards')}
-          </button>
           <button class="dropdown-item btn-info ${showDeckHouses? 'active': ''}" data-toggle="button" aria-pressed="false" autocomplete="off" click.delegate="toggleShowDeckHouses()">
             ${i18nService.get('ui.summary.parameters.show-houses-on-deck')}
           </button>
@@ -59,6 +56,9 @@
         <div class="dropdown-menu">
           <!-- Show card data -->
           <h6 class="dropdown-header">${i18nService.get('ui.summary.parameters.show-card-data-menu.all-cards-header')}</h6>
+          <button class="dropdown-item btn-info ${showCardHouse? 'active': ''}" data-toggle="button" aria-pressed="false" autocomplete="off" click.delegate="toggleShowCardHouse()">
+              <img src.bind="'images/misc/house.png'" class="summary-parameter-image"> ${i18nService.get('ui.summary.parameters.show-card-data-menu.show-card-house')}
+          </button>
           <button class="dropdown-item btn-info ${showCardAember? 'active': ''}" data-toggle="button" aria-pressed="false" autocomplete="off" click.delegate="toggleShowCardAember()">
             <img src.bind="'images/misc/aember.png'" class="summary-parameter-image"> ${i18nService.get('ui.summary.parameters.show-card-data-menu.show-card-aember')}
           </button>
