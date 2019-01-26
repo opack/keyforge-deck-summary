@@ -22,7 +22,9 @@ export class SummaryCustomElement {
   /**
    * Parameters
    */
+  @observable({changeHandler: 'parameterChanged'}) private showDeckGroupCounts: boolean;
   @observable({changeHandler: 'parameterChanged'}) private showDeckHouses: boolean;
+  @observable({changeHandler: 'parameterChanged'}) private showDeckQRCode: boolean;
   @observable({changeHandler: 'parameterChanged'}) private showCardHouse: boolean;
   @observable({changeHandler: 'parameterChanged'}) private showCardAember: boolean;
   @observable({changeHandler: 'parameterChanged'}) private showCreaturePower: boolean;
@@ -70,7 +72,9 @@ export class SummaryCustomElement {
     // Do this last, as it will trigger an initial summary rebuild
     // Default parameters
     // TODO Store / load parameters to / from local storage
+    this.showDeckGroupCounts = true;
     this.showDeckHouses = true;
+    this.showDeckQRCode = true;
     this.showCardHouse = false;
     this.showCardAember = true;
     this.showCreaturePower = true;
@@ -242,8 +246,16 @@ export class SummaryCustomElement {
     this.sortingProperty = property;
   }
 
+  toggleShowDeckGroupCounts() {
+    this.showDeckGroupCounts = !this.showDeckGroupCounts;
+  }
+
   toggleShowDeckHouses() {
     this.showDeckHouses = !this.showDeckHouses;
+  }
+
+  toggleShowDeckQRCode() {
+    this.showDeckQRCode = !this.showDeckQRCode;
   }
 
   toggleShowCardHouse() {

@@ -152,10 +152,14 @@
       "parameters": {
         "groupBy": "Group by: ",
         "sortBy": "Sort by: ",
-        "show-houses": "Show houses",
-        "show-houses-on-deck": "On deck",
+        "show-deck-data-menu": {
+          "title": "Deck data",
+          "show-deck-group-counts": "Group counts",
+          "show-deck-houses": "Houses",
+          "show-deck-qrcode": "QR Code"
+        },
         "show-card-data-menu": {
-          "title": "Show card data",
+          "title": "Cards data",
           "all-cards-header": "All cards",
           "show-card-house": "House",
           "show-card-aember": "Aombre",

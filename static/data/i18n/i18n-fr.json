@@ -152,10 +152,14 @@
       "parameters": {
         "group-by": "Grouper par : ",
         "sort-by": "Trier par : ",
-        "show-houses": "Afficher les maisons",
-        "show-houses-on-deck": "Sur le deck",
+        "show-deck-data-menu": {
+          "title": "Données du deck",
+          "show-deck-group-counts": "Totaux des groupes",
+          "show-deck-houses": "Maisons",
+          "show-deck-qrcode": "QR Code"
+        },
         "show-card-data-menu": {
-          "title": "Afficher sur les cartes",
+          "title": "Données des cartes",
           "all-cards-header": "Toutes les cartes",
           "show-card-house": "Maison",
           "show-card-aember": "Aombre",

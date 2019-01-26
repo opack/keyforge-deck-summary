@@ -36,14 +36,20 @@
     </div>
 
     <div class="p-1 btn-group" role="group">
-      <!-- Show houses menu -->
+      <!-- Show deck data menu -->
       <div class="btn-group" role="group">
         <button class="btn-secondary dropdown-toggle" data-toggle="dropdown">
-            ${i18nService.get('ui.summary.parameters.show-houses')}
+            ${i18nService.get('ui.summary.parameters.show-deck-data-menu.title')}
         </button>
         <div class="dropdown-menu">
+          <button class="dropdown-item btn-info ${showDeckGroupCounts? 'active': ''}" data-toggle="button" aria-pressed="false" autocomplete="off" click.delegate="toggleShowDeckGroupCounts()">
+            ${i18nService.get('ui.summary.parameters.show-deck-data-menu.show-deck-group-counts')}
+          </button>
           <button class="dropdown-item btn-info ${showDeckHouses? 'active': ''}" data-toggle="button" aria-pressed="false" autocomplete="off" click.delegate="toggleShowDeckHouses()">
-            ${i18nService.get('ui.summary.parameters.show-houses-on-deck')}
+            ${i18nService.get('ui.summary.parameters.show-deck-data-menu.show-deck-houses')}
+          </button>
+          <button class="dropdown-item btn-info ${showDeckQRCode? 'active': ''}" data-toggle="button" aria-pressed="false" autocomplete="off" click.delegate="toggleShowDeckQRCode()">
+            ${i18nService.get('ui.summary.parameters.show-deck-data-menu.show-deck-qrcode')}
           </button>
         </div>
       </div>
@@ -82,16 +88,13 @@
             <img src.bind="'images/misc/trigger.png'" class="summary-parameter-image"> ${i18nService.get('ui.summary.parameters.show-card-data-menu.show-artifact-triggers')}
           </button>
           <button class="dropdown-item btn-info ${hideArtifactOnlyActionTrigger? 'active': ''}" data-toggle="button" aria-pressed="false" autocomplete="off" click.delegate="toggleHideArtifactOnlyActionTrigger()">
-            <img src.bind="'images/misc/trigger.png'" class="summary-parameter-image"> ${i18nService.get('ui.summary.parameters.show-card-data-menu.hide-action-trigger')}
+            <img src.bind="'images/misc/no-action-trigger-only.png'" class="summary-parameter-image"> ${i18nService.get('ui.summary.parameters.show-card-data-menu.hide-action-trigger')}
           </button>
         </div>
       </div>
     </div>
 
-    <!-- TODO Add parameter to show/hide the "Action" trigger on an artifact if it is the only trigger -->
-    <!-- TODO Add an option to show/hide the group counts -->
     <!-- TODO Add image size parameters -->
-    <!-- TODO Add QR code size parameters and display option -->
 
     <div class="p-1 btn-group" role="group">
       <button click.delegate="rebuild()">
@@ -114,7 +117,7 @@
         Fait intéressant : ce glitch d'affichage se produit aussi sur une carte normale, et il n'apparaît pas lorsqu'on DL l'image -->
         <div class="group-entry">
           <div class="col">
-            <span class='group-title'>${getGroupTitle(group)} <span class="group-count">${cardsByGroup[group].length}</span></span>
+            <span class='group-title'>${getGroupTitle(group)}<span if.bind="showDeckGroupCounts" class="group-count"> ${cardsByGroup[group].length}</span></span>
           </div>
         </div>
         <compose containerless repeat.for="card of cardsByGroup[group]" view-model="./cards/summary-card" view="./cards/${card.type}-card.html" model.bind="card"></compose>
@@ -122,7 +125,7 @@
     </div>
 
     <div class="general-data">
-      <img src.bind="qrcode" class="p-2 qrcode-image" if.bind="!isNullOrUndefined(qrcode) && qrcode !== ''">
+      <img src.bind="qrcode" class="p-2 qrcode-image" if.bind="showDeckQRCode && !isNullOrUndefined(qrcode) && qrcode !== ''">
 
       <div class="p-2 deck-houses" show.bind="showDeckHouses">
         <ul class="circle-container">
