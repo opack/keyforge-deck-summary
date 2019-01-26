@@ -1,20 +1,28 @@
 import * as $ from 'jquery';
 
 import { autoinject } from 'aurelia-framework';
+import { EventAggregator } from 'aurelia-event-aggregator';
 
 import { CurrentDeckService } from './services/current-deck-service';
 import { I18nService } from 'services/i18n-service';
+import { CollectionNewDeck, CollectionLoadDeck } from 'elements/collection/collection';
 
 @autoinject
 export class App {
   constructor(
     private currentDeckService: CurrentDeckService,
-    private i18nService: I18nService// Do not delete: used in HTML template to interpolate strings
+    private i18nService: I18nService,// Do not delete: used in HTML template to interpolate strings
+    eventAggregator: EventAggregator
   ) {
+    eventAggregator.subscribe(CollectionNewDeck, msg => this.switchTab('nav-editor-tab'));
+    eventAggregator.subscribe(CollectionLoadDeck, msg => this.switchTab('nav-summary-tab'));
   }
   
   attached() {
-    // Create an even to rebuild the summary on tab activation. We must use 'shown.bs.tab'
+    // Ensure there is at least an empty deck
+    this.currentDeckService.newDeck();
+
+    // Create an event to rebuild the summary on tab activation. We must use 'shown.bs.tab'
     // and not 'show.bs.tab' because we must rebuild after the tab is displayed; if we
     // rebuild the summary before (with 'show.bs.tab') then fitty will not be able to do
     // its work.
@@ -29,5 +37,9 @@ export class App {
         this['summary'].rebuild();
       }
     });
+  }
+
+  private switchTab(tabId: string) {
+    $(`#${tabId}`).click();
   }
 }

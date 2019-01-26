@@ -19,6 +19,20 @@ import { JsonFetcherService } from 'services/json-fetcher-service';
 
 const PROXY_URL = 'https://cors-anywhere.herokuapp.com/';
 
+/**
+ * Message sent when some deck is created
+ */
+export class CollectionNewDeck {
+  constructor() {}
+}
+
+/**
+ * Message sent when some deck is loaded from collection
+ */
+export class CollectionLoadDeck {
+  constructor() {}
+}
+
 @autoinject
 export class CollectionCustomElement {  
   decks: Array<DeckModel>;
@@ -31,7 +45,7 @@ export class CollectionCustomElement {
     private i18nService: I18nService,// Do not delete: used in HTML template to interpolate strings
     private dialogService: DialogService,
     private cardDataService: CardDataService,
-    eventAggregator: EventAggregator
+    private eventAggregator: EventAggregator
     ) {
     // Retrieve the list of stored decks
     this.loadCollection();    
@@ -68,12 +82,18 @@ export class CollectionCustomElement {
         lock: false
       }).whenClosed(response => {
         if (!response.wasCancelled) {
-          this.currentDeckService.newDeck();
+          this.performNew();
         }
       });
     } else {
-      this.currentDeckService.newDeck();
+      this.performNew();
     }
+  }
+
+  private performNew(): void {
+    this.currentDeckService.newDeck();
+    // Switch to editor tab
+    this.eventAggregator.publish(new CollectionNewDeck());
   }
 
   load(deck: DeckModel) {
@@ -92,12 +112,18 @@ export class CollectionCustomElement {
         lock: false
       }).whenClosed(response => {
         if (!response.wasCancelled) {
-          this.currentDeckService.copyFrom(deck);
+          this.performLoad(deck);
         }
       });
     } else {
-      this.currentDeckService.copyFrom(deck);
+      this.performLoad(deck);
     }
+  }
+
+  private performLoad(deck: DeckModel) {
+    this.currentDeckService.copyFrom(deck);
+    // Switch to summary tab
+    this.eventAggregator.publish(new CollectionLoadDeck());
   }
 
   remove(deck: DeckModel): void {

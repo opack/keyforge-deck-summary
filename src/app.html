@@ -7,7 +7,7 @@
   <h1>${i18nService.get('ui.app.title')}${currentDeckService.deck.name? ` - ${currentDeckService.deck.name}` : ''}</h1>
 
   <nav>
-    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <div class="nav nav-tabs" id="nav-tab" ref="tabs" role="tablist">
       <a class="nav-item nav-link active" id="nav-collection-tab" data-toggle="tab" href="#nav-collection" role="tab" aria-controls="nav-collection" aria-selected="true">${i18nService.get('ui.app.collection-tab')}</a>
       <a class="nav-item nav-link ${currentDeckService.deck ? '' : 'disabled'}" id="nav-editor-tab" data-toggle="tab" href="#nav-editor" role="tab" aria-controls="nav-editor" aria-selected="false">${i18nService.get('ui.app.editor-tab')}</a>
       <a class="nav-item nav-link ${currentDeckService.deck ? '' : 'disabled'}" id="nav-summary-tab" data-toggle="tab" href="#nav-summary" role="tab" aria-controls="nav-summary" aria-selected="false">${i18nService.get('ui.app.summary-tab')}</a>
