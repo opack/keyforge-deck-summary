@@ -35,6 +35,10 @@ export class EditorCustomElement {
      this['backgoundUpload'].value = '';
   }
 
+  removeBackgroundImage(): void {
+    this.currentDeckService.deck.backgroundImage = '';
+  }
+
   /**
    * Returns true if the dataURL is not null, not undefined and not empty
    * @param data

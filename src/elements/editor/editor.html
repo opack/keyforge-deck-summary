@@ -41,10 +41,12 @@
         <label class="btn btn-outline-secondary" for="background-upload">
           <span if.bind="!isValidImageDataURL(currentDeckService.deck.backgroundImage)">${i18nService.get('ui.editor.background-image-upload')}</span>
           <img if.bind="isValidImageDataURL(currentDeckService.deck.backgroundImage)" src.bind="currentDeckService.deck.backgroundImage" class="background-image-preview">
-        </label>          
+        </label>
+        <button if.bind="isValidImageDataURL(currentDeckService.deck.backgroundImage)" class="btn-outline-danger" click.delegate="removeBackgroundImage()">
+          <i class="fas fa-trash"></i>
+        </button>
       </div>
       <input type="file" ref="backgoundUpload" change.delegate="importBackgoundImage()" id="background-upload" name="background-upload" accept="image/*" style="display: none">
-      <!-- TODO Add a button to clear background image -->
     </div>
   </div>
 
