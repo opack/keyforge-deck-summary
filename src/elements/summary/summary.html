@@ -127,7 +127,7 @@
     <div class="general-data">
       <img src.bind="qrcode" class="p-2 qrcode-image" if.bind="showDeckQRCode && !isNullOrUndefined(qrcode) && qrcode !== ''">
 
-      <div class="p-2 deck-houses" show.bind="showDeckHouses">
+      <div class="p-2 deck-houses" if.bind="showDeckHouses && !isNullOrUndefined(house1) && !isNullOrUndefined(house2) && !isNullOrUndefined(house3)">
         <ul class="circle-container">
           <li>
             <div class="house-${house1}">
