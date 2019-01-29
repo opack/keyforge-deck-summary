@@ -11,30 +11,35 @@ import styles from './cards/summary-card.scss';
 
 import { CardModel } from 'models/card-model';
 import { CardPropertiesEnum } from 'enums/card-properties-enum';
+import { StorageKeysEnum } from 'enums/storage-keys-enum';
 
+import { LocalStorageService } from 'services/local-storage-service';
 import { FileDownloaderService } from 'services/file-downloader-service';
 import { I18nService } from 'services/i18n-service';
 import { CurrentDeckService } from 'services/current-deck-service';
 import { CardDataService } from 'services/card-data-service';
+import { ParametersService } from 'services/parameters-service';
 
 @autoinject
 export class SummaryCustomElement {
   /**
    * Parameters
    */
-  @observable({changeHandler: 'parameterChanged'}) private showDeckGroupCounts: boolean;
-  @observable({changeHandler: 'parameterChanged'}) private showDeckHouses: boolean;
-  @observable({changeHandler: 'parameterChanged'}) private showDeckQRCode: boolean;
-  @observable({changeHandler: 'parameterChanged'}) private showCardHouse: boolean;
-  @observable({changeHandler: 'parameterChanged'}) private showCardAember: boolean;
-  @observable({changeHandler: 'parameterChanged'}) private showCreaturePower: boolean;
-  @observable({changeHandler: 'parameterChanged'}) private showCreatureArmor: boolean;
-  @observable({changeHandler: 'parameterChanged'}) private showCreatureSkills: boolean;
-  @observable({changeHandler: 'parameterChanged'}) private showArtifactTriggers: boolean;
-  @observable({changeHandler: 'parameterChanged'}) private hideArtifactOnlyActionTrigger: boolean;
+  private parametersService: ParametersService;
 
-  @observable({changeHandler: 'parameterChanged'}) private groupingProperty: CardPropertiesEnum;
-  @observable({changeHandler: 'parameterChanged'}) private sortingProperty: CardPropertiesEnum;
+  //@observable({changeHandler: 'parameterChanged'}) private showDeckGroupCounts: boolean;
+  // @observable({changeHandler: 'parameterChanged'}) private showDeckHouses: boolean;
+  // @observable({changeHandler: 'parameterChanged'}) private showDeckQRCode: boolean;
+  // @observable({changeHandler: 'parameterChanged'}) private showCardHouse: boolean;
+  // @observable({changeHandler: 'parameterChanged'}) private showCardAember: boolean;
+  // @observable({changeHandler: 'parameterChanged'}) private showCreaturePower: boolean;
+  // @observable({changeHandler: 'parameterChanged'}) private showCreatureArmor: boolean;
+  // @observable({changeHandler: 'parameterChanged'}) private showCreatureSkills: boolean;
+  // @observable({changeHandler: 'parameterChanged'}) private showArtifactTriggers: boolean;
+  // @observable({changeHandler: 'parameterChanged'}) private hideArtifactOnlyActionTrigger: boolean;
+
+  // @observable({changeHandler: 'parameterChanged'}) private groupingProperty: CardPropertiesEnum;
+  // @observable({changeHandler: 'parameterChanged'}) private sortingProperty: CardPropertiesEnum;
   private groups: Array<string>;
   private cardsByGroup: { [group: string]: Array<CardModel> };
   /**
@@ -61,7 +66,8 @@ export class SummaryCustomElement {
     private fileDownloaderService: FileDownloaderService,
     private i18nService: I18nService,
     private currentDeckService: CurrentDeckService,
-    private cardDataService: CardDataService
+    private cardDataService: CardDataService,
+    localStorageService: LocalStorageService
   ) {
     this.groups = new Array<string>();
     this.cardsByGroup = {};
@@ -69,22 +75,36 @@ export class SummaryCustomElement {
     // Retrieve the font size defined in the SCSS to use it as a ceiling for fitty
     this.maxTitleFontSize = parseInt(styles.titleFontSize);
 
-    // Do this last, as it will trigger an initial summary rebuild
-    // Default parameters
-    // TODO Store / load parameters to / from local storage
-    this.showDeckGroupCounts = true;
-    this.showDeckHouses = true;
-    this.showDeckQRCode = true;
-    this.showCardHouse = false;
-    this.showCardAember = true;
-    this.showCreaturePower = true;
-    this.showCreatureArmor = false;
-    this.showCreatureSkills = true;
-    this.showArtifactTriggers = true;
-    this.hideArtifactOnlyActionTrigger = true;
+    // Initialize the parameters service
+    this.parametersService = new ParametersService(localStorageService, StorageKeysEnum.ParametersSummary, {
+      showDeckGroupCounts: true,
+      showDeckHouses: true,
+      showDeckQRCode: true,
+      showCardHouse: false,
+      showCardAember: true,
+      showCreaturePower: true,
+      showCreatureArmor: false,
+      showCreatureSkills: true,
+      showArtifactTriggers: true,
+      hideArtifactOnlyActionTrigger: true,
 
-    this.groupingProperty = CardPropertiesEnum.Type;
-    this.sortingProperty = CardPropertiesEnum.House;
+      groupingProperty: CardPropertiesEnum.Type,
+      sortingProperty: CardPropertiesEnum.House,
+    });
+    // Default parameters. Do this last, as it will trigger an initial summary rebuild
+    //this.showDeckGroupCounts = this.parametersService.get('summary.showDeckGroupCounts');
+    // this.showDeckHouses = this.parametersService.get('summary.showDeckHouses');
+    // this.showDeckQRCode = this.parametersService.get('summary.showDeckQRCode');
+    // this.showCardHouse = this.parametersService.get('summary.showCardHouse');
+    // this.showCardAember = this.parametersService.get('summary.showCardAember');
+    // this.showCreaturePower = this.parametersService.get('summary.showCreaturePower');
+    // this.showCreatureArmor = this.parametersService.get('summary.showCreatureArmor');
+    // this.showCreatureSkills = this.parametersService.get('summary.showCreatureSkills');
+    // this.showArtifactTriggers = this.parametersService.get('summary.showArtifactTriggers');
+    // this.hideArtifactOnlyActionTrigger = this.parametersService.get('summary.hideArtifactOnlyActionTrigger');
+
+    // this.groupingProperty = this.parametersService.get('summary.groupingProperty');
+    // this.sortingProperty = this.parametersService.get('summary.sortingProperty');
   }
 
   getCardPropertyValue(property: string) {
@@ -178,13 +198,14 @@ export class SummaryCustomElement {
       const card = this.cardDataService.getByNumber(cardNumber);
 
       // If the card is not defined, then skip it
-      if (isNullOrUndefined(card) || isNullOrUndefined(card[this.groupingProperty])) {
+      const groupingProperty = this.parametersService.get('groupingProperty');
+      if (isNullOrUndefined(card) || isNullOrUndefined(card[groupingProperty])) {
         return;
       }
 
       // TODO Dans quel groupe mettre les multi-compétences et multi-triggers ? :s
       // Retrieve the value (as a string) of the grouping field for this card
-      const group = card[this.groupingProperty].toString();
+      const group = card[groupingProperty].toString();
 
       // Retrieve the array of cards for this group
       let cardsOfThisGroup: Array<CardModel> = this.cardsByGroup[group];
@@ -206,11 +227,12 @@ export class SummaryCustomElement {
   }
 
   private sortInGroups(): void {
+    const sortingProperty: string = this.parametersService.get('sortingProperty');
     for (let type in this.cardsByGroup) {
       this.cardsByGroup[type].sort((cardModelA, cardModelB) => {
         // Convert each field value to lower case string
-        const valueA = cardModelA[this.sortingProperty].toString().toLowerCase();
-        const valueB = cardModelB[this.sortingProperty].toString().toLowerCase();
+        const valueA = cardModelA[sortingProperty].toString().toLowerCase();
+        const valueB = cardModelB[sortingProperty].toString().toLowerCase();
 
         // Compare
         let compare = valueA.localeCompare(valueB);
@@ -228,7 +250,7 @@ export class SummaryCustomElement {
    * @param group 
    */
   getGroupTitle(group: string): string {
-    return this.i18nService.get(`groupTitles.${this.groupingProperty}.${group}`);
+    return this.i18nService.get(`groupTitles.${this.parametersService.get('groupingProperty')}.${group}`);
   }
 
   download() {
@@ -238,51 +260,15 @@ export class SummaryCustomElement {
     );
   }
 
-  selectGroupByProperty(property: CardPropertiesEnum) {
-    this.groupingProperty = property;
+  selectParameter(parameter: string, value: any) {
+    if (this.parametersService.set(parameter, value)) {
+      //this[parameter] = value;
+      this.rebuild();
+    }
   }
 
-  selectSortByProperty(property: CardPropertiesEnum) {
-    this.sortingProperty = property;
-  }
-
-  toggleShowDeckGroupCounts() {
-    this.showDeckGroupCounts = !this.showDeckGroupCounts;
-  }
-
-  toggleShowDeckHouses() {
-    this.showDeckHouses = !this.showDeckHouses;
-  }
-
-  toggleShowDeckQRCode() {
-    this.showDeckQRCode = !this.showDeckQRCode;
-  }
-
-  toggleShowCardHouse() {
-    this.showCardHouse = !this.showCardHouse;
-  }
-
-  toggleShowCardAember() {
-    this.showCardAember = !this.showCardAember;
-  }
-
-  toggleShowCreaturePower() {
-    this.showCreaturePower = !this.showCreaturePower;
-  }
-
-  toggleShowCreatureArmor() {
-    this.showCreatureArmor = !this.showCreatureArmor;
-  }
-
-  toggleShowCreatureSkills() {
-    this.showCreatureSkills = !this.showCreatureSkills;
-  }
-
-  toggleShowArtifactTriggers() {
-    this.showArtifactTriggers = !this.showArtifactTriggers;
-  }
-
-  toggleHideArtifactOnlyActionTrigger() {
-    this.hideArtifactOnlyActionTrigger = !this.hideArtifactOnlyActionTrigger;
+  toggleParameter(parameter: string) {
+    const newValue = !this.parametersService.get(parameter);
+    this.selectParameter(parameter, newValue);
   }
 }

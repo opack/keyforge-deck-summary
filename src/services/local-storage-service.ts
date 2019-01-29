@@ -1,3 +1,5 @@
+import { isNullOrUndefined } from 'util';
+
 import { autoinject } from 'aurelia-framework';
 import { EventAggregator } from 'aurelia-event-aggregator';
 
@@ -47,8 +49,12 @@ export class LocalStorageService {
     this.eventAggregator.publish(new DataStored(key, value));
   }
 
-  retrieve(key: string){
-      return JSON.parse(this.storage.getItem(key));
+  retrieve(key: string, defaultValue?: any){
+    const value = JSON.parse(this.storage.getItem(key));
+    if (isNullOrUndefined(value)) {
+      return defaultValue;
+    }
+    return value;
   }
 
   remove(key: string){

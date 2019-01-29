@@ -1,4 +1,6 @@
 export enum StorageKeysEnum {
-  Decks = 'decks'
+  Decks = 'decks',
+  Parameters = 'parameters',
+  ParametersSummary = 'summary'
 }
 

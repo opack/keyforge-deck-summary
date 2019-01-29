@@ -8,17 +8,17 @@
       <span class="title-text fit">${model.title}</span>
     </div>
 
-    <div if.bind="showArtifactTriggers" class="col-1" align="center">
-        <span class="card-specificity">${model.triggers | triggersShortner:hideArtifactOnlyActionTrigger}</span>
+    <div if.bind="parametersService.parameters.showArtifactTriggers" class="col-1" align="center">
+        <span class="card-specificity">${model.triggers | triggersShortner:parametersService.parameters.hideArtifactOnlyActionTrigger}</span>
       </div>
 
-    <div if.bind="showCardAember" class="col-1" align="center">
+    <div if.bind="parametersService.parameters.showCardAember" class="col-1" align="center">
       <div if.bind="model.aember > 0" class="aember-badge">
         <span class="aember-text">${model.aember}</span>
       </div>
     </div>
 
-    <div if.bind="showCardHouse" class="col-1" align="center">
+    <div if.bind="parametersService.parameters.showCardHouse" class="col-1" align="center">
       <img src.bind="'images/houses/' + model.house + '.png'" class="house-image" >
     </div>
   </div>
