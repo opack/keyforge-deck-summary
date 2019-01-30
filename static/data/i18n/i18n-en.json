@@ -144,6 +144,7 @@
       "deck-cards-title": "Cards",
       "name": "Name:",
       "qr-code": "QR code:",
+      "language": "Language:",
       "background-image": "Background image:",
       "background-image-upload": "Upload an image",
       "card-number-placeholder": "Card number"

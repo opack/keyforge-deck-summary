@@ -144,6 +144,7 @@
       "deck-cards-title": "Cartes",
       "name": "Nom :",
       "qr-code": "QR code :",
+      "language": "Langue :",
       "background-image": "Image de fond :",
       "background-image-upload": "Télécharger une image",
       "card-number-placeholder": "Numéro de carte"

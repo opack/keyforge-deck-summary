@@ -10,26 +10,38 @@ import { TypesEnum } from 'enums/types-enum';
 import { SkillsEnum } from 'enums/skills-enum';
 import { TriggersEnum } from './../enums/triggers-enum';
 
+/**
+ * The cards data for one language
+ */
+class CardsData{
+  cardsByNumber: Map<number, CardModel>;
+  cardsById: Map<string, CardModel>;
+  count: number;
+
+  constructor() {
+    this.cardsByNumber = new Map<number, CardModel>();
+    this.cardsById = new Map<string, CardModel>();
+  }
+}
+
 @autoinject
 export class CardDataService {
-  private cardsByNumber: Map<number, CardModel>;
-  private cardsById: Map<string, CardModel>;
-  private count: number;
+  private cardsByLanguage: {};
 
   constructor(
     private jsonFetcherService: JsonFetcherService,
     private compositionTransaction: CompositionTransaction,
     private i18nService: I18nService) {
-    this.cardsByNumber = new Map<number, CardModel>();
-    this.cardsById = new Map<string, CardModel>();
+    
+    this.cardsByLanguage = {};
     this.load('fr');
+    this.load('en');
   }
 
   load(language: string) {
     const compositionTransactionNotifier = this.compositionTransaction.enlist();
     return this.jsonFetcherService.fetch(`data/cards/cards-${language}.json`).then(result => {
-      this.cardsByNumber.clear();
-      this.cardsById.clear();
+      const cardsData = new CardsData();
 
       result.forEach(data => {
         const card = new CardModel();
@@ -45,10 +57,11 @@ export class CardDataService {
         card.triggers = this.extractTriggers(data.card_text);
         card.skills = this.extractSkills(data.card_text);
 
-        this.cardsByNumber.set(data.card_number, card);
-        this.cardsById.set(data.id, card);
+        cardsData.cardsByNumber.set(data.card_number, card);
+        cardsData.cardsById.set(data.id, card);
       });
-      this.count = result.length;
+      cardsData.count = result.length;
+      this.cardsByLanguage[language] = cardsData;
       compositionTransactionNotifier.done();
     });
   }
@@ -81,19 +94,25 @@ export class CardDataService {
     return triggers;
   }
 
-  getByNumber(cardNumber: number): CardModel {
-    return this.cardsByNumber.get(cardNumber);
+  getByNumber(cardNumber: number, language: string): CardModel {
+    return this.cardsByLanguage[language].cardsByNumber.get(cardNumber);
   }
 
-  getById(cardId: string): CardModel {
-    return this.cardsById.get(cardId);
+  getById(cardId: string, language: string): CardModel {
+    return this.cardsByLanguage[language].cardsById.get(cardId);
   }
 
-  has(cardNumber: number): boolean {
-    return this.cardsByNumber.has(cardNumber);
+  has(cardNumber: number, language: string): boolean {
+    return this.cardsByLanguage[language].cardsByNumber.has(cardNumber);
   }
 
-  getCardCount(): number {
-    return this.count;
+  getCardCount(language?: string): number {
+    // If no specific language was passed, we return the count of the first defined language. After all, all languages
+    // should have the same number of cards ;-)
+    if (language === undefined) {
+      const firstLanguage = Object.keys(this.cardsByLanguage)[0];
+      return this.cardsByLanguage[firstLanguage].count;
+    }
+    return this.cardsByLanguage[language].count;
   }
 }

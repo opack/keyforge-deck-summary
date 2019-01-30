@@ -2,6 +2,7 @@
   <require from="@fortawesome/fontawesome-free/css/all.css"></require>
   <require from="./editor.scss"></require>
   <require from="elements/editor/card/card"></require>
+  <require from="resources/elements/languages-list"></require>
 
   <div class="d-flex flex-row align-items-center">
     <div class="p-1 btn-group" role="group">
@@ -47,6 +48,16 @@
         </button>
       </div>
       <input type="file" ref="backgoundUpload" change.delegate="importBackgoundImage()" id="background-upload" name="background-upload" accept="image/*" style="display: none">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="qrCodeInput" class="col-sm-2 col-form-label">${i18nService.get('ui.editor.language')}</label>
+    <div class="col-sm-10">
+      <div class="btn-group btn-group-toggle ml-auto" data-toggle="buttons">
+        <label repeat.for="language of LanguagesEnum" class="btn btn-outline-secondary ${currentDeckService.deck.language === language ? 'active' : ''}" click.delegate="selectLanguage(language)">
+          <input type="radio" name="languageSelection" value.bind="language" autocomplete="off" >${language.toUpperCase()}
+        </label>
+      </div>
     </div>
   </div>
 

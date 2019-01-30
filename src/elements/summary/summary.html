@@ -13,10 +13,10 @@
       <!-- Group by menu -->
       <div class="btn-group" role="group">
         <button class="btn-secondary dropdown-toggle" data-toggle="dropdown">
-            ${i18nService.get('ui.summary.parameters.group-by')} ${i18nService.get(`ui.summary.cardProperties.${parametersService.parameters.groupingProperty}`)}
+            ${i18nService.get('ui.summary.parameters.group-by')} ${i18nService.get(`ui.summary.cardProperties.${parametersService.parameters.summary.groupingProperty}`)}
         </button>
         <div class="dropdown-menu">
-          <button repeat.for="property of CardPropertiesEnum" class="dropdown-item btn-info ${groupingProperty===property.toLowerCase()? 'active': ''}" data-toggle="button" aria-pressed="false" autocomplete="off" click.delegate="selectParameter('groupingProperty', property.toLowerCase())">
+          <button repeat.for="property of CardPropertiesEnum" class="dropdown-item btn-info ${parametersService.parameters.summary.groupingProperty===property.toLowerCase()? 'active': ''}" data-toggle="button" aria-pressed="false" autocomplete="off" click.delegate="selectParameter('groupingProperty', property.toLowerCase())">
             ${i18nService.get(`ui.summary.cardProperties.${property.toLowerCase()}`)}
           </button>
         </div>
@@ -25,10 +25,10 @@
       <!-- Sort by menu -->
       <div class="btn-group" role="group">
         <button class="btn-secondary dropdown-toggle" data-toggle="dropdown">
-            ${i18nService.get('ui.summary.parameters.sort-by')} ${i18nService.get(`ui.summary.cardProperties.${parametersService.parameters.sortingProperty}`)}
+            ${i18nService.get('ui.summary.parameters.sort-by')} ${i18nService.get(`ui.summary.cardProperties.${parametersService.parameters.summary.sortingProperty}`)}
         </button>
         <div class="dropdown-menu">
-          <button repeat.for="property of CardPropertiesEnum" class="dropdown-item btn-info ${sortingProperty===property.toLowerCase()? 'active': ''}" data-toggle="button" aria-pressed="false" autocomplete="off" click.delegate="selectParameter('sortingProperty', property.toLowerCase())">
+          <button repeat.for="property of CardPropertiesEnum" class="dropdown-item btn-info ${parametersService.parameters.summary.sortingProperty===property.toLowerCase()? 'active': ''}" data-toggle="button" aria-pressed="false" autocomplete="off" click.delegate="selectParameter('sortingProperty', property.toLowerCase())">
             ${i18nService.get(`ui.summary.cardProperties.${property.toLowerCase()}`)}
           </button>
         </div>
@@ -42,13 +42,13 @@
             ${i18nService.get('ui.summary.parameters.show-deck-data-menu.title')}
         </button>
         <div class="dropdown-menu">
-          <button class="dropdown-item btn-info ${parametersService.parameters.showDeckGroupCounts? 'active': ''}" data-toggle="button" aria-pressed="false" autocomplete="off" click.delegate="toggleParameter('showDeckGroupCounts')">
+          <button class="dropdown-item btn-info ${parametersService.parameters.summary.showDeckGroupCounts? 'active': ''}" data-toggle="button" aria-pressed="false" autocomplete="off" click.delegate="toggleParameter('showDeckGroupCounts')">
             ${i18nService.get('ui.summary.parameters.show-deck-data-menu.show-deck-group-counts')}
           </button>
-          <button class="dropdown-item btn-info ${parametersService.parameters.showDeckHouses? 'active': ''}" data-toggle="button" aria-pressed="false" autocomplete="off" click.delegate="toggleParameter('showDeckHouses')">
+          <button class="dropdown-item btn-info ${parametersService.parameters.summary.showDeckHouses? 'active': ''}" data-toggle="button" aria-pressed="false" autocomplete="off" click.delegate="toggleParameter('showDeckHouses')">
             ${i18nService.get('ui.summary.parameters.show-deck-data-menu.show-deck-houses')}
           </button>
-          <button class="dropdown-item btn-info ${parametersService.parameters.showDeckQRCode? 'active': ''}" data-toggle="button" aria-pressed="false" autocomplete="off" click.delegate="toggleParameter('showDeckQRCode')">
+          <button class="dropdown-item btn-info ${parametersService.parameters.summary.showDeckQRCode? 'active': ''}" data-toggle="button" aria-pressed="false" autocomplete="off" click.delegate="toggleParameter('showDeckQRCode')">
             ${i18nService.get('ui.summary.parameters.show-deck-data-menu.show-deck-qrcode')}
           </button>
         </div>
@@ -62,32 +62,32 @@
         <div class="dropdown-menu">
           <!-- Show card data -->
           <h6 class="dropdown-header">${i18nService.get('ui.summary.parameters.show-card-data-menu.all-cards-header')}</h6>
-          <button class="dropdown-item btn-info ${parametersService.parameters.showCardHouse? 'active': ''}" data-toggle="button" aria-pressed="false" autocomplete="off" click.delegate="toggleParameter('showCardHouse')">
+          <button class="dropdown-item btn-info ${parametersService.parameters.summary.showCardHouse? 'active': ''}" data-toggle="button" aria-pressed="false" autocomplete="off" click.delegate="toggleParameter('showCardHouse')">
               <img src.bind="'images/misc/house.png'" class="summary-parameter-image"> ${i18nService.get('ui.summary.parameters.show-card-data-menu.show-card-house')}
           </button>
-          <button class="dropdown-item btn-info ${parametersService.parameters.showCardAember? 'active': ''}" data-toggle="button" aria-pressed="false" autocomplete="off" click.delegate="toggleParameter('showCardAember')">
+          <button class="dropdown-item btn-info ${parametersService.parameters.summary.showCardAember? 'active': ''}" data-toggle="button" aria-pressed="false" autocomplete="off" click.delegate="toggleParameter('showCardAember')">
             <img src.bind="'images/misc/aember.png'" class="summary-parameter-image"> ${i18nService.get('ui.summary.parameters.show-card-data-menu.show-card-aember')}
           </button>
 
           <!-- Show creature data menu -->
           <h6 class="dropdown-header">${i18nService.get('ui.summary.parameters.show-card-data-menu.creatures-header')}</h6>
-          <button class="dropdown-item btn-info ${parametersService.parameters.showCreaturePower? 'active': ''}" data-toggle="button" aria-pressed="false" autocomplete="off" click.delegate="toggleParameter('showCreaturePower')">
+          <button class="dropdown-item btn-info ${parametersService.parameters.summary.showCreaturePower? 'active': ''}" data-toggle="button" aria-pressed="false" autocomplete="off" click.delegate="toggleParameter('showCreaturePower')">
             <img src.bind="'images/misc/power.png'" class="summary-parameter-image"> ${i18nService.get('ui.summary.parameters.show-card-data-menu.show-creature-power')}
           </button>
           <!-- TODO Do not show this until the armor can be displayed -->
-          <!--button class="dropdown-item btn-info ${parametersService.parameters.showCreatureArmor? 'active': ''}" data-toggle="button" aria-pressed="false" autocomplete="off" click.delegate="toggleParameter('showCreatureArmor')">
+          <!--button class="dropdown-item btn-info ${parametersService.parameters.summary.showCreatureArmor? 'active': ''}" data-toggle="button" aria-pressed="false" autocomplete="off" click.delegate="toggleParameter('showCreatureArmor')">
             <img src.bind="'images/misc/shield.png'" class="summary-parameter-image"> ${i18nService.get('ui.summary.parameters.show-creature-armor')}
           </button-->
-          <button class="dropdown-item btn-info ${parametersService.parameters.showCreatureSkills? 'active': ''}" data-toggle="button" aria-pressed="false" autocomplete="off" click.delegate="toggleParameter('showCreatureSkills')">
+          <button class="dropdown-item btn-info ${parametersService.parameters.summary.showCreatureSkills? 'active': ''}" data-toggle="button" aria-pressed="false" autocomplete="off" click.delegate="toggleParameter('showCreatureSkills')">
             <img src.bind="'images/misc/skills.png'" class="summary-parameter-image"> ${i18nService.get('ui.summary.parameters.show-card-data-menu.show-creature-skills')}
           </button>
           
           <!-- Show artifact data menu -->
           <h6 class="dropdown-header">${i18nService.get('ui.summary.parameters.show-card-data-menu.artifacts-header')}</h6>
-          <button class="dropdown-item btn-info ${parametersService.parameters.showArtifactTriggers? 'active': ''}" data-toggle="button" aria-pressed="false" autocomplete="off" click.delegate="toggleParameter('showArtifactTriggers')">
+          <button class="dropdown-item btn-info ${parametersService.parameters.summary.showArtifactTriggers? 'active': ''}" data-toggle="button" aria-pressed="false" autocomplete="off" click.delegate="toggleParameter('showArtifactTriggers')">
             <img src.bind="'images/misc/trigger.png'" class="summary-parameter-image"> ${i18nService.get('ui.summary.parameters.show-card-data-menu.show-artifact-triggers')}
           </button>
-          <button class="dropdown-item btn-info ${parametersService.parameters.hideArtifactOnlyActionTrigger? 'active': ''}" disabled.bind="!parametersService.parameters.showArtifactTriggers" data-toggle="button" aria-pressed="false" autocomplete="off" click.delegate="toggleParameter('hideArtifactOnlyActionTrigger')">
+          <button class="dropdown-item btn-info ${parametersService.parameters.summary.hideArtifactOnlyActionTrigger? 'active': ''}" disabled.bind="!parametersService.parameters.summary.showArtifactTriggers" data-toggle="button" aria-pressed="false" autocomplete="off" click.delegate="toggleParameter('hideArtifactOnlyActionTrigger')">
             <img src.bind="'images/misc/no-action-trigger-only.png'" class="summary-parameter-image"> ${i18nService.get('ui.summary.parameters.show-card-data-menu.hide-action-trigger')}
           </button>
         </div>
@@ -118,7 +118,7 @@
         <div class="group-entry">
           <div class="col">
             <span class='group-title'>${getGroupTitle(group)}
-              <span if.bind="parametersService.parameters.showDeckGroupCounts">
+              <span if.bind="parametersService.parameters.summary.showDeckGroupCounts">
                 &nbsp;<span class="group-count">${cardsByGroup[group].length}</span>
               </span>
             </span>
@@ -129,10 +129,10 @@
     </div>
 
     <div class="general-data">
-      <img src.bind="qrcode" class="p-2 qrcode-image" if.bind="parametersService.parameters.showDeckQRCode && !isNullOrUndefined(qrcode) && qrcode !== ''">
+      <img src.bind="qrcode" class="p-2 qrcode-image" if.bind="parametersService.parameters.summary.showDeckQRCode && !isNullOrUndefined(qrcode) && qrcode !== ''">
 
       <!-- TODO 404 in console despite all the tests on house1-3 :( Seems like the bug https://github.com/aurelia/templating/issues/363 is not resolved... -->
-      <div class="p-2 deck-houses" show.bind="parametersService.parameters.showDeckHouses && !isNullOrUndefined(house1) && house1 !== '' && !isNullOrUndefined(house2) && house2 !== '' && !isNullOrUndefined(house3) && house3 !== ''">
+      <div class="p-2 deck-houses" show.bind="parametersService.parameters.summary.showDeckHouses && !isNullOrUndefined(house1) && house1 !== '' && !isNullOrUndefined(house2) && house2 !== '' && !isNullOrUndefined(house3) && house3 !== ''">
         <ul class="circle-container">
           <li>
             <div class="house-${house1}">

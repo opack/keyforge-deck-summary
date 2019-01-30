@@ -8,6 +8,7 @@ import { DeckModel } from 'models/deck-model';
 import { StorageKeysEnum } from 'enums/storage-keys-enum';
 
 import { LocalStorageService, DataStored, DataRemoved, DataCleared } from 'services/local-storage-service';
+import { ParametersService } from 'services/parameters-service';
 import { CardDataService } from 'services/card-data-service';
 import { CurrentDeckService } from 'services/current-deck-service';
 import { FileDownloaderService } from 'services/file-downloader-service';
@@ -45,7 +46,8 @@ export class CollectionCustomElement {
     private i18nService: I18nService,// Do not delete: used in HTML template to interpolate strings
     private dialogService: DialogService,
     private cardDataService: CardDataService,
-    private eventAggregator: EventAggregator
+    private eventAggregator: EventAggregator,
+    private parametersService: ParametersService
     ) {
     // Retrieve the list of stored decks
     this.loadCollection();    
@@ -200,10 +202,12 @@ export class CollectionCustomElement {
           deck.guid = data.id;
           deck.name = data.name;
           deck.cards.splice(0);
+          const language = this.parametersService.get('app.language');
+          deck.language = language;
 
           const cardIds = data.cards as Array<string>;
           cardIds.forEach(id => {
-            const card = this.cardDataService.getById(id);
+            const card = this.cardDataService.getById(id, language);
             if (!isNullOrUndefined(card)) {
               deck.cards.push(card.number);
             }

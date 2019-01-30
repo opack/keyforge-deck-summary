@@ -22,24 +22,6 @@ import { ParametersService } from 'services/parameters-service';
 
 @autoinject
 export class SummaryCustomElement {
-  /**
-   * Parameters
-   */
-  private parametersService: ParametersService;
-
-  //@observable({changeHandler: 'parameterChanged'}) private showDeckGroupCounts: boolean;
-  // @observable({changeHandler: 'parameterChanged'}) private showDeckHouses: boolean;
-  // @observable({changeHandler: 'parameterChanged'}) private showDeckQRCode: boolean;
-  // @observable({changeHandler: 'parameterChanged'}) private showCardHouse: boolean;
-  // @observable({changeHandler: 'parameterChanged'}) private showCardAember: boolean;
-  // @observable({changeHandler: 'parameterChanged'}) private showCreaturePower: boolean;
-  // @observable({changeHandler: 'parameterChanged'}) private showCreatureArmor: boolean;
-  // @observable({changeHandler: 'parameterChanged'}) private showCreatureSkills: boolean;
-  // @observable({changeHandler: 'parameterChanged'}) private showArtifactTriggers: boolean;
-  // @observable({changeHandler: 'parameterChanged'}) private hideArtifactOnlyActionTrigger: boolean;
-
-  // @observable({changeHandler: 'parameterChanged'}) private groupingProperty: CardPropertiesEnum;
-  // @observable({changeHandler: 'parameterChanged'}) private sortingProperty: CardPropertiesEnum;
   private groups: Array<string>;
   private cardsByGroup: { [group: string]: Array<CardModel> };
   /**
@@ -67,44 +49,13 @@ export class SummaryCustomElement {
     private i18nService: I18nService,
     private currentDeckService: CurrentDeckService,
     private cardDataService: CardDataService,
-    localStorageService: LocalStorageService
+    private parametersService: ParametersService
   ) {
     this.groups = new Array<string>();
     this.cardsByGroup = {};
 
     // Retrieve the font size defined in the SCSS to use it as a ceiling for fitty
     this.maxTitleFontSize = parseInt(styles.titleFontSize);
-
-    // Initialize the parameters service
-    this.parametersService = new ParametersService(localStorageService, StorageKeysEnum.ParametersSummary, {
-      showDeckGroupCounts: true,
-      showDeckHouses: true,
-      showDeckQRCode: true,
-      showCardHouse: false,
-      showCardAember: true,
-      showCreaturePower: true,
-      showCreatureArmor: false,
-      showCreatureSkills: true,
-      showArtifactTriggers: true,
-      hideArtifactOnlyActionTrigger: true,
-
-      groupingProperty: CardPropertiesEnum.Type,
-      sortingProperty: CardPropertiesEnum.House,
-    });
-    // Default parameters. Do this last, as it will trigger an initial summary rebuild
-    //this.showDeckGroupCounts = this.parametersService.get('summary.showDeckGroupCounts');
-    // this.showDeckHouses = this.parametersService.get('summary.showDeckHouses');
-    // this.showDeckQRCode = this.parametersService.get('summary.showDeckQRCode');
-    // this.showCardHouse = this.parametersService.get('summary.showCardHouse');
-    // this.showCardAember = this.parametersService.get('summary.showCardAember');
-    // this.showCreaturePower = this.parametersService.get('summary.showCreaturePower');
-    // this.showCreatureArmor = this.parametersService.get('summary.showCreatureArmor');
-    // this.showCreatureSkills = this.parametersService.get('summary.showCreatureSkills');
-    // this.showArtifactTriggers = this.parametersService.get('summary.showArtifactTriggers');
-    // this.hideArtifactOnlyActionTrigger = this.parametersService.get('summary.hideArtifactOnlyActionTrigger');
-
-    // this.groupingProperty = this.parametersService.get('summary.groupingProperty');
-    // this.sortingProperty = this.parametersService.get('summary.sortingProperty');
   }
 
   getCardPropertyValue(property: string) {
@@ -147,9 +98,9 @@ export class SummaryCustomElement {
 
   private updateHouses() {
     const houses = new Array<string>();
-    // Retrieve all the houes of the deck in a list
+    // Retrieve all the houses of the deck in a list
     this.currentDeckService.deck.cards.forEach(cardNumber => {
-      const card = this.cardDataService.getByNumber(cardNumber);
+      const card = this.cardDataService.getByNumber(cardNumber, this.currentDeckService.deck.language);
       if (isNullOrUndefined(card)) {
         return;
       }
@@ -195,10 +146,10 @@ export class SummaryCustomElement {
 
   private groupCards(): void {
     this.currentDeckService.deck.cards.forEach(cardNumber => {
-      const card = this.cardDataService.getByNumber(cardNumber);
+      const card = this.cardDataService.getByNumber(cardNumber, this.currentDeckService.deck.language);
 
       // If the card is not defined, then skip it
-      const groupingProperty = this.parametersService.get('groupingProperty');
+      const groupingProperty = this.parametersService.get('summary.groupingProperty');
       if (isNullOrUndefined(card) || isNullOrUndefined(card[groupingProperty])) {
         return;
       }
@@ -227,7 +178,7 @@ export class SummaryCustomElement {
   }
 
   private sortInGroups(): void {
-    const sortingProperty: string = this.parametersService.get('sortingProperty');
+    const sortingProperty: string = this.parametersService.get('summary.sortingProperty');
     for (let type in this.cardsByGroup) {
       this.cardsByGroup[type].sort((cardModelA, cardModelB) => {
         // Convert each field value to lower case string
@@ -250,7 +201,7 @@ export class SummaryCustomElement {
    * @param group 
    */
   getGroupTitle(group: string): string {
-    return this.i18nService.get(`groupTitles.${this.parametersService.get('groupingProperty')}.${group}`);
+    return this.i18nService.get(`groupTitles.${this.parametersService.get('summary.groupingProperty')}.${group}`);
   }
 
   download() {
@@ -261,14 +212,14 @@ export class SummaryCustomElement {
   }
 
   selectParameter(parameter: string, value: any) {
-    if (this.parametersService.set(parameter, value)) {
+    if (this.parametersService.set(`summary.${parameter}`, value)) {
       //this[parameter] = value;
       this.rebuild();
     }
   }
 
   toggleParameter(parameter: string) {
-    const newValue = !this.parametersService.get(parameter);
+    const newValue = !this.parametersService.get(`summary.${parameter}`);
     this.selectParameter(parameter, newValue);
   }
 }

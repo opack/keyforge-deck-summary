@@ -13,6 +13,9 @@ export class I18nService {
   }
 
   load(language: string) {
+    if (isNullOrUndefined(language)) {
+      return;
+    }
     const compositionTransactionNotifier = this.compositionTransaction.enlist();
     return this.jsonFetcherService.fetch(`data/i18n/i18n-${language}.json`).then(result => {
       this.strings = result;

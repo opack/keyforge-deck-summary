@@ -31,16 +31,17 @@ export class CurrentDeckService {
   newDeck(): void {
     this.deck = new DeckModel();
     this.deck.guid = Guid.raw();
-    this.initDeck();
+    this.updateHash();
+    this.eventAggregator.publish(new NewDeck());
   }
 
   copyFrom(deck: DeckModel) {
-    this.deck = _.clone(deck);
-    this.initDeck();
-  }
-
-  initDeck() {
-    this.updateHash();
+    // Merge the given deck into a brand new one to ensure that if new properties added to the deck in a newer version are present
+    this.deck = new DeckModel();
+    _.merge(this.deck, deck);
+    // Save the deck after the merge, to ensure that an eventual "upgrade" of the deck properties is saved.
+    // This will also update the deck hash.
+    this.save(true);
     this.eventAggregator.publish(new NewDeck());
   }
 
@@ -89,8 +90,8 @@ export class CurrentDeckService {
         && this.deck.qrcode !== ''
   }
 
-  save(): void {
-    if (this.originalHash !== this.hashDeck(this.deck)) {
+  save(force: boolean = false): void {
+    if (force || this.originalHash !== this.hashDeck(this.deck)) {
       let collection = this.storage.retrieve(StorageKeysEnum.Decks);
       if (isNullOrUndefined(collection)) {
         collection = {};

@@ -1,16 +1,26 @@
-import { autoinject } from 'aurelia-framework';
+import { isNullOrUndefined } from 'util';
 
+import { autoinject } from 'aurelia-framework';
+import { EventAggregator } from 'aurelia-event-aggregator';
+
+import { LanguagesEnum } from 'enums/languages-enum';
 import { I18nService } from 'services/i18n-service';
 import { CurrentDeckService } from 'services/current-deck-service';
 import { NB_CARDS } from 'models/deck-model';
-import { isNullOrUndefined } from 'util';
+
+/**
+ * Message sent when the language of the deck has been changed
+ */
+export class DeckLanguageChanged {
+}
 
 @autoinject
 export class EditorCustomElement {
   private readonly NB_CARDS = NB_CARDS;
   constructor(
     private i18nService: I18nService,// Do not delete: used in HTML template to interpolate strings
-    private currentDeckService: CurrentDeckService
+    private currentDeckService: CurrentDeckService,
+    private eventAggregator: EventAggregator
   ) {
   }
 
@@ -60,5 +70,17 @@ export class EditorCustomElement {
   clearAll() {
     this.clearGeneralData();
     this.clearCards();
+  }
+
+  /**
+   * Thanks to Bootstrap that does nothing upon label selection (which is what it uses to render a radio BUTTON...), we had to add
+   * a click listener on this label and change the value ourselves, even if we would have loved to be able to rely on the simple
+   * checked.bind suggested in the Aurelia doc.
+   * have lasted for, like... ever!
+   * @param language 
+   */
+  selectLanguage(language: string) {
+    this.currentDeckService.deck.language = LanguagesEnum[language];
+    this.eventAggregator.publish(new DeckLanguageChanged());
   }
 }

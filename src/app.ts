@@ -6,14 +6,19 @@ import { EventAggregator } from 'aurelia-event-aggregator';
 import { CurrentDeckService } from './services/current-deck-service';
 import { I18nService } from 'services/i18n-service';
 import { CollectionNewDeck, CollectionLoadDeck } from 'elements/collection/collection';
+import { ParametersService } from 'services/parameters-service';
 
 @autoinject
 export class App {
   constructor(
     private currentDeckService: CurrentDeckService,
     private i18nService: I18nService,// Do not delete: used in HTML template to interpolate strings
+    private parametersService: ParametersService,
     eventAggregator: EventAggregator
   ) {
+    const language = this.parametersService.get('app.language');
+    i18nService.load(language);
+
     eventAggregator.subscribe(CollectionNewDeck, msg => this.switchTab('nav-editor-tab'));
     eventAggregator.subscribe(CollectionLoadDeck, msg => this.switchTab('nav-summary-tab'));
   }
