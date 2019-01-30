@@ -1,4 +1,6 @@
 import * as $ from 'jquery';
+// import * as firebase from 'firebase/app';
+// import 'firebase/<PACKAGE>';
 
 import { autoinject } from 'aurelia-framework';
 import { EventAggregator } from 'aurelia-event-aggregator';
@@ -24,6 +26,17 @@ export class App {
   }
   
   attached() {
+    // // Initialize Firebase
+    // var config = {
+    //   apiKey: "AIzaSyBhRcMYVv6qd_odkQdVp7_94jA6IO_iLHw",
+    //   authDomain: "keyforge-deck-summary.firebaseapp.com",
+    //   databaseURL: "https://keyforge-deck-summary.firebaseio.com",
+    //   projectId: "keyforge-deck-summary",
+    //   storageBucket: "keyforge-deck-summary.appspot.com",
+    //   messagingSenderId: "306053820"
+    // };
+    // firebase.initializeApp(config);
+
     // Ensure there is at least an empty deck
     this.currentDeckService.newDeck();
 

@@ -16,6 +16,7 @@
     "bluebird": "^3.5.2",
     "bootstrap": "^4.2.1",
     "bootstrap-select": "^1.13.5",
+    "firebase": "^5.8.1",
     "fitty": "^2.2.6",
     "guid-typescript": "^1.0.9",
     "html2canvas": "^1.0.0-alpha.12",
