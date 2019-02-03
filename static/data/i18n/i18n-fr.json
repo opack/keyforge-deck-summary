@@ -88,7 +88,14 @@
       "title": "KeyForge Deck Summary",
       "collection-tab": "Collection",
       "editor-tab": "Editeur",
-      "summary-tab": "Résumé"
+      "summary-tab": "Résumé",
+      "login": "Se connecter",
+      "logout": "Se déconnecter",
+      "login-modal": {
+        "title": "Connexion",
+        "message": "Veuillez choisir un mode de connexion :",
+        "cancel": "Annuler"
+      }
     },
     "collection": {
       "deck-menu": {

@@ -1,0 +1,14 @@
+<template>
+  <ux-dialog>
+    <ux-dialog-body>
+      <h2>${strings.title}</h2>
+      ${strings.message}
+      <div id="firebaseui-auth-container"></div>
+    </ux-dialog-body>
+
+    <ux-dialog-footer>
+      <button class="${strings.cancelClass}" click.trigger="controller.cancel()">${strings.cancel}</button>
+    </ux-dialog-footer>
+  </ux-dialog>
+</template>
+

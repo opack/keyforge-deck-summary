@@ -88,7 +88,14 @@
       "title": "KeyForge Deck Summary",
       "collection-tab": "Collection",
       "editor-tab": "Editor",
-      "summary-tab": "Summary"
+      "summary-tab": "Summary",
+      "login": "Login",
+      "logout": "Logout",
+      "login-modal": {
+        "title": "Log in",
+        "message": "Please choose a login method:",
+        "cancel": "Cancel"
+      }
     },
     "collection": {
       "deck-menu": {

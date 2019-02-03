@@ -1,21 +1,27 @@
 import * as $ from 'jquery';
-// import * as firebase from 'firebase/app';
-// import 'firebase/<PACKAGE>';
+import * as firebase from 'firebase/app';
+import 'firebase/auth';
+import * as firebaseui from 'firebaseui';
 
 import { autoinject } from 'aurelia-framework';
 import { EventAggregator } from 'aurelia-event-aggregator';
+import { DialogService } from 'aurelia-dialog';
 
 import { CurrentDeckService } from './services/current-deck-service';
 import { I18nService } from 'services/i18n-service';
 import { CollectionNewDeck, CollectionLoadDeck } from 'elements/collection/collection';
 import { ParametersService } from 'services/parameters-service';
+import { LoginDialog } from 'resources/elements/login-dialog/login-dialog';
 
 @autoinject
 export class App {
+  private userConnected;
+
   constructor(
     private currentDeckService: CurrentDeckService,
     private i18nService: I18nService,// Do not delete: used in HTML template to interpolate strings
     private parametersService: ParametersService,
+    private dialogService: DialogService,
     eventAggregator: EventAggregator
   ) {
     const language = this.parametersService.get('app.language');
@@ -26,16 +32,8 @@ export class App {
   }
   
   attached() {
-    // // Initialize Firebase
-    // var config = {
-    //   apiKey: "AIzaSyBhRcMYVv6qd_odkQdVp7_94jA6IO_iLHw",
-    //   authDomain: "keyforge-deck-summary.firebaseapp.com",
-    //   databaseURL: "https://keyforge-deck-summary.firebaseio.com",
-    //   projectId: "keyforge-deck-summary",
-    //   storageBucket: "keyforge-deck-summary.appspot.com",
-    //   messagingSenderId: "306053820"
-    // };
-    // firebase.initializeApp(config);
+    // Initialize Firebase
+    this.initFirebase();
 
     // Ensure there is at least an empty deck
     this.currentDeckService.newDeck();
@@ -55,6 +53,48 @@ export class App {
         this['summary'].rebuild();
       }
     });
+  }
+
+  private initFirebase() {
+    // Initialize Firebase app
+    const config = {
+      apiKey: "AIzaSyBhRcMYVv6qd_odkQdVp7_94jA6IO_iLHw",
+      authDomain: "keyforge-deck-summary.firebaseapp.com",
+      databaseURL: "https://keyforge-deck-summary.firebaseio.com",
+      projectId: "keyforge-deck-summary",
+      storageBucket: "keyforge-deck-summary.appspot.com",
+      messagingSenderId: "306053820"
+    };
+    firebase.initializeApp(config);
+  }
+
+  private login() {
+    this.dialogService.open({
+      viewModel: LoginDialog,
+      model: {
+        title: this.i18nService.get('ui.app.login-modal.title'),
+        message: this.i18nService.get('ui.app.login-modal.message'),
+        cancel: this.i18nService.get('ui.app.login-modal.cancel'),
+        cancelClass: "btn-outline-secondary",
+      },
+      lock: false
+    }).whenClosed(response => {
+      if (!response.wasCancelled) {
+        const auth = firebase.auth();
+        if (auth.currentUser) {
+          console.log(`DBG ${auth.currentUser.displayName} connected.`);
+          this.userConnected = true;
+        }
+      }
+    });
+  }
+
+  private logout() {
+    const auth = firebase.auth();
+    if (auth.currentUser) {
+      auth.signOut();
+      this.userConnected = false;
+    }
   }
 
   private switchTab(tabId: string) {
